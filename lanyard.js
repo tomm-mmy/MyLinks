@@ -1,4 +1,3 @@
-
 'use strict';
 
 (() => {
@@ -32,6 +31,12 @@
         }
     };
 
+    const EXTRA = {"pl": ["Online", "Zaraz wracam", "Nie przeszkadzać", "Offline", "Gra w", "Streamuje", "Ogląda", "Rywalizuje w", "Słucha"], "nl": ["Online", "Afwezig", "Niet storen", "Offline", "Speelt", "Streamt", "Kijkt naar", "Doet mee aan", "Luistert naar"], "ru": ["В сети", "Неактивен", "Не беспокоить", "Не в сети", "Играет в", "Стримит", "Смотрит", "Соревнуется в", "Слушает"], "it": ["Online", "Assente", "Non disturbare", "Offline", "Gioca a", "Streamma", "Guarda", "Compete in", "Ascolta"], "sv": ["Online", "Borta", "Stör ej", "Offline", "Spelar", "Streamar", "Tittar på", "Tävlar i", "Lyssnar på"]};
+    const KEYS = ["online", "idle", "dnd", "offline", "playing", "streaming", "watching", "competing", "listening"];
+    Object.entries(EXTRA).forEach(([code, values]) => {
+        translations[code] = Object.fromEntries(KEYS.map((key, i) => [key, values[i]]));
+    });
+
     const elements = {
         dot: document.getElementById('online-dot'),
         box: document.getElementById('presence'),
@@ -56,9 +61,8 @@
     let activeController = null;
 
     function getLanguage() {
-        return document.documentElement.getAttribute('lang') === 'en'
-            ? 'en'
-            : 'de';
+        const lang = document.documentElement.getAttribute('lang');
+        return translations[lang] ? lang : 'en';
     }
 
     function translate(key) {
