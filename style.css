@@ -2564,8 +2564,8 @@ body {
 /* ===== Retro: Terminal (dunkel) / Papier (hell) ===== */
 :root[data-style="retro"]{--font-ui:"Courier New","Lucida Console",ui-monospace,monospace}
 :root[data-style="retro"] :is(body,button,input,select){font-family:var(--font-ui)}
-:root[data-style="retro"][data-theme="dark"]{--bg:#07120a;--text:#b6ffc4;--text-2:#7fd48f;--text-3:#68b777;--text-4:#5aa36a;--heading:#b6ffc4;--surface-1:#0b1f10;--surface-2:#0b1f10;--border:#2c6b3b;--accent:#39ff6a;--accent-soft:#39ff6a;--accent-text:#39ff6a;--accent-text-hover:#b6ffc4;--tag-text:#7fd48f;--icon-text:#39ff6a;--accent-rgb:57,255,106;--accent-soft-rgb:57,255,106;--card-shadow:0 0 0 1px #0d2a15}
-:root[data-style="retro"][data-theme="light"]{--bg:#e6dcc3;--text:#2b2418;--text-2:#4a3f2b;--text-3:#5d5039;--text-4:#6b5d43;--heading:#2b2418;--surface-1:#f3ebd6;--surface-2:#f3ebd6;--border:#8b7a55;--accent:#8c2f1b;--accent-soft:#8c2f1b;--accent-text:#8c2f1b;--accent-text-hover:#5a1a0d;--tag-text:#5d5039;--icon-text:#8c2f1b;--accent-rgb:140,47,27;--accent-soft-rgb:140,47,27;--card-shadow:4px 4px 0 #b8a97f}
+:root[data-style="retro"][data-theme="dark"]{--bg:#07120a;--text:#b6ffc4;--text-2:#7fd48f;--text-3:#68b777;--text-4:#5aa36a;--heading:#b6ffc4;--surface-1:#0b1f10;--surface-2:#0b1f10;--border:#2c6b3b;--card-shadow:0 0 0 1px #0d2a15}
+:root[data-style="retro"][data-theme="light"]{--bg:#e6dcc3;--text:#2b2418;--text-2:#4a3f2b;--text-3:#5d5039;--text-4:#6b5d43;--heading:#2b2418;--surface-1:#f3ebd6;--surface-2:#f3ebd6;--border:#8b7a55;--card-shadow:4px 4px 0 #b8a97f}
 :root[data-style="retro"] .card{background:var(--surface-1);border:2px double var(--border);box-shadow:var(--card-shadow)}
 :root[data-style="retro"] .card:hover{transform:none}
 :root[data-style="retro"] :is(h1,h2,h3){font-weight:700;letter-spacing:0}
@@ -2595,3 +2595,80 @@ body {
 :root[data-style="brutal"] :is(.enter-button,.play-button){background:var(--accent);color:#fff}
 
 @media (prefers-reduced-motion:reduce){:root[data-style] .card{transition:none}}
+
+/* ===== MyLinks refresh: new personalization controls ===== */
+.option-pills{display:flex;flex-wrap:wrap;gap:6px}
+.option-pill{flex:1 1 auto;min-height:34px;padding:7px 10px;border:1px solid var(--border);border-radius:10px;color:var(--text-2);background:var(--chip-bg);font-size:11px;font-weight:750;cursor:pointer;transition:background .18s ease,border-color .18s ease,color .18s ease}
+.option-pill:hover{color:var(--text);border-color:var(--accent)}
+.option-pill[aria-pressed="true"]{color:var(--accent-text);border-color:var(--accent);background:rgba(var(--accent-rgb),.13)}
+
+/* Bilder nicht mehr hart beschneiden */
+.card-media{height:230px;background:rgba(10,12,18,.72)}
+.card-media img{object-fit:contain;object-position:center;transform:none!important;padding:8px}
+.project-card:hover .card-media img{transform:none}
+.card-media-overlay{pointer-events:none;background:linear-gradient(to top,rgba(8,9,12,.46),transparent 58%)}
+.profile-image{object-fit:contain;background:var(--surface-2);padding:3px}
+
+/* Deutliche, aber nicht überladene Tags */
+.project-tags{gap:8px}
+.project-tag{min-height:27px;padding:6px 10px;border-color:rgba(var(--accent-rgb),.24);background:linear-gradient(135deg,rgba(var(--accent-rgb),.13),rgba(var(--accent-rgb),.045));font-size:10px;letter-spacing:.15px;box-shadow:inset 0 1px rgba(255,255,255,.035)}
+.project-tag::before{content:"";width:5px;height:5px;margin-right:6px;border-radius:50%;background:var(--accent);opacity:.9}
+.status.development{color:#ff626b;border-color:rgba(255,65,75,.4);background:rgba(255,45,58,.13)}
+.wip-locked{position:relative;overflow:hidden;border:1px solid rgba(255,55,65,.45)!important;background:linear-gradient(115deg,rgba(100,10,18,.19),var(--surface-1) 70%)!important;box-shadow:inset 3px 0 #f04452!important}
+.wip-locked::after{content:"GESPERRT · IN ENTWICKLUNG";position:absolute;top:13px;right:-37px;transform:rotate(35deg);padding:5px 42px;background:#c92836;color:#fff;font-size:8px;font-weight:900;letter-spacing:1px;pointer-events:none}
+.wip-locked .wip-icon{color:#ff626b;background:rgba(240,55,65,.14);border:1px solid rgba(255,55,65,.3)}
+.wip-locked strong{color:#ff626b}
+.wip-locked[aria-disabled="true"]{cursor:not-allowed}
+
+/* Individuelle Hintergründe, unabhängig vom Designstil */
+:root[data-background="grid"] .background-glow{opacity:.16}
+:root[data-background="grid"] .background-grid{display:block!important;opacity:.42}
+:root[data-background="gradient"] .background-glow{display:block!important}
+:root[data-background="gradient"] .background-grid{opacity:.12}
+:root[data-background="plain"] .background-glow,:root[data-background="plain"] .background-grid{display:none!important}
+:root[data-background="plain"] body{background:var(--bg)}
+
+/* Kompaktmodus: geringere Abstände, gleiche Inhalte */
+:root.compact-mode .page{gap:14px}
+:root.compact-mode .profile{padding:24px 20px 20px}
+:root.compact-mode .profile-image-wrapper{width:88px;height:88px;margin-bottom:14px}
+:root.compact-mode .card-body{padding:14px}
+:root.compact-mode .project-card{margin-bottom:9px}
+:root.compact-mode .project-tags{margin:9px 0 11px;gap:5px}
+:root.compact-mode .project-tag{min-height:23px;padding:4px 7px}
+:root.compact-mode .section{margin-bottom:4px}
+:root.compact-mode .card-media{height:180px}
+
+/* Alternative Kachelansicht */
+:root[data-layout="tiles"] #sec-projects > .collapse > .collapse-inner{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;align-items:start}
+:root[data-layout="tiles"] .project-card{margin:0;min-width:0}
+:root[data-layout="tiles"] .card-media{height:170px}
+:root[data-layout="tiles"] .card-body{padding:15px}
+:root[data-layout="tiles"] .project-title-row{align-items:flex-start;flex-wrap:wrap}
+:root[data-layout="tiles"] .project-title-row h3{font-size:15px}
+:root[data-layout="tiles"] .project-card .card-links{padding:0 15px 14px}
+:root[data-layout="tiles"] .project-card .card-details{padding:14px}
+
+/* Profil kann ohne Layout-Lücke ausgeblendet werden */
+:root.hide-profile .page>.profile{display:none!important}
+
+/* Drei zusätzliche Stile */
+:root[data-style="aurora"]{--font-ui:Inter,system-ui,sans-serif}
+:root[data-style="aurora"] .card,:root[data-style="aurora"] .settings-panel{border-color:rgba(var(--accent-rgb),.2);background:linear-gradient(135deg,var(--surface-1),rgba(var(--accent-rgb),.055));box-shadow:0 12px 45px rgba(0,0,0,.14)}
+:root[data-style="aurora"] .background-glow{filter:blur(100px);opacity:.8}
+:root[data-style="aurora"] .profile h1{letter-spacing:-1.5px}
+:root[data-style="mono"]{--font-ui:Inter,system-ui,sans-serif}
+:root[data-style="mono"] .card,:root[data-style="mono"] .settings-panel{border-radius:8px;box-shadow:none;border-color:var(--border)}
+:root[data-style="mono"] .background-glow{display:none}
+:root[data-style="mono"] .background-grid{opacity:.08}
+:root[data-style="mono"] .project-tag,:root[data-style="mono"] .status{border-radius:5px;filter:grayscale(.35)}
+:root[data-style="frost"] .card,:root[data-style="frost"] .settings-panel{backdrop-filter:blur(24px) saturate(155%);-webkit-backdrop-filter:blur(24px) saturate(155%);background:rgba(140,160,190,.075);border-color:rgba(190,210,240,.2);box-shadow:0 16px 48px rgba(0,0,0,.12)}
+:root[data-style="frost"] .background-glow{filter:blur(115px);opacity:.7}
+:root[data-style="frost"] .project-tag{background:rgba(180,205,240,.08);border-color:rgba(180,205,240,.2)}
+
+@media(max-width:640px){
+  :root[data-layout="tiles"] #sec-projects > .collapse > .collapse-inner{grid-template-columns:minmax(0,1fr);gap:10px}
+  :root[data-layout="tiles"] .card-media{height:210px}
+  .option-pill{font-size:10px;padding-inline:7px}
+  .wip-locked::after{font-size:7px;right:-43px}
+}
