@@ -2755,3 +2755,54 @@ body {
 :root.compact-mode .card-media {
     height: 170px;
 }
+
+/* ---------- Profil-Logo: gleiches T wie auf dem Welcome-Screen ---------- */
+.profile-image-wrapper {
+    width: 112px;
+    height: 112px;
+    isolation: isolate;
+}
+.profile-logo {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+    border: 1px solid rgba(var(--accent-soft-rgb), .45);
+    border-radius: 24px;
+    color: var(--text);
+    font-size: 48px;
+    line-height: 1;
+    font-weight: 800;
+    letter-spacing: -2px;
+    background: linear-gradient(145deg, rgba(var(--accent-soft-rgb), .24), rgba(var(--glow-2-rgb), .16));
+    box-shadow: 0 20px 55px rgba(var(--glow-1-rgb), .3), inset 0 1px 0 rgba(255,255,255,.09);
+    animation: logoFloat 7s ease-in-out infinite;
+}
+.profile-logo::after {
+    content: "";
+    position: absolute;
+    inset: -1px;
+    border: 1px solid rgba(var(--accent-soft-rgb), .45);
+    border-radius: 24px;
+    pointer-events: none;
+}
+.online-dot { z-index: 2; }
+
+/* ---------- Hintergrundstile stärker sichtbar ---------- */
+:root[data-background="grid"] .background-grid {
+    display: block !important;
+    opacity: .72 !important;
+    background-size: 38px 38px;
+    mask-image: linear-gradient(to bottom, black 0%, rgba(0,0,0,.85) 75%, rgba(0,0,0,.35) 100%);
+    -webkit-mask-image: linear-gradient(to bottom, black 0%, rgba(0,0,0,.85) 75%, rgba(0,0,0,.35) 100%);
+}
+:root[data-background="grid"] .background-glow { opacity: .34 !important; }
+:root[data-background="gradient"] .background-glow { opacity: .55 !important; }
+:root[data-background="gradient"] .glow-one { width: 920px; height: 920px; top: -300px; left: -240px; }
+:root[data-background="gradient"] .glow-two { width: 900px; height: 900px; right: -260px; }
+:root[data-background="gradient"] .glow-three { opacity: .24 !important; }
+:root[data-background="plain"] .background-glow,
+:root[data-background="plain"] .background-grid { display: none !important; }
