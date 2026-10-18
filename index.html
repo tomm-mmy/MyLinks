@@ -1,71 +1,801 @@
-/* ===== Einstellungen: Sprache & Stil ===== */
-.lang-select{height:34px;padding:0 10px;border:1px solid var(--border);border-radius:10px;color:var(--text);background:var(--chip-bg);cursor:pointer;font-size:13px;font-weight:600}
-.lang-select option{color:#111;background:#fff}
-.setting-row.stack{flex-direction:column;align-items:stretch;gap:10px}
-.style-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}
-.style-btn{display:flex;flex-direction:column;align-items:center;gap:4px;padding:9px 4px;border:1px solid var(--border);border-radius:10px;color:var(--text-2);background:var(--chip-bg);cursor:pointer;font-size:11px;font-weight:700}
-.style-btn svg{width:16px;height:16px}
-.style-btn:hover{color:var(--text);background:var(--chip-bg-hover)}
-.style-btn[aria-pressed="true"]{color:var(--text);border-color:var(--accent);background:var(--chip-bg-hover)}
-.lang-select:focus-visible,.style-btn:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+<!DOCTYPE html>
+<html lang="de" data-theme="dark" data-style="glass">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#08090c">
+    <meta name="description" content="Tommy – Discord Development, JavaScript, Python und Core3D.">
+    <title>Tommy — Links</title>
 
-/* ===== Kategorie "In Arbeit" ===== */
-.wip{display:flex;align-items:center;gap:16px;padding:22px;border-style:dashed}
-.wip-icon{display:grid;place-items:center;width:46px;height:46px;flex:0 0 46px;border-radius:12px;color:var(--icon-text);background:var(--chip-bg)}
-.wip strong{display:block;font-size:15px}
-.wip p{margin-top:4px;color:var(--text-2);font-size:13px;line-height:1.6}
+    <script>
+        (function () {
+            var root = document.documentElement;
+            function get(k) { try { return localStorage.getItem(k); } catch (e) { return null; } }
+            try {
+                if ('scrollRestoration' in history) {
+                    history.scrollRestoration = 'manual';
+                }
+                var theme = get('tommy-theme');
+                var lang = get('tommy-lang');
+                var accent = get('tommy-accent');
+                if (theme === 'auto') {
+                    theme = window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+                }
+                if (theme === 'light' || theme === 'dark') {
+                    root.setAttribute('data-theme', theme);
+                }
+                if (['de','en','pl','nl','ru','it','sv'].indexOf(lang) !== -1) {
+                    root.setAttribute('lang', lang);
+                }
+                if (['blue', 'pink', 'green', 'orange'].indexOf(accent) !== -1) {
+                    root.setAttribute('data-accent', accent);
+                }
+                var st = get('tommy-style');
+                if (['glass','metro','retro','neon','brutal'].indexOf(st) !== -1) { root.setAttribute('data-style', st); }
+                if (get('tommy-fx') === 'off') { root.classList.add('no-fx'); }
+                if (get('tommy-motion') === 'off') { root.classList.add('no-motion'); }
+                if (get('tommy-motion') === 'on') { root.classList.add('motion-on'); }
+            } catch (e) {}
+        })();
+    </script>
 
-/* ===== Stil: Glass (Standard, mehr Milchglas) ===== */
-:root[data-style="glass"] .card,:root[data-style="glass"] .settings-panel{-webkit-backdrop-filter:blur(18px) saturate(140%);backdrop-filter:blur(18px) saturate(140%)}
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="lanyard.css">
+    <link rel="stylesheet" href="themes.css">
+</head>
 
-/* ===== Gemeinsame Formen der anderen Stile ===== */
-:root:is([data-style="metro"],[data-style="retro"],[data-style="brutal"]) :is(.card,.top-button,.profile-link,.link-chip,.project-link,.project-tag,.status,.settings-panel,.enter-button,.soundcloud-button,.lang-select,.style-btn,.seg,.seg-btn,.info-item,.book,.wip-icon,.play-button){border-radius:0}
-:root:is([data-style="metro"],[data-style="retro"],[data-style="brutal"]) :is(.profile-image,.online-dot,.presence-dot){border-radius:0}
-:root:is([data-style="metro"],[data-style="retro"],[data-style="brutal"]) .background-glow,
-:root[data-style="retro"] .background-grid,:root[data-style="brutal"] .background-grid,:root[data-style="metro"] .background-grid{display:none}
+<body>
+    <div class="background" aria-hidden="true">
+        <div class="background-glow glow-one"></div>
+        <div class="background-glow glow-two"></div>
+        <div class="background-glow glow-three"></div>
+        <div class="background-grid"></div>
+    </div>
 
-/* ===== Metro: flache Kacheln, Segoe-Optik ===== */
-:root[data-style="metro"]{--font-ui:"Segoe UI","Selawik","Helvetica Neue",Arial,sans-serif}
-:root[data-style="metro"] body{font-family:var(--font-ui)}
-:root[data-style="metro"][data-theme="dark"]{--bg:#141414;--surface-1:#222;--surface-2:#222;--border:#333;--card-shadow:none}
-:root[data-style="metro"][data-theme="light"]{--bg:#ececec;--surface-1:#fff;--surface-2:#fff;--border:#d4d4d4;--card-shadow:none}
-:root[data-style="metro"] .card{background:var(--surface-1);box-shadow:none;border-left:5px solid var(--accent)}
-:root[data-style="metro"] .card:hover{transform:none;background:var(--surface-hover-1)}
-:root[data-style="metro"] :is(h1,h2,h3){font-weight:300;letter-spacing:-.5px;text-transform:none}
-:root[data-style="metro"] .profile h1{background:none;color:var(--text);-webkit-text-fill-color:currentColor}
-:root[data-style="metro"] :is(.enter-button,.play-button,.project-link:first-child){background:var(--accent);color:#fff;border-color:var(--accent)}
+    <div class="topbar">
+        <div class="settings">
+            <button class="top-button icon-only" id="settings-button" type="button" aria-haspopup="dialog" aria-expanded="false" aria-controls="settings-panel" data-i18n-aria="settingsAria" data-i18n-title="settingsAria">
+                <i data-lucide="settings"></i>
+            </button>
 
-/* ===== Retro: Terminal (dunkel) / Papier (hell) ===== */
-:root[data-style="retro"]{--font-ui:"Courier New","Lucida Console",ui-monospace,monospace}
-:root[data-style="retro"] :is(body,button,input,select){font-family:var(--font-ui)}
-:root[data-style="retro"][data-theme="dark"]{--bg:#07120a;--text:#b6ffc4;--text-2:#7fd48f;--text-3:#68b777;--text-4:#5aa36a;--heading:#b6ffc4;--surface-1:#0b1f10;--surface-2:#0b1f10;--border:#2c6b3b;--accent:#39ff6a;--accent-soft:#39ff6a;--accent-text:#39ff6a;--accent-text-hover:#b6ffc4;--tag-text:#7fd48f;--icon-text:#39ff6a;--accent-rgb:57,255,106;--accent-soft-rgb:57,255,106;--card-shadow:0 0 0 1px #0d2a15}
-:root[data-style="retro"][data-theme="light"]{--bg:#e6dcc3;--text:#2b2418;--text-2:#4a3f2b;--text-3:#5d5039;--text-4:#6b5d43;--heading:#2b2418;--surface-1:#f3ebd6;--surface-2:#f3ebd6;--border:#8b7a55;--accent:#8c2f1b;--accent-soft:#8c2f1b;--accent-text:#8c2f1b;--accent-text-hover:#5a1a0d;--tag-text:#5d5039;--icon-text:#8c2f1b;--accent-rgb:140,47,27;--accent-soft-rgb:140,47,27;--card-shadow:4px 4px 0 #b8a97f}
-:root[data-style="retro"] .card{background:var(--surface-1);border:2px double var(--border);box-shadow:var(--card-shadow)}
-:root[data-style="retro"] .card:hover{transform:none}
-:root[data-style="retro"] :is(h1,h2,h3){font-weight:700;letter-spacing:0}
-:root[data-style="retro"] .profile h1{background:none;color:var(--text);-webkit-text-fill-color:currentColor}
-:root[data-style="retro"] .profile h1::before{content:"> "}
-:root[data-style="retro"] .card-media img{filter:grayscale(.6) contrast(1.1)}
-:root[data-style="retro"][data-theme="dark"]::after{content:"";position:fixed;inset:0;z-index:200;pointer-events:none;background:repeating-linear-gradient(0deg,rgba(0,0,0,.18) 0 1px,transparent 1px 3px)}
-:root[data-style="retro"] :is(.enter-button,.play-button){background:var(--accent);color:var(--bg);border-color:var(--accent)}
+            <div class="settings-panel" id="settings-panel" role="dialog" aria-labelledby="settings-title" aria-hidden="true">
+                <div class="settings-head">
+                    <h2 id="settings-title" data-i18n="settingsTitle">Einstellungen</h2>
+                </div>
 
-/* ===== Neon: dunkles Leuchten ===== */
-:root[data-style="neon"][data-theme="dark"]{--bg:#050210;--surface-1:rgba(20,8,40,.7);--surface-2:rgba(10,4,24,.7);--border:rgba(var(--accent-soft-rgb),.55);--glow-opacity:.28;--card-shadow:0 0 22px rgba(var(--accent-rgb),.22)}
-:root[data-style="neon"][data-theme="light"]{--border:rgba(var(--accent-rgb),.6);--card-shadow:0 0 18px rgba(var(--accent-rgb),.2)}
-:root[data-style="neon"] .card{box-shadow:var(--card-shadow),inset 0 0 24px rgba(var(--accent-rgb),.08)}
-:root[data-style="neon"] .card:hover{border-color:var(--accent);box-shadow:0 0 34px rgba(var(--accent-rgb),.45),inset 0 0 24px rgba(var(--accent-rgb),.14)}
-:root[data-style="neon"] :is(.profile h1,.welcome-content h1,.section-toggle){text-shadow:0 0 14px rgba(var(--accent-rgb),.8)}
-:root[data-style="neon"] :is(.enter-button,.play-button,.profile-image){box-shadow:0 0 22px rgba(var(--accent-rgb),.6)}
-:root[data-style="neon"] .background-grid{opacity:.4}
+                <div class="setting-row">
+                    <span class="setting-label"><i data-lucide="languages"></i><span data-i18n="setLanguage">Sprache</span></span>
+                    <select class="lang-select" id="lang-select" data-i18n-aria="setLanguage">
+                        <option value="de">Deutsch</option>
+                        <option value="en">English</option>
+                        <option value="pl">Polski</option>
+                        <option value="nl">Nederlands</option>
+                        <option value="ru">Русский</option>
+                        <option value="it">Italiano</option>
+                        <option value="sv">Svenska</option>
+                    </select>
+                </div>
 
-/* ===== Brutal: dicke Rahmen, harte Schatten ===== */
-:root[data-style="brutal"] body{font-family:"Arial Black","Helvetica Neue",Arial,sans-serif}
-:root[data-style="brutal"][data-theme="light"]{--bg:#fff3a8;--text:#000;--text-2:#1a1a1a;--text-3:#262626;--text-4:#333;--heading:#000;--surface-1:#fff;--surface-2:#fff;--border:#000;--chip-bg:#fff;--topbtn-bg:#fff;--card-shadow:6px 6px 0 #000}
-:root[data-style="brutal"][data-theme="dark"]{--bg:#111;--surface-1:#1c1c1c;--surface-2:#1c1c1c;--border:#fff;--chip-bg:#1c1c1c;--card-shadow:6px 6px 0 var(--accent)}
-:root[data-style="brutal"] .card{background:var(--surface-1);border:3px solid var(--border);box-shadow:var(--card-shadow)}
-:root[data-style="brutal"] .card:hover{transform:translate(-2px,-2px);box-shadow:8px 8px 0 var(--accent)}
-:root[data-style="brutal"] :is(.top-button,.link-chip,.project-link,.settings-panel,.enter-button,.profile-link){border:2px solid var(--border);box-shadow:3px 3px 0 var(--border)}
-:root[data-style="brutal"] .profile h1{background:none;color:var(--text);-webkit-text-fill-color:currentColor;text-transform:uppercase}
-:root[data-style="brutal"] :is(.enter-button,.play-button){background:var(--accent);color:#fff}
+                <div class="setting-row">
+                    <span class="setting-label"><i data-lucide="sun-moon"></i><span data-i18n="setTheme">Design</span></span>
+                    <div class="seg" role="group" data-i18n-aria="setTheme">
+                        <button type="button" class="seg-btn seg-icon" data-theme-option="light" aria-pressed="false" data-i18n-aria="themeLight" data-i18n-title="themeLight"><i data-lucide="sun"></i></button>
+                        <button type="button" class="seg-btn seg-icon" data-theme-option="dark" aria-pressed="false" data-i18n-aria="themeDark" data-i18n-title="themeDark"><i data-lucide="moon"></i></button>
+                        <button type="button" class="seg-btn seg-icon" data-theme-option="auto" aria-pressed="false" data-i18n-aria="themeAuto" data-i18n-title="themeAuto"><i data-lucide="monitor"></i></button>
+                    </div>
+                </div>
 
-@media (prefers-reduced-motion:reduce){:root[data-style] .card{transition:none}}
+                <div class="setting-row stack">
+                    <span class="setting-label"><i data-lucide="layers"></i><span data-i18n="setStyle">Stil</span></span>
+                    <div class="style-grid" role="group" data-i18n-aria="setStyle">
+                        <button type="button" class="style-btn" data-style-option="glass" aria-pressed="false"><i data-lucide="gem"></i><span>Glass</span></button>
+                        <button type="button" class="style-btn" data-style-option="metro" aria-pressed="false"><i data-lucide="layout-dashboard"></i><span>Metro</span></button>
+                        <button type="button" class="style-btn" data-style-option="retro" aria-pressed="false"><i data-lucide="tv"></i><span>Retro</span></button>
+                        <button type="button" class="style-btn" data-style-option="neon" aria-pressed="false"><i data-lucide="sparkles"></i><span>Neon</span></button>
+                        <button type="button" class="style-btn" data-style-option="brutal" aria-pressed="false"><i data-lucide="box"></i><span>Brutal</span></button>
+                    </div>
+                </div>
+
+                <div class="setting-row">
+                    <span class="setting-label"><i data-lucide="palette"></i><span data-i18n="setAccent">Akzentfarbe</span></span>
+                    <div class="swatches" role="group" data-i18n-aria="setAccent">
+                        <button type="button" class="swatch" data-accent-option="violet" style="--sw:#8b5cf6" aria-pressed="false" data-i18n-aria="accentViolet" data-i18n-title="accentViolet"></button>
+                        <button type="button" class="swatch" data-accent-option="blue" style="--sw:#3b82f6" aria-pressed="false" data-i18n-aria="accentBlue" data-i18n-title="accentBlue"></button>
+                        <button type="button" class="swatch" data-accent-option="pink" style="--sw:#ec4899" aria-pressed="false" data-i18n-aria="accentPink" data-i18n-title="accentPink"></button>
+                        <button type="button" class="swatch" data-accent-option="green" style="--sw:#10b981" aria-pressed="false" data-i18n-aria="accentGreen" data-i18n-title="accentGreen"></button>
+                        <button type="button" class="swatch" data-accent-option="orange" style="--sw:#f97316" aria-pressed="false" data-i18n-aria="accentOrange" data-i18n-title="accentOrange"></button>
+                    </div>
+                </div>
+
+                <div class="setting-row">
+                    <span class="setting-label"><i data-lucide="sparkles"></i><span data-i18n="setFx">Hintergrund-Effekte</span></span>
+                    <button type="button" class="switch" id="switch-fx" role="switch" aria-checked="true" data-i18n-aria="setFx"><span class="switch-knob"></span></button>
+                </div>
+
+                <div class="setting-row">
+                    <span class="setting-label"><i data-lucide="zap"></i><span data-i18n="setMotion">Animationen</span></span>
+                    <button type="button" class="switch" id="switch-motion" role="switch" aria-checked="true" data-i18n-aria="setMotion"><span class="switch-knob"></span></button>
+                </div>
+
+                <div class="setting-row">
+                    <span class="setting-label"><i data-lucide="headphones"></i><span data-i18n="setAutoplay">Musik beim Betreten</span></span>
+                    <button type="button" class="switch" id="switch-autoplay" role="switch" aria-checked="true" data-i18n-aria="setAutoplay"><span class="switch-knob"></span></button>
+                </div>
+
+                <button type="button" class="settings-reset" id="settings-reset">
+                    <i data-lucide="rotate-ccw"></i>
+                    <span data-i18n="setReset">Zurücksetzen</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Willkommen-Screen -->
+    <div class="welcome-screen" id="welcome-screen">
+        <button class="top-button info-button" id="info-button" type="button" aria-haspopup="dialog" aria-controls="book-overlay" data-i18n-aria="infoAria" data-i18n-title="infoAria">
+            <i data-lucide="book-open"></i>
+            <span data-i18n="infoButton">Info</span>
+        </button>
+
+        <div class="welcome-content">
+            <div class="welcome-logo">T</div>
+            <h1 data-i18n="welcomeTitle">Willkommen</h1>
+            <p data-i18n="welcomeText">Klicke zum Betreten</p>
+            <button class="enter-button" id="enter-button" type="button">
+                <span data-i18n="enter">Seite betreten</span>
+                <i data-lucide="door-open"></i>
+            </button>
+        </div>
+    </div>
+
+    <!-- Info-Buch -->
+    <div class="book-overlay" id="book-overlay" aria-hidden="true">
+        <div class="book" id="book" role="dialog" aria-modal="true" aria-labelledby="book-title">
+            <button class="book-close" id="book-close" type="button" data-i18n-aria="bookClose" data-i18n-title="bookClose">
+                <i data-lucide="x"></i>
+            </button>
+
+            <div class="book-pages">
+                <section class="book-page active" data-page="0">
+                    <span class="book-icon"><i data-lucide="book-open"></i></span>
+                    <h2 id="book-title" data-i18n="book1Title">Was ist das hier?</h2>
+                    <p data-i18n="book1Text">Das ist meine Link-Seite. Hier findest du meine Projekte, Communities und Links an einem Ort, statt verstreut auf lauter einzelnen Seiten.</p>
+                </section>
+
+                <section class="book-page" data-page="1">
+                    <span class="book-icon"><i data-lucide="layout-grid"></i></span>
+                    <h2 data-i18n="book2Title">Was gibt es zu sehen?</h2>
+                    <p data-i18n="book2Text">Meine Projekte, Gaming-Communities, der Hoster meiner Discord Bots und mein Discord-Status live. Klapp eine Karte auf, dann siehst du mehr Details und weitere Links.</p>
+                </section>
+
+                <section class="book-page" data-page="2">
+                    <span class="book-icon"><i data-lucide="sliders-horizontal"></i></span>
+                    <h2 data-i18n="book3Title">Gut zu wissen</h2>
+                    <p data-i18n="book3Text">Beim Betreten läuft Musik von NEFFEX. Pausieren oder leiser machen kannst du im Player. Über das Zahnrad oben rechts änderst du Sprache, Design, Akzentfarbe und mehr.</p>
+                </section>
+
+                <section class="book-page" data-page="3">
+                    <span class="book-icon"><i data-lucide="shield-check"></i></span>
+                    <h2 data-i18n="book4Title">Datenschutz</h2>
+                    <p data-i18n="book4Text">Deine Einstellungen werden nur lokal in deinem Browser gespeichert. Der Discord-Status wird live über die Lanyard-API abgefragt.</p>
+                </section>
+            </div>
+
+            <div class="book-nav">
+                <button class="book-arrow" id="book-prev" type="button" data-i18n-aria="bookPrev" data-i18n-title="bookPrev">
+                    <i data-lucide="chevron-left"></i>
+                </button>
+                <div class="book-dots" id="book-dots" aria-hidden="true">
+                    <span class="book-dot active"></span>
+                    <span class="book-dot"></span>
+                    <span class="book-dot"></span>
+                    <span class="book-dot"></span>
+                </div>
+                <button class="book-arrow" id="book-next" type="button" data-i18n-aria="bookNext" data-i18n-title="bookNext">
+                    <i data-lucide="chevron-right"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <main class="page">
+        <!-- Profil -->
+        <section class="card profile">
+            <div class="profile-image-wrapper">
+                <img src="assets/images/profile.jpg" decoding="async" alt="Tommy" class="profile-image">
+                <span class="online-dot" id="online-dot"></span>
+            </div>
+
+            <h1>Tommy</h1>
+
+            <p class="profile-location">
+                <i data-lucide="mountain"></i>
+                <span data-i18n="location">17 Jahre · Österreich</span>
+            </p>
+
+            <!-- Discord-Status (Lanyard) -->
+            <div class="presence" id="presence" hidden>
+                <span class="presence-dot"></span>
+                <span id="presence-status"></span>
+            </div>
+
+            <div class="presence-activity" id="presence-activity" hidden>
+                <i data-lucide="gamepad-2" class="act-icon act-game"></i>
+                <i data-lucide="headphones" class="act-icon act-spotify"></i>
+                <i data-lucide="message-square-text" class="act-icon act-custom"></i>
+                <span id="presence-activity-text"></span>
+            </div>
+
+            <p class="bio" data-i18n="bio">
+                Ich programmiere gerne und beschäftige mich hauptsächlich
+                mit Discord Development, JavaScript und Python.
+                Nebenbei arbeite ich an eigenen Projekten und probiere
+                gerne neue Dinge aus.
+            </p>
+
+            <div class="profile-links">
+                <a
+                    class="profile-link"
+                    href="https://systemy.betteruptime.com"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    data-i18n-aria="statusAria"
+                    data-i18n-title="statusAria"
+                >
+                    <i data-lucide="signal"></i>
+                </a>
+
+                <a
+                    class="profile-link"
+                    href="https://discord.com/users/881206091009122406"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    data-i18n-aria="discordProfileAria"
+                    data-i18n-title="discordProfileAria"
+                >
+                    <i data-lucide="user-round"></i>
+                </a>
+            </div>
+        </section>
+
+        <!-- Musik -->
+        <section class="card music-card">
+            <div class="music-cover">
+                <div class="music-cover-overlay"></div>
+                <div class="music-cover-text">
+                    <span>NEFFEX</span>
+                    <strong>BURN<br>THE BRIDGE</strong>
+                </div>
+            </div>
+
+            <div class="music-content">
+                <div class="music-top">
+                    <div>
+                        <span class="music-label" data-i18n="nowPlaying">NOW PLAYING</span>
+                        <h2 id="track-title">BURN THE BRIDGE</h2>
+                        <p id="track-artist">NEFFEX</p>
+                    </div>
+
+                    <a
+                        class="soundcloud-button"
+                        href="https://soundcloud.com/neffexmusic/burn-the-bridge-copyright-free"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        data-i18n-aria="soundcloudAria"
+                    >
+                        SoundCloud
+                        <i data-lucide="arrow-up-right"></i>
+                    </a>
+                </div>
+
+                <div class="music-controls">
+                    <button class="play-button" id="play-button" type="button" aria-label="Musik abspielen">
+                        <i data-lucide="play" class="play-icon"></i>
+                        <i data-lucide="pause" class="pause-icon"></i>
+                    </button>
+
+                    <div class="music-progress-area">
+                        <div class="music-time">
+                            <span id="current-time">0:00</span>
+                            <span id="duration">0:00</span>
+                        </div>
+                        <input
+                            id="seek"
+                            class="progress"
+                            type="range"
+                            min="0"
+                            max="100"
+                            value="0"
+                            step="0.1"
+                            data-i18n-aria="seekAria"
+                        >
+                    </div>
+
+                    <button class="volume-button" id="volume-button" type="button" aria-label="Ton ausschalten">
+                        <i data-lucide="volume-2" class="volume-on-icon"></i>
+                        <i data-lucide="volume-x" class="volume-off-icon"></i>
+                    </button>
+                </div>
+
+                <div class="volume-area">
+                    <input
+                        id="volume"
+                        class="volume-slider"
+                        type="range"
+                        min="0"
+                        max="1"
+                        step="0.01"
+                        value="0.5"
+                        data-i18n-aria="volumeAria"
+                    >
+                </div>
+            </div>
+
+            <audio id="audio" preload="metadata" loop></audio>
+        </section>
+
+        <!-- Meine Projekte -->
+        <section class="section">
+            <div class="section-heading">
+                <span class="section-line"></span>
+                <h2>
+                    <button class="section-toggle" type="button" aria-expanded="true" aria-controls="sec-projects">
+                        <span data-i18n="sectionProjects">Meine Projekte</span>
+                        <i data-lucide="chevron-down"></i>
+                    </button>
+                </h2>
+                <span class="section-line"></span>
+            </div>
+
+            <div class="collapse" id="sec-projects">
+                <div class="collapse-inner">
+
+                    <!-- Core3D (mit Discord-Widget) -->
+                    <article class="card project-card">
+                        <div class="card-head" role="button" tabindex="0" aria-expanded="false" aria-controls="details-core3d">
+                            <div class="card-media">
+                                <img src="assets/images/coreprofilbild.jpg" loading="lazy" decoding="async" alt="Core3D">
+                                <div class="card-media-overlay"></div>
+                                <span class="card-chevron" aria-hidden="true"><i data-lucide="chevron-down"></i></span>
+                            </div>
+
+                            <div class="card-body">
+                                <div class="project-title-row">
+                                    <h3 class="title-with-icon">
+                                        <i data-lucide="printer"></i>
+                                        <span>Core3D</span>
+                                    </h3>
+                                    <span class="status active" data-i18n="statusCommunity">Community</span>
+                                </div>
+
+                                <p data-i18n="coreText">
+                                    Ein Server rund um 3D Design und 3D-Druck, den ich mit
+                                    einem Freund betreibe. Ich leite die Community, die
+                                    3D-Arbeit übernimmt mein Kumpel.
+                                </p>
+
+                                <div class="project-tags">
+                                    <span class="project-tag" data-i18n="tag3d">3D-Druck</span>
+                                    <span class="project-tag" data-i18n="tagCommunity">Community</span>
+                                    <span class="project-tag" data-i18n="tagLead">Leitung</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card-links project-links">
+                            <a class="project-link" href="https://discord.gg/33mb9W3KgB" target="_blank" rel="noopener noreferrer">
+                                <span data-i18n="openDiscord">Discord öffnen</span>
+                                <i data-lucide="arrow-up-right"></i>
+                            </a>
+
+                            <a class="project-link" href="https://www.youtube.com/@Core3D_Print" target="_blank" rel="noopener noreferrer">
+                                <i data-lucide="clapperboard"></i>
+                                <span>YouTube</span>
+                            </a>
+                        </div>
+
+                        <div class="collapse closed" id="details-core3d">
+                            <div class="collapse-inner">
+                                <div class="card-details">
+                                    <p class="details-text" data-i18n="coreMore">Core3D dreht sich um 3D Design und 3D-Druck. Ich kümmere mich um die Leitung und den Aufbau der Community, mein Kumpel übernimmt die 3D-Arbeit. Über Discord und YouTube bleibst du auf dem Laufenden.</p>
+
+                                    <div class="info-grid">
+                                        <div class="info-item">
+                                            <span class="info-label" data-i18n="infoType">Art</span>
+                                            <span class="info-value" data-i18n="statusCommunity">Community</span>
+                                        </div>
+                                        <div class="info-item">
+                                            <span class="info-label" data-i18n="infoFocus">Schwerpunkt</span>
+                                            <span class="info-value" data-i18n="focus3d">3D-Design & 3D-Druck</span>
+                                        </div>
+                                        <div class="info-item">
+                                            <span class="info-label" data-i18n="infoRole">Meine Rolle</span>
+                                            <span class="info-value" data-i18n="tagLead">Leitung</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <!-- Gaming -->
+        <section class="section">
+            <div class="section-heading">
+                <span class="section-line"></span>
+                <h2>
+                    <button class="section-toggle" type="button" aria-expanded="true" aria-controls="sec-gaming">
+                        <span data-i18n="sectionGaming">Gaming</span>
+                        <i data-lucide="chevron-down"></i>
+                    </button>
+                </h2>
+                <span class="section-line"></span>
+            </div>
+
+            <div class="collapse" id="sec-gaming">
+                <div class="collapse-inner">
+
+                    <!-- Oktavstadt -->
+                    <article class="card project-card">
+                        <div class="card-head" role="button" tabindex="0" aria-expanded="false" aria-controls="details-oktav">
+                            <div class="card-media">
+                                <img src="assets/images/oktavstadt.jpg" loading="lazy" decoding="async" alt="Oktavstadt" onerror="this.style.display='none'">
+                                <div class="card-media-overlay"></div>
+                                <span class="card-chevron" aria-hidden="true"><i data-lucide="chevron-down"></i></span>
+                            </div>
+                            <div class="card-body">
+                                <div class="project-title-row">
+                                    <h3 class="title-with-icon"><i data-lucide="bell"></i><span>Oktavstadt</span></h3>
+                                    <span class="status active" data-i18n="statusLive">Veröffentlicht</span>
+                                </div>
+                                <p data-i18n="oktavText">Offizieller Server des Glocken-Spiels auf Roblox. Ich bin Teammitglied, das Spiel wird ständig weiterentwickelt.</p>
+                                <div class="project-tags">
+                                    <span class="project-tag">Roblox</span>
+                                    <span class="project-tag" data-i18n="tagTeam">Team</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-links project-links">
+                            <a class="project-link" href="https://discord.gg/f9WwmEBtmE" target="_blank" rel="noopener noreferrer"><span data-i18n="joinDiscord">Discord beitreten</span><i data-lucide="arrow-up-right"></i></a>
+                            <a class="project-link" href="https://www.roblox.com/de/games/105633432256999/Oktavstadt" target="_blank" rel="noopener noreferrer"><i data-lucide="gamepad-2"></i><span data-i18n="playRoblox">Auf Roblox spielen</span></a>
+                        </div>
+                        <div class="collapse closed" id="details-oktav">
+                            <div class="collapse-inner">
+                                <div class="card-details">
+                                    <p class="details-text" data-i18n="oktavMore">Hallo, das ist der offizielle Server von dem Glocken-Spiel Oktavstadt. Wir sind ein Glocken-Spiel auf Roblox, bei uns dreht sich alles um Glocken. Jeder ist hier willkommen.</p>
+                                    <div class="info-grid">
+                                        <div class="info-item"><span class="info-label" data-i18n="infoType">Art</span><span class="info-value">Roblox</span></div>
+                                        <div class="info-item"><span class="info-label" data-i18n="infoStatus">Status</span><span class="info-value" data-i18n="statusLive">Veröffentlicht</span></div>
+                                        <div class="info-item"><span class="info-label" data-i18n="infoRole">Meine Rolle</span><span class="info-value" data-i18n="roleTeam">Teammitglied</span></div>
+                                    </div>
+                                    <div class="link-group-title" data-i18n="groupChannels">Kanäle</div>
+                                    <div class="link-grid">
+                                        <a class="link-chip" href="https://www.youtube.com/@Oktavstadt" target="_blank" rel="noopener noreferrer"><i data-lucide="clapperboard"></i><span>YouTube</span></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- EAS -->
+                    <article class="card project-card">
+                        <div class="card-head" role="button" tabindex="0" aria-expanded="false" aria-controls="details-eas">
+                            <div class="card-media">
+                                <img src="assets/images/eas.jpg" loading="lazy" decoding="async" alt="EAS">
+                                <div class="card-media-overlay"></div>
+                                <span class="media-badge">COMING SOON</span>
+                                <span class="card-chevron" aria-hidden="true"><i data-lucide="chevron-down"></i></span>
+                            </div>
+
+                            <div class="card-body">
+                                <div class="project-title-row">
+                                    <h3 class="title-with-icon">
+                                        <i data-lucide="drama"></i>
+                                        <span>EAS</span>
+                                    </h3>
+                                    <span class="status development" data-i18n="statusTeam">Im Team</span>
+                                </div>
+
+                                <p data-i18n="easText">
+                                    Ein Roleplay-Projekt, bei dem ich Teil des Teams bin.
+                                    Gebaut wird von anderen, dem Discord kannst du aber
+                                    schon beitreten.
+                                </p>
+
+                                <div class="project-tags">
+                                    <span class="project-tag">Roleplay</span>
+                                    <span class="project-tag">V2</span>
+                                    <span class="project-tag">Team</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card-links project-links">
+                            <a class="project-link" href="https://discord.gg/pQCr73nwWY" target="_blank" rel="noopener noreferrer">
+                                <span data-i18n="joinDiscord">Discord beitreten</span>
+                                <i data-lucide="arrow-up-right"></i>
+                            </a>
+                        </div>
+
+                        <div class="collapse closed" id="details-eas">
+                            <div class="collapse-inner">
+                                <div class="card-details">
+                                    <p class="details-text" data-i18n="easMore">EAS ist ein Roleplay-Projekt, das sich gerade in Entwicklung befindet (V2). Ich bin Teil des Teams und helfe mit, das Projekt voranzubringen, den Großteil des Aufbaus übernehmen andere. Dem Discord kannst du schon jetzt beitreten.</p>
+
+                                    <div class="info-grid">
+                                        <div class="info-item">
+                                            <span class="info-label" data-i18n="infoType">Art</span>
+                                            <span class="info-value">Roleplay</span>
+                                        </div>
+                                        <div class="info-item">
+                                            <span class="info-label" data-i18n="infoVersion">Version</span>
+                                            <span class="info-value">V2</span>
+                                        </div>
+                                        <div class="info-item">
+                                            <span class="info-label" data-i18n="infoStatus">Status</span>
+                                            <span class="info-value">Coming Soon</span>
+                                        </div>
+                                        <div class="info-item">
+                                            <span class="info-label" data-i18n="infoRole">Meine Rolle</span>
+                                            <span class="info-value" data-i18n="roleTeam">Teammitglied</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- Fichtelhillz Trucker -->
+                    <article class="card project-card">
+                        <div class="card-head" role="button" tabindex="0" aria-expanded="false" aria-controls="details-trucker">
+                            <div class="card-media">
+                                <img src="assets/images/trucker.png" loading="lazy" decoding="async" alt="Fichtelhillz Trucker">
+                                <div class="card-media-overlay"></div>
+                                <span class="card-chevron" aria-hidden="true"><i data-lucide="chevron-down"></i></span>
+                            </div>
+
+                            <div class="card-body">
+                                <div class="project-title-row">
+                                    <h3 class="title-with-icon">
+                                        <i data-lucide="truck"></i>
+                                        <span>Fichtelhillz Trucker</span>
+                                    </h3>
+                                    <span class="status development" data-i18n="statusMember">Mitglied</span>
+                                </div>
+
+                                <p data-i18n="truckerText">
+                                    Eine Community rund ums Trucking in ETS2 mit
+                                    gemeinsamen Touren, Convoys und Austausch. Ich bin
+                                    dort Mitglied, Anfänger und Profis sind willkommen.
+                                </p>
+
+                                <div class="project-tags">
+                                    <span class="project-tag" data-i18n="tagMember">Mitglied</span>
+                                    <span class="project-tag">ETS2</span>
+                                    <span class="project-tag">Trucking</span>
+                                    <span class="project-tag">Convoys</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card-links project-links">
+                            <a class="project-link" href="https://discord.gg/2WqvykHESn" target="_blank" rel="noopener noreferrer">
+                                <span data-i18n="joinDiscord">Discord beitreten</span>
+                                <i data-lucide="arrow-up-right"></i>
+                            </a>
+                        </div>
+
+                        <div class="collapse closed" id="details-trucker">
+                            <div class="collapse-inner">
+                                <div class="card-details">
+                                    <p class="details-text" data-i18n="truckerMore">Fichtelhillz Trucker ist eine Community für alle, die gerne ETS2 fahren, egal ob bei gemeinsamen Touren, in Convoys oder einfach zum Quatschen. Ich bin als Mitglied dabei. Neben Discord gibt es auch einen YouTube- und einen Twitch-Kanal.</p>
+
+                                    <div class="info-grid">
+                                        <div class="info-item">
+                                            <span class="info-label" data-i18n="infoGame">Spiel</span>
+                                            <span class="info-value">Euro Truck Simulator 2</span>
+                                        </div>
+                                        <div class="info-item">
+                                            <span class="info-label" data-i18n="infoRole">Meine Rolle</span>
+                                            <span class="info-value" data-i18n="statusMember">Mitglied</span>
+                                        </div>
+                                    </div>
+
+                                    <div class="link-group-title" data-i18n="groupChannels">Kanäle</div>
+                                    <div class="link-grid">
+                                        <a class="link-chip" href="https://www.youtube.com/@fichtelhillztrucker" target="_blank" rel="noopener noreferrer">
+                                            <i data-lucide="clapperboard"></i>
+                                            <span>YouTube</span>
+                                        </a>
+                                        <a class="link-chip" href="https://www.twitch.tv/fichtelhillztrucker" target="_blank" rel="noopener noreferrer">
+                                            <i data-lucide="radio"></i>
+                                            <span>Twitch</span>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <!-- Hosting -->
+        <section class="section">
+            <div class="section-heading">
+                <span class="section-line"></span>
+                <h2>
+                    <button class="section-toggle" type="button" aria-expanded="true" aria-controls="sec-hosting">
+                        <span data-i18n="sectionHosting">Hosting</span>
+                        <i data-lucide="chevron-down"></i>
+                    </button>
+                </h2>
+                <span class="section-line"></span>
+            </div>
+
+            <div class="collapse" id="sec-hosting">
+                <div class="collapse-inner">
+
+                    <!-- Serverix -->
+                    <article class="card project-card">
+                        <div class="card-head" role="button" tabindex="0" aria-expanded="false" aria-controls="details-serverix">
+                            <div class="card-media">
+                                <img src="assets/images/serverixbanner.jpg" loading="lazy" decoding="async" alt="Serverix">
+                                <div class="card-media-overlay"></div>
+                                <span class="card-chevron" aria-hidden="true"><i data-lucide="chevron-down"></i></span>
+                            </div>
+
+                            <div class="card-body">
+                                <div class="project-title-row">
+                                    <h3 class="title-with-icon">
+                                        <i data-lucide="server"></i>
+                                        <span>Serverix</span>
+                                    </h3>
+                                    <span class="status active" data-i18n="statusHost">Hoster</span>
+                                </div>
+
+                                <p data-i18n="serverixText">
+                                    Hier hoste ich meine Discord Bots. Du kannst dem
+                                    Discord von Serverix beitreten.
+                                </p>
+
+                                <div class="project-tags">
+                                    <span class="project-tag">Hosting</span>
+                                    <span class="project-tag">Discord Bots</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card-links project-links">
+                            <a class="project-link" href="https://discord.gg/Et9a3bzH7v" target="_blank" rel="noopener noreferrer">
+                                <span data-i18n="joinDiscord">Discord beitreten</span>
+                                <i data-lucide="arrow-up-right"></i>
+                            </a>
+                        </div>
+
+                        <div class="collapse closed" id="details-serverix">
+                            <div class="collapse-inner">
+                                <div class="card-details">
+                                    <p class="details-text" data-i18n="serverixMore">Serverix ist der Hoster, bei dem meine Discord Bots laufen. Die Links hier gehören zum Hoster.</p>
+
+                                    <div class="link-group-title" data-i18n="groupLinks">Links des Hosters</div>
+                                    <div class="link-grid">
+                                        <a class="link-chip" href="https://serverix.host/" target="_blank" rel="noopener noreferrer">
+                                            <i data-lucide="globe"></i>
+                                            <span data-i18n="linkWebsite">Offizielle Seite</span>
+                                        </a>
+                                        <a class="link-chip" href="https://status.serverix.host/" target="_blank" rel="noopener noreferrer">
+                                            <i data-lucide="heart-pulse"></i>
+                                            <span data-i18n="linkStatus">Status von Serverix</span>
+                                        </a>
+                                        <a class="link-chip" href="https://whatsapp.com/channel/0029VbCDpfH35fM0pUsaN91C" target="_blank" rel="noopener noreferrer">
+                                            <i data-lucide="messages-square"></i>
+                                            <span data-i18n="linkWhatsapp">WhatsApp-Kanal von Serverix</span>
+                                        </a>
+                                    </div>
+
+                                    <div class="link-group-title" data-i18n="groupLegal">Rechtliches des Hosters</div>
+                                    <div class="link-grid">
+                                        <a class="link-chip" href="https://serverix.host/impressum" target="_blank" rel="noopener noreferrer">
+                                            <i data-lucide="building-2"></i>
+                                            <span data-i18n="linkImprint">Impressum</span>
+                                        </a>
+                                        <a class="link-chip" href="https://serverix.host/datenschutz" target="_blank" rel="noopener noreferrer">
+                                            <i data-lucide="lock-keyhole"></i>
+                                            <span data-i18n="linkPrivacy">Datenschutz</span>
+                                        </a>
+                                        <a class="link-chip" href="https://serverix.host/agb" target="_blank" rel="noopener noreferrer">
+                                            <i data-lucide="file-signature"></i>
+                                            <span data-i18n="linkTerms">AGB</span>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <!-- Öffentliche Bots -->
+        <section class="section">
+            <div class="section-heading">
+                <span class="section-line"></span>
+                <h2>
+                    <button class="section-toggle" type="button" aria-expanded="true" aria-controls="sec-bots">
+                        <span data-i18n="sectionBots">Meine öffentlichen Bots</span>
+                        <i data-lucide="chevron-down"></i>
+                    </button>
+                </h2>
+                <span class="section-line"></span>
+            </div>
+            <div class="collapse" id="sec-bots">
+                <div class="collapse-inner">
+                    <div class="card wip">
+                        <span class="wip-icon"><i data-lucide="construction"></i></span>
+                        <div>
+                            <strong data-i18n="botsWip">In Arbeit</strong>
+                            <p data-i18n="botsWipText">Diese Kategorie ist noch in Arbeit. Bald findest du hier meine öffentlichen Bots.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Skills -->
+        <section class="section">
+            <div class="section-heading">
+                <span class="section-line"></span>
+                <h2>
+                    <button class="section-toggle" type="button" aria-expanded="true" aria-controls="sec-skills">
+                        <span data-i18n="sectionSkills">Was ich mache</span>
+                        <i data-lucide="chevron-down"></i>
+                    </button>
+                </h2>
+                <span class="section-line"></span>
+            </div>
+
+            <div class="collapse" id="sec-skills">
+                <div class="collapse-inner">
+                    <div class="skills">
+                        <div class="card skill">
+                            <span class="skill-icon"><i data-lucide="code-xml"></i></span>
+                            <span>JavaScript</span>
+                        </div>
+
+                        <div class="card skill">
+                            <span class="skill-icon"><i data-lucide="square-terminal"></i></span>
+                            <span>Python</span>
+                        </div>
+
+                        <div class="card skill">
+                            <span class="skill-icon"><i data-lucide="bot-message-square"></i></span>
+                            <span>Discord Development</span>
+                        </div>
+
+                        <div class="card skill">
+                            <span class="skill-icon"><i data-lucide="joystick"></i></span>
+                            <span data-i18n="skillGaming">Zocken</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <footer>
+            <div class="footer-line"></div>
+            <p>© 2026 Tommy</p>
+            <span data-i18n="footerText">Made with code & coffee.</span>
+        </footer>
+    </main>
+
+    <script src="https://unpkg.com/lucide@0.469.0/dist/umd/lucide.min.js"></script>
+    <script src="index.js"></script>
+    <script src="lanyard.js"></script>
+</body>
+</html>
