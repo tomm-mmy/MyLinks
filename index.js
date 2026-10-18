@@ -1,8 +1,6 @@
 'use strict';
 
-/* =========================================================
-   TOMMY LINKS – KONFIGURATION
-========================================================= */
+
 
 const music = {
     title: 'BURN THE BRIDGE',
@@ -27,6 +25,10 @@ const translations = {
         accentGreen: 'Grün',
         accentOrange: 'Orange',
         setFx: 'Hintergrund-Effekte',
+        setBackground: 'Hintergrundstil',
+        setLayout: 'Kartenlayout',
+        setCompact: 'Kompaktmodus',
+        setProfile: 'Profilansicht',
         setMotion: 'Animationen',
         setAutoplay: 'Musik beim Betreten',
         setReset: 'Zurücksetzen',
@@ -47,7 +49,7 @@ const translations = {
         welcomeText: 'Klicke zum Betreten',
         enter: 'Seite betreten',
         location: '17 Jahre · Österreich',
-        bio: 'Ich programmiere gerne und beschäftige mich hauptsächlich mit Discord Development, JavaScript und Python. Nebenbei arbeite ich an eigenen Projekten und probiere gerne neue Dinge aus.',
+        bio: 'Ich bin Tommy und beschäftige mich in meiner Freizeit vor allem mit Discord Development, JavaScript und Python. Ich entwickle eigene Projekte, arbeite an Bots und Websites und probiere gerne neue technische Ideen aus. Neben dem Programmieren interessieren mich Gaming-Communities und die Menschen, die aus einer Idee gemeinsam etwas Eigenes machen.',
         statusAria: 'Statusseite',
         discordProfileAria: 'Discord Profil',
         soundcloudAria: 'NEFFEX auf SoundCloud öffnen',
@@ -96,10 +98,10 @@ const translations = {
         linkTerms: 'AGB',
         infoFocus: 'Schwerpunkt',
         focus3d: '3D-Design & 3D-Druck',
-        coreMore: 'Core3D dreht sich um 3D Design und 3D-Druck. Ich kümmere mich um die Leitung und den Aufbau der Community, mein Kumpel übernimmt die 3D-Arbeit. Über Discord und YouTube bleibst du auf dem Laufenden.',
-        easMore: 'EAS ist ein Roleplay-Projekt, das sich gerade in Entwicklung befindet (V2). Ich bin Teil des Teams und helfe mit, das Projekt voranzubringen, den Großteil des Aufbaus übernehmen andere. Dem Discord kannst du schon jetzt beitreten.',
-        truckerMore: 'Fichtelhillz Trucker ist eine Community für alle, die gerne ETS2 fahren, egal ob bei gemeinsamen Touren, in Convoys oder einfach zum Quatschen. Ich bin als Mitglied dabei. Neben Discord gibt es auch einen YouTube- und einen Twitch-Kanal.',
-        serverixMore: 'Serverix ist der Hoster, bei dem meine Discord Bots laufen. Die Links hier gehören zum Hoster.'
+        coreMore: 'Core3D verbindet eine Community rund um 3D-Design und 3D-Druck. Ich kümmere mich gemeinsam mit einem Freund um die Organisation und Weiterentwicklung des Servers und leite die Community. Mein Freund übernimmt vor allem die praktische 3D-Arbeit. Über Discord und YouTube teilen wir Neuigkeiten, Projekte und Einblicke in das, was entsteht.',
+        easMore: 'EAS ist ein Roleplay-Projekt, das sich aktuell in der Entwicklung von Version 2 befindet. Ich bin Teammitglied und unterstütze das Projekt dabei, weiter voranzukommen. Die Entwicklung verteilt sich auf mehrere Personen und Aufgabenbereiche. Da sich vieles noch verändert, ist nicht alles bereits fertig; über den Discord-Server lassen sich Neuigkeiten und der aktuelle Stand verfolgen.',
+        truckerMore: 'Fichtelhillz Trucker ist eine Community für Fans von Euro Truck Simulator 2. Im Mittelpunkt stehen gemeinsame Fahrten, Convoys und der Austausch rund ums Trucking. Ich bin dort als Mitglied dabei. Wer die Community besser kennenlernen möchte, findet neben Discord auch Inhalte auf YouTube und Twitch.',
+        serverixMore: 'Serverix ist der Hosting-Anbieter, auf dem meine Discord-Bots laufen. Über die aufgeführten Links erreichst du die offiziellen Seiten und Community-Angebote des Hosters. Die Hosting-Plattform ist dabei vom eigentlichen Entwicklungsprojekt meiner Bots zu unterscheiden.'
     },
 
     en: {
@@ -137,7 +139,7 @@ const translations = {
         welcomeText: 'Click to enter',
         enter: 'Enter site',
         location: '17 years old · Austria',
-        bio: 'I love to code and mainly work with Discord development, JavaScript and Python. On the side I build my own projects and enjoy trying out new things.',
+        bio: 'I’m Tommy, and in my free time I mainly focus on Discord development, JavaScript and Python. I build my own projects, work on bots and websites, and enjoy exploring new technical ideas. I’m also interested in gaming communities and in bringing people together to turn ideas into real projects.',
         statusAria: 'Status page',
         discordProfileAria: 'Discord profile',
         soundcloudAria: 'Open NEFFEX on SoundCloud',
@@ -202,9 +204,7 @@ Object.entries(NEW_LANGS).forEach(([code, values]) => {
     translations[code] = Object.fromEntries(NEW_KEYS.map((key, i) => [key, values[i]]));
 });
 
-/* =========================================================
-   ELEMENTE UND GRUNDWERTE
-========================================================= */
+
 
 const LANGS = ['de', 'en', 'pl', 'nl', 'ru', 'it', 'sv'];
 const normLang = (l) => (LANGS.includes(l) ? l : 'de');
@@ -261,9 +261,7 @@ function removeStorage(key) {
     }
 }
 
-/* =========================================================
-   SPRACHE
-========================================================= */
+
 
 function applyLanguage(lang) {
     currentLang = normLang(lang);
@@ -330,9 +328,7 @@ function setLanguage(next) {
     }, 180);
 }
 
-/* =========================================================
-   DESIGN UND AKZENTFARBE
-========================================================= */
+
 
 const THEMES = ['light', 'dark', 'auto'];
 const ACCENTS = ['violet', 'blue', 'pink', 'green', 'orange'];
@@ -354,9 +350,41 @@ let motionOn = readStorage('tommy-motion')
     : !reducedMotionQuery.matches;
 
 let autoplayOn = readStorage('tommy-autoplay') !== 'off';
+let compactOn = readStorage('tommy-compact') === 'on';
+let profileOn = readStorage('tommy-profile') !== 'off';
+let backgroundPref = ['grid','gradient','plain'].includes(readStorage('tommy-background')) ? readStorage('tommy-background') : 'gradient';
+let layoutPref = ['normal','tiles'].includes(readStorage('tommy-layout')) ? readStorage('tommy-layout') : 'normal';
 
-const STYLES = ['glass', 'metro', 'retro', 'neon', 'brutal'];
+const STYLES = ['glass', 'metro', 'retro', 'neon', 'brutal', 'aurora', 'mono', 'frost'];
 let stylePref = STYLES.includes(readStorage('tommy-style')) ? readStorage('tommy-style') : 'glass';
+
+function setBackground(name) {
+    backgroundPref = ['grid', 'gradient', 'plain'].includes(name) ? name : 'gradient';
+    writeStorage('tommy-background', backgroundPref);
+    root.setAttribute('data-background', backgroundPref);
+    document.querySelectorAll('[data-background-option]').forEach((el) => el.setAttribute('aria-pressed', String(el.dataset.backgroundOption === backgroundPref)));
+}
+
+function setLayout(name) {
+    layoutPref = ['normal', 'tiles'].includes(name) ? name : 'normal';
+    writeStorage('tommy-layout', layoutPref);
+    root.setAttribute('data-layout', layoutPref);
+    document.querySelectorAll('[data-layout-option]').forEach((el) => el.setAttribute('aria-pressed', String(el.dataset.layoutOption === layoutPref)));
+}
+
+function setCompact(on) {
+    compactOn = Boolean(on);
+    writeStorage('tommy-compact', compactOn ? 'on' : 'off');
+    root.classList.toggle('compact-mode', compactOn);
+    setSwitch('switch-compact', compactOn);
+}
+
+function setProfile(on) {
+    profileOn = Boolean(on);
+    writeStorage('tommy-profile', profileOn ? 'on' : 'off');
+    root.classList.toggle('hide-profile', !profileOn);
+    setSwitch('switch-profile', profileOn);
+}
 
 function setStyle(name) {
     stylePref = STYLES.includes(name) ? name : 'glass';
@@ -483,7 +511,11 @@ function resetSettings() {
         'tommy-fx',
         'tommy-motion',
         'tommy-autoplay',
-        'tommy-style'
+        'tommy-style',
+        'tommy-compact',
+        'tommy-profile',
+        'tommy-background',
+        'tommy-layout'
     ].forEach(removeStorage);
 
     setTheme('dark');
@@ -492,11 +524,13 @@ function resetSettings() {
     setMotion(!reducedMotionQuery.matches);
     setAutoplay(true);
     setStyle('glass');
+    setCompact(false);
+    setProfile(true);
+    setBackground('gradient');
+    setLayout('normal');
 }
 
-/* =========================================================
-   EINSTELLUNGSMENÜ
-========================================================= */
+
 
 function setPanel(open) {
     if (!els.settingsPanel || !els.settingsButton) return;
@@ -543,17 +577,22 @@ function setupSettings() {
     $('switch-fx')?.addEventListener('click', () => setFx(!fxOn));
     $('switch-motion')?.addEventListener('click', () => setMotion(!motionOn));
     $('switch-autoplay')?.addEventListener('click', () => setAutoplay(!autoplayOn));
+    $('switch-compact')?.addEventListener('click', () => setCompact(!compactOn));
+    $('switch-profile')?.addEventListener('click', () => setProfile(!profileOn));
+    document.querySelectorAll('[data-background-option]').forEach((el) => el.addEventListener('click', () => setBackground(el.dataset.backgroundOption)));
+    document.querySelectorAll('[data-layout-option]').forEach((el) => el.addEventListener('click', () => setLayout(el.dataset.layoutOption)));
     $('settings-reset')?.addEventListener('click', resetSettings);
 
     setFx(fxOn);
     setSwitch('switch-motion', motionOn);
     setSwitch('switch-autoplay', autoplayOn);
+    setSwitch('switch-compact', compactOn);
+    setSwitch('switch-profile', profileOn);
+    setBackground(backgroundPref);
+    setLayout(layoutPref);
     setAccent(accentPref);
 }
 
-/* =========================================================
-   INFO-BUCH
-========================================================= */
 
 const book = {
     page: 0,
@@ -660,9 +699,7 @@ document.addEventListener('keydown', (event) => {
     }
 });
 
-/* =========================================================
-   SEKTIONEN UND PROJEKTKARTEN
-========================================================= */
+
 
 function setupSections() {
     document.querySelectorAll('.section-toggle').forEach((button) => {
@@ -1194,6 +1231,10 @@ function init() {
     applyTheme(themePref);
     setAccent(accentPref);
     setStyle(stylePref);
+    setCompact(compactOn);
+    setProfile(profileOn);
+    setBackground(backgroundPref);
+    setLayout(layoutPref);
     setFx(fxOn);
 
     root.classList.toggle('no-motion', !motionOn);
@@ -1210,7 +1251,7 @@ function init() {
         els.enterButton.addEventListener('click', enterWebsite, { once: true });
     }
 
-    // Das Info-Buch und Menüs bleiben bei einem Seitenwechsel geschlossen.
+  
     window.addEventListener('pagehide', () => {
         stopVisualizer();
 
