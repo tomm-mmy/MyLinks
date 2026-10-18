@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="de" data-theme="dark">
+<html lang="de" data-theme="dark" data-style="glass">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -24,12 +24,14 @@
                 if (theme === 'light' || theme === 'dark') {
                     root.setAttribute('data-theme', theme);
                 }
-                if (lang === 'de' || lang === 'en') {
+                if (['de','en','pl','nl','ru','it','sv'].indexOf(lang) !== -1) {
                     root.setAttribute('lang', lang);
                 }
                 if (['blue', 'pink', 'green', 'orange'].indexOf(accent) !== -1) {
                     root.setAttribute('data-accent', accent);
                 }
+                var st = get('tommy-style');
+                if (['glass','metro','retro','neon','brutal'].indexOf(st) !== -1) { root.setAttribute('data-style', st); }
                 if (get('tommy-fx') === 'off') { root.classList.add('no-fx'); }
                 if (get('tommy-motion') === 'off') { root.classList.add('no-motion'); }
                 if (get('tommy-motion') === 'on') { root.classList.add('motion-on'); }
@@ -42,6 +44,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="lanyard.css">
+    <link rel="stylesheet" href="themes.css">
 </head>
 
 <body>
@@ -65,10 +68,15 @@
 
                 <div class="setting-row">
                     <span class="setting-label"><i data-lucide="languages"></i><span data-i18n="setLanguage">Sprache</span></span>
-                    <div class="seg" role="group" data-i18n-aria="setLanguage">
-                        <button type="button" class="seg-btn" data-lang-option="de" aria-pressed="false">DE</button>
-                        <button type="button" class="seg-btn" data-lang-option="en" aria-pressed="false">EN</button>
-                    </div>
+                    <select class="lang-select" id="lang-select" data-i18n-aria="setLanguage">
+                        <option value="de">Deutsch</option>
+                        <option value="en">English</option>
+                        <option value="pl">Polski</option>
+                        <option value="nl">Nederlands</option>
+                        <option value="ru">Русский</option>
+                        <option value="it">Italiano</option>
+                        <option value="sv">Svenska</option>
+                    </select>
                 </div>
 
                 <div class="setting-row">
@@ -77,6 +85,17 @@
                         <button type="button" class="seg-btn seg-icon" data-theme-option="light" aria-pressed="false" data-i18n-aria="themeLight" data-i18n-title="themeLight"><i data-lucide="sun"></i></button>
                         <button type="button" class="seg-btn seg-icon" data-theme-option="dark" aria-pressed="false" data-i18n-aria="themeDark" data-i18n-title="themeDark"><i data-lucide="moon"></i></button>
                         <button type="button" class="seg-btn seg-icon" data-theme-option="auto" aria-pressed="false" data-i18n-aria="themeAuto" data-i18n-title="themeAuto"><i data-lucide="monitor"></i></button>
+                    </div>
+                </div>
+
+                <div class="setting-row stack">
+                    <span class="setting-label"><i data-lucide="layers"></i><span data-i18n="setStyle">Stil</span></span>
+                    <div class="style-grid" role="group" data-i18n-aria="setStyle">
+                        <button type="button" class="style-btn" data-style-option="glass" aria-pressed="false"><i data-lucide="gem"></i><span>Glass</span></button>
+                        <button type="button" class="style-btn" data-style-option="metro" aria-pressed="false"><i data-lucide="layout-dashboard"></i><span>Metro</span></button>
+                        <button type="button" class="style-btn" data-style-option="retro" aria-pressed="false"><i data-lucide="tv"></i><span>Retro</span></button>
+                        <button type="button" class="style-btn" data-style-option="neon" aria-pressed="false"><i data-lucide="sparkles"></i><span>Neon</span></button>
+                        <button type="button" class="style-btn" data-style-option="brutal" aria-pressed="false"><i data-lucide="box"></i><span>Brutal</span></button>
                     </div>
                 </div>
 
@@ -421,6 +440,48 @@
             <div class="collapse" id="sec-gaming">
                 <div class="collapse-inner">
 
+                    <!-- Oktavstadt -->
+                    <article class="card project-card">
+                        <div class="card-head" role="button" tabindex="0" aria-expanded="false" aria-controls="details-oktav">
+                            <div class="card-media">
+                                <img src="assets/images/oktavstadt.jpg" loading="lazy" decoding="async" alt="Oktavstadt" onerror="this.style.display='none'">
+                                <div class="card-media-overlay"></div>
+                                <span class="card-chevron" aria-hidden="true"><i data-lucide="chevron-down"></i></span>
+                            </div>
+                            <div class="card-body">
+                                <div class="project-title-row">
+                                    <h3 class="title-with-icon"><i data-lucide="bell"></i><span>Oktavstadt</span></h3>
+                                    <span class="status active" data-i18n="statusLive">Veröffentlicht</span>
+                                </div>
+                                <p data-i18n="oktavText">Offizieller Server des Glocken-Spiels auf Roblox. Ich bin Teammitglied, das Spiel wird ständig weiterentwickelt.</p>
+                                <div class="project-tags">
+                                    <span class="project-tag">Roblox</span>
+                                    <span class="project-tag" data-i18n="tagTeam">Team</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-links project-links">
+                            <a class="project-link" href="https://discord.gg/f9WwmEBtmE" target="_blank" rel="noopener noreferrer"><span data-i18n="joinDiscord">Discord beitreten</span><i data-lucide="arrow-up-right"></i></a>
+                            <a class="project-link" href="https://www.roblox.com/de/games/105633432256999/Oktavstadt" target="_blank" rel="noopener noreferrer"><i data-lucide="gamepad-2"></i><span data-i18n="playRoblox">Auf Roblox spielen</span></a>
+                        </div>
+                        <div class="collapse closed" id="details-oktav">
+                            <div class="collapse-inner">
+                                <div class="card-details">
+                                    <p class="details-text" data-i18n="oktavMore">Hallo, das ist der offizielle Server von dem Glocken-Spiel Oktavstadt. Wir sind ein Glocken-Spiel auf Roblox, bei uns dreht sich alles um Glocken. Jeder ist hier willkommen.</p>
+                                    <div class="info-grid">
+                                        <div class="info-item"><span class="info-label" data-i18n="infoType">Art</span><span class="info-value">Roblox</span></div>
+                                        <div class="info-item"><span class="info-label" data-i18n="infoStatus">Status</span><span class="info-value" data-i18n="statusLive">Veröffentlicht</span></div>
+                                        <div class="info-item"><span class="info-label" data-i18n="infoRole">Meine Rolle</span><span class="info-value" data-i18n="roleTeam">Teammitglied</span></div>
+                                    </div>
+                                    <div class="link-group-title" data-i18n="groupChannels">Kanäle</div>
+                                    <div class="link-grid">
+                                        <a class="link-chip" href="https://www.youtube.com/@Oktavstadt" target="_blank" rel="noopener noreferrer"><i data-lucide="clapperboard"></i><span>YouTube</span></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+
                     <!-- EAS -->
                     <article class="card project-card">
                         <div class="card-head" role="button" tabindex="0" aria-expanded="false" aria-controls="details-eas">
@@ -657,6 +718,31 @@
                             </div>
                         </div>
                     </article>
+                </div>
+            </div>
+        </section>
+
+        <!-- Öffentliche Bots -->
+        <section class="section">
+            <div class="section-heading">
+                <span class="section-line"></span>
+                <h2>
+                    <button class="section-toggle" type="button" aria-expanded="true" aria-controls="sec-bots">
+                        <span data-i18n="sectionBots">Meine öffentlichen Bots</span>
+                        <i data-lucide="chevron-down"></i>
+                    </button>
+                </h2>
+                <span class="section-line"></span>
+            </div>
+            <div class="collapse" id="sec-bots">
+                <div class="collapse-inner">
+                    <div class="card wip">
+                        <span class="wip-icon"><i data-lucide="construction"></i></span>
+                        <div>
+                            <strong data-i18n="botsWip">In Arbeit</strong>
+                            <p data-i18n="botsWipText">Diese Kategorie ist noch in Arbeit. Bald findest du hier meine öffentlichen Bots.</p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
