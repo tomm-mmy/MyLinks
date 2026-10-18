@@ -1,255 +1,123 @@
-'use strict';
 
-(() => {
-    const USER_ID = '881206091009122406';
-    const API_URL = `https://api.lanyard.rest/v1/users/${USER_ID}`;
-    const REFRESH_MS = 30_000;
-    const REQUEST_TIMEOUT_MS = 8_000;
+.online-dot {
+    flex: 0 0 auto;
+    background: #6b7280;
+    box-shadow: none;
+    transition:
+        background-color 0.2s ease,
+        box-shadow 0.2s ease;
+}
 
-    const translations = {
-        de: {
-            online: 'Online',
-            idle: 'Abwesend',
-            dnd: 'Bitte nicht stören',
-            offline: 'Offline',
-            playing: 'Spielt',
-            streaming: 'Streamt',
-            watching: 'Schaut',
-            competing: 'Wettkampf:',
-            listening: 'Hört'
-        },
-        en: {
-            online: 'Online',
-            idle: 'Away',
-            dnd: 'Do not disturb',
-            offline: 'Offline',
-            playing: 'Playing',
-            streaming: 'Streaming',
-            watching: 'Watching',
-            competing: 'Competing in',
-            listening: 'Listening to'
-        }
-    };
+.online-dot[data-status="online"] {
+    background: #22c55e;
+    box-shadow: 0 0 8px rgba(34, 197, 94, 0.22);
+}
 
-    const EXTRA = {"pl": ["Online", "Zaraz wracam", "Nie przeszkadzać", "Offline", "Gra w", "Streamuje", "Ogląda", "Rywalizuje w", "Słucha"], "nl": ["Online", "Afwezig", "Niet storen", "Offline", "Speelt", "Streamt", "Kijkt naar", "Doet mee aan", "Luistert naar"], "ru": ["В сети", "Неактивен", "Не беспокоить", "Не в сети", "Играет в", "Стримит", "Смотрит", "Соревнуется в", "Слушает"], "it": ["Online", "Assente", "Non disturbare", "Offline", "Gioca a", "Streamma", "Guarda", "Compete in", "Ascolta"], "sv": ["Online", "Borta", "Stör ej", "Offline", "Spelar", "Streamar", "Tittar på", "Tävlar i", "Lyssnar på"]};
-    const KEYS = ["online", "idle", "dnd", "offline", "playing", "streaming", "watching", "competing", "listening"];
-    Object.entries(EXTRA).forEach(([code, values]) => {
-        translations[code] = Object.fromEntries(KEYS.map((key, i) => [key, values[i]]));
-    });
+.online-dot[data-status="idle"] {
+    background: #f59e0b;
+    box-shadow: 0 0 8px rgba(245, 158, 11, 0.2);
+}
 
-    const elements = {
-        dot: document.getElementById('online-dot'),
-        box: document.getElementById('presence'),
-        status: document.getElementById('presence-status'),
-        activity: document.getElementById('presence-activity'),
-        activityText: document.getElementById('presence-activity-text')
-    };
+.online-dot[data-status="dnd"] {
+    background: #ef4444;
+    box-shadow: 0 0 8px rgba(239, 68, 68, 0.2);
+}
 
-    if (
-        !elements.dot ||
-        !elements.box ||
-        !elements.status ||
-        !elements.activity ||
-        !elements.activityText
-    ) {
-        return;
+.presence {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    width: fit-content;
+    max-width: 100%;
+    margin: 12px auto 0;
+    color: var(--text-3);
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.presence[hidden],
+.presence-activity[hidden] {
+    display: none !important;
+}
+
+.presence-dot {
+    flex: 0 0 8px;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #6b7280;
+    transition: background-color 0.2s ease;
+}
+
+.presence[data-status="online"] .presence-dot {
+    background: #22c55e;
+}
+
+.presence[data-status="idle"] .presence-dot {
+    background: #f59e0b;
+}
+
+.presence[data-status="dnd"] .presence-dot {
+    background: #ef4444;
+}
+
+.presence-activity {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    width: fit-content;
+    max-width: min(100%, 420px);
+    min-width: 0;
+    margin: 10px auto 0;
+    padding: 7px 12px;
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    color: var(--text-2);
+    background: var(--chip-bg);
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.presence-activity span {
+    display: block;
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.presence-activity .act-icon {
+    display: none;
+    flex: 0 0 14px;
+    width: 14px;
+    height: 14px;
+    color: var(--accent-text);
+}
+
+.presence-activity[data-kind="game"] .act-game,
+.presence-activity[data-kind="spotify"] .act-spotify,
+.presence-activity[data-kind="custom"] .act-custom {
+    display: block;
+}
+
+@media (max-width: 480px) {
+    .presence {
+        margin-top: 10px;
+        font-size: 11px;
     }
 
-    let userData = null;
-    let isLoading = false;
-    let lastSuccessfulUpdate = 0;
-    let activeController = null;
-
-    function getLanguage() {
-        const lang = document.documentElement.getAttribute('lang');
-        return translations[lang] ? lang : 'en';
+    .presence-activity {
+        max-width: 100%;
+        padding: 7px 10px;
+        font-size: 11px;
     }
+}
 
-    function translate(key) {
-        return translations[getLanguage()][key] || key;
+@media (prefers-reduced-motion: reduce) {
+    .online-dot,
+    .presence-dot {
+        transition: none;
     }
-
-    function describeActivity(user) {
-        const activities = Array.isArray(user.activities)
-            ? user.activities
-            : [];
-
-        const activityTypes = {
-            0: 'playing',
-            1: 'streaming',
-            3: 'watching',
-            5: 'competing'
-        };
-
-        const mainActivity = activities.find(activity =>
-            Object.prototype.hasOwnProperty.call(
-                activityTypes,
-                activity.type
-            ) && activity.name
-        );
-
-        if (mainActivity) {
-            const label = translate(activityTypes[mainActivity.type]);
-
-            return {
-                kind: 'game',
-                text: `${label} ${mainActivity.name}`
-            };
-        }
-
-        if (user.listening_to_spotify && user.spotify) {
-            const song = user.spotify.song || '';
-            const artist = String(user.spotify.artist || '')
-                .replace(/;\s*/g, ', ');
-
-            const details = [song, artist].filter(Boolean).join(' · ');
-
-            if (details) {
-                return {
-                    kind: 'spotify',
-                    text: `${translate('listening')} ${details}`
-                };
-            }
-        }
-
-        const customActivity = activities.find(activity =>
-            activity.type === 4 && activity.state
-        );
-
-        if (customActivity) {
-            return {
-                kind: 'custom',
-                text: customActivity.state
-            };
-        }
-
-        return null;
-    }
-
-    function render() {
-        if (!userData) {
-            elements.box.hidden = true;
-            elements.activity.hidden = true;
-            elements.dot.removeAttribute('data-status');
-            return;
-        }
-
-        const allowedStatuses = ['online', 'idle', 'dnd'];
-
-        const status = allowedStatuses.includes(userData.discord_status)
-            ? userData.discord_status
-            : 'offline';
-
-        const label = translate(status);
-
-        elements.dot.dataset.status = status;
-        elements.dot.title = label;
-
-        elements.box.dataset.status = status;
-        elements.status.textContent = label;
-        elements.box.hidden = false;
-
-        const activity = describeActivity(userData);
-
-        if (activity) {
-            elements.activity.dataset.kind = activity.kind;
-            elements.activityText.textContent = activity.text;
-            elements.activityText.title = activity.text;
-            elements.activity.hidden = false;
-        } else {
-            elements.activity.hidden = true;
-            elements.activity.removeAttribute('data-kind');
-            elements.activityText.textContent = '';
-            elements.activityText.removeAttribute('title');
-        }
-    }
-
-    async function load({ force = false } = {}) {
-        if (isLoading || document.hidden) {
-            return;
-        }
-
-        // Bei einem schnellen erneuten Aufruf nicht unnötig laden.
-        if (
-            !force &&
-            Date.now() - lastSuccessfulUpdate < REFRESH_MS - 1_000
-        ) {
-            return;
-        }
-
-        isLoading = true;
-        activeController = new AbortController();
-
-        const timeoutId = setTimeout(() => {
-            activeController?.abort();
-        }, REQUEST_TIMEOUT_MS);
-
-        try {
-            const response = await fetch(API_URL, {
-                method: 'GET',
-                cache: 'no-store',
-                headers: {
-                    Accept: 'application/json'
-                },
-                signal: activeController.signal
-            });
-
-            if (!response.ok) {
-                throw new Error(`Lanyard HTTP ${response.status}`);
-            }
-
-            const result = await response.json();
-
-            if (!result || result.success !== true || !result.data) {
-                throw new Error('Ungültige Antwort von Lanyard');
-            }
-
-            // Vorhandene Daten bei einem API-Fehler nicht löschen.
-            userData = result.data;
-            lastSuccessfulUpdate = Date.now();
-
-            render();
-        } catch (error) {
-            if (error.name !== 'AbortError') {
-                console.warn('Lanyard konnte nicht geladen werden:', error);
-            }
-        } finally {
-            clearTimeout(timeoutId);
-            activeController = null;
-            isLoading = false;
-        }
-    }
-
-
-    const languageObserver = new MutationObserver(() => {
-        render();
-    });
-
-    languageObserver.observe(document.documentElement, {
-        attributes: true,
-        attributeFilter: ['lang']
-    });
-
-    
-    document.addEventListener('visibilitychange', () => {
-        if (!document.hidden) {
-            load({ force: true });
-        }
-    });
-
- 
-    const refreshInterval = setInterval(() => {
-        if (!document.hidden) {
-            load();
-        }
-    }, REFRESH_MS);
-
-  
-    window.addEventListener('pagehide', () => {
-        clearInterval(refreshInterval);
-        languageObserver.disconnect();
-        activeController?.abort();
-    }, { once: true });
-
-    load({ force: true });
-})();
+}
