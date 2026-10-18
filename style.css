@@ -2672,3 +2672,86 @@ body {
   .option-pill{font-size:10px;padding-inline:7px}
   .wip-locked::after{font-size:7px;right:-43px}
 }
+
+
+/* ---------- Fix: Banner füllt die gesamte Medienfläche ---------- */
+.card-media {
+    display: block;
+    height: 230px;
+    padding: 0;
+    isolation: isolate;
+}
+.card-media > img {
+    position: absolute;
+    inset: 0;
+    display: block;
+    width: 100% !important;
+    height: 100% !important;
+    max-width: none !important;
+    max-height: none !important;
+    object-fit: cover !important;
+    object-position: center center;
+}
+.card-media-overlay {
+    z-index: 1;
+    pointer-events: none;
+}
+.card-media > *:not(img) {
+    z-index: 2;
+}
+.project-card .card-media img {
+    transform: none;
+}
+.project-card:hover .card-media img {
+    transform: scale(1.015);
+}
+
+/* ---------- Fix: Eigenständige Scrollleiste im Einstellungsmenü ---------- */
+.settings-panel {
+    max-height: min(78vh, 720px);
+    max-height: min(78dvh, 720px);
+    overflow-y: auto;
+    overflow-x: hidden;
+    overscroll-behavior: contain;
+    scrollbar-width: thin;
+    scrollbar-color: var(--accent) rgba(255,255,255,0.08);
+    scrollbar-gutter: stable;
+}
+.settings-panel::-webkit-scrollbar {
+    width: 8px;
+}
+.settings-panel::-webkit-scrollbar-track {
+    background: rgba(255,255,255,0.05);
+    border-radius: 10px;
+    margin: 10px 2px;
+}
+.settings-panel::-webkit-scrollbar-thumb {
+    background: rgba(var(--accent-rgb),0.72);
+    border: 2px solid transparent;
+    background-clip: padding-box;
+    border-radius: 10px;
+}
+.settings-panel::-webkit-scrollbar-thumb:hover {
+    background: var(--accent);
+    background-clip: padding-box;
+}
+
+/* Mobile: Menü bleibt innerhalb des Bildschirms und scrollt selbst */
+@media (max-width: 480px) {
+    .settings-panel {
+        position: fixed;
+        top: 64px;
+        right: 12px;
+        width: min(340px, calc(100vw - 24px));
+        max-height: calc(100vh - 82px);
+        max-height: calc(100dvh - 82px);
+    }
+}
+
+/* Kachelbanner passen sich der gewählten Ansicht an */
+:root[data-layout="tiles"] .card-media {
+    height: 190px;
+}
+:root.compact-mode .card-media {
+    height: 170px;
+}
