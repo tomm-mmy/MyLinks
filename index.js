@@ -1,4 +1,3 @@
-
 'use strict';
 
 /* =========================================================
@@ -194,10 +193,21 @@ const translations = {
     }
 };
 
+/* Neue Texte und Sprachen (fehlende Schlüssel fallen auf Englisch zurück) */
+const NEW_KEYS = ["settingsAria", "settingsTitle", "setLanguage", "setTheme", "themeLight", "themeDark", "themeAuto", "setStyle", "setAccent", "setFx", "setMotion", "setAutoplay", "setReset", "welcomeTitle", "welcomeText", "enter", "sectionProjects", "sectionGaming", "sectionHosting", "sectionBots", "sectionSkills", "botsWip", "botsWipText", "statusLive", "statusCommunity", "statusTeam", "statusMember", "statusHost", "openDiscord", "joinDiscord", "playRoblox", "skillGaming", "infoRole", "roleTeam", "location"];
+const NEW_LANGS = {"pl": ["Otwórz ustawienia", "Ustawienia", "Język", "Motyw", "Jasny", "Ciemny", "System", "Styl", "Kolor akcentu", "Efekty tła", "Animacje", "Muzyka po wejściu", "Resetuj", "Witaj", "Kliknij, aby wejść", "Wejdź na stronę", "Moje projekty", "Gry", "Hosting", "Moje publiczne boty", "Co robię", "W budowie", "Ta kategoria jest jeszcze w przygotowaniu. Wkrótce znajdziesz tu moje publiczne boty.", "Opublikowana", "Społeczność", "W zespole", "Członek", "Hoster", "Otwórz Discorda", "Dołącz do Discorda", "Graj na Roblox", "Granie", "Moja rola", "Członek zespołu", "17 lat · Austria"], "nl": ["Instellingen openen", "Instellingen", "Taal", "Thema", "Licht", "Donker", "Systeem", "Stijl", "Accentkleur", "Achtergrondeffecten", "Animaties", "Muziek bij binnenkomst", "Resetten", "Welkom", "Klik om binnen te gaan", "Site betreden", "Mijn projecten", "Gaming", "Hosting", "Mijn openbare bots", "Wat ik doe", "In aanbouw", "Deze categorie is nog in ontwikkeling. Binnenkort vind je hier mijn openbare bots.", "Gepubliceerd", "Community", "In het team", "Lid", "Host", "Discord openen", "Discord joinen", "Speel op Roblox", "Gamen", "Mijn rol", "Teamlid", "17 jaar · Oostenrijk"], "ru": ["Открыть настройки", "Настройки", "Язык", "Тема", "Светлая", "Тёмная", "Система", "Стиль", "Цвет акцента", "Фоновые эффекты", "Анимации", "Музыка при входе", "Сбросить", "Добро пожаловать", "Нажмите, чтобы войти", "Войти на сайт", "Мои проекты", "Игры", "Хостинг", "Мои публичные боты", "Чем я занимаюсь", "В разработке", "Эта категория ещё в работе. Скоро здесь появятся мои публичные боты.", "Опубликовано", "Сообщество", "В команде", "Участник", "Хостер", "Открыть Discord", "Вступить в Discord", "Играть в Roblox", "Игры", "Моя роль", "Участник команды", "17 лет · Австрия"], "it": ["Apri impostazioni", "Impostazioni", "Lingua", "Tema", "Chiaro", "Scuro", "Sistema", "Stile", "Colore principale", "Effetti di sfondo", "Animazioni", "Musica all’ingresso", "Ripristina", "Benvenuto", "Clicca per entrare", "Entra nel sito", "I miei progetti", "Gaming", "Hosting", "I miei bot pubblici", "Cosa faccio", "In lavorazione", "Questa categoria è ancora in lavorazione. Presto troverai qui i miei bot pubblici.", "Pubblicato", "Community", "Nel team", "Membro", "Host", "Apri Discord", "Unisciti a Discord", "Gioca su Roblox", "Gaming", "Il mio ruolo", "Membro del team", "17 anni · Austria"], "sv": ["Öppna inställningar", "Inställningar", "Språk", "Tema", "Ljust", "Mörkt", "System", "Stil", "Accentfärg", "Bakgrundseffekter", "Animationer", "Musik vid inträde", "Återställ", "Välkommen", "Klicka för att komma in", "Gå in på sidan", "Mina projekt", "Spel", "Hosting", "Mina publika botar", "Vad jag gör", "Under arbete", "Den här kategorin är fortfarande under arbete. Snart hittar du mina publika botar här.", "Publicerad", "Community", "I teamet", "Medlem", "Värd", "Öppna Discord", "Gå med i Discord", "Spela på Roblox", "Spelande", "Min roll", "Teammedlem", "17 år · Österrike"]};
+Object.assign(translations.de, {"setStyle": "Stil", "sectionBots": "Meine öffentlichen Bots", "botsWip": "In Arbeit", "botsWipText": "Diese Kategorie ist noch in Arbeit. Bald findest du hier meine öffentlichen Bots.", "statusLive": "Veröffentlicht", "playRoblox": "Auf Roblox spielen", "tagTeam": "Team", "oktavText": "Offizieller Server des Glocken-Spiels auf Roblox. Ich bin Teammitglied, das Spiel wird ständig weiterentwickelt.", "oktavMore": "Hallo, das ist der offizielle Server von dem Glocken-Spiel Oktavstadt. Wir sind ein Glocken-Spiel auf Roblox, bei uns dreht sich alles um Glocken. Jeder ist hier willkommen."});
+Object.assign(translations.en, {"setStyle": "Style", "sectionBots": "My public bots", "botsWip": "Work in progress", "botsWipText": "This category is still in progress. My public bots will appear here soon.", "statusLive": "Released", "playRoblox": "Play on Roblox", "tagTeam": "Team", "oktavText": "Official server of the bell game on Roblox. I am a team member and the game keeps being developed.", "oktavMore": "Hello, this is the official server of the bell game Oktavstadt. We are a bell game on Roblox and everything here revolves around bells. Everyone is welcome."});
+Object.entries(NEW_LANGS).forEach(([code, values]) => {
+    translations[code] = Object.fromEntries(NEW_KEYS.map((key, i) => [key, values[i]]));
+});
+
 /* =========================================================
    ELEMENTE UND GRUNDWERTE
 ========================================================= */
 
+const LANGS = ['de', 'en', 'pl', 'nl', 'ru', 'it', 'sv'];
+const normLang = (l) => (LANGS.includes(l) ? l : 'de');
 const $ = (id) => document.getElementById(id);
 const root = document.documentElement;
 
@@ -221,10 +231,10 @@ const els = {
 
 let lastVolume = music.defaultVolume;
 let audioError = false;
-let currentLang = root.getAttribute('lang') === 'en' ? 'en' : 'de';
+let currentLang = normLang(root.getAttribute('lang'));
 
 function t(key) {
-    return translations[currentLang]?.[key] ?? translations.de[key] ?? key;
+    return translations[currentLang]?.[key] ?? translations.en?.[key] ?? translations.de[key] ?? key;
 }
 
 function readStorage(key) {
@@ -256,7 +266,7 @@ function removeStorage(key) {
 ========================================================= */
 
 function applyLanguage(lang) {
-    currentLang = lang === 'en' ? 'en' : 'de';
+    currentLang = normLang(lang);
     root.setAttribute('lang', currentLang);
 
     document.querySelectorAll('[data-i18n]').forEach((element) => {
@@ -285,18 +295,22 @@ function applyLanguage(lang) {
 let langTimer = null;
 
 function markLanguage(lang) {
-    document.querySelectorAll('[data-lang-option]').forEach((element) => {
-        element.setAttribute(
-            'aria-pressed',
-            String(element.dataset.langOption === lang)
-        );
+    const select = $('lang-select');
+    if (select) select.value = lang;
+
+    $('lang-select')?.addEventListener('change', (event) => {
+        setLanguage(event.target.value);
+    });
+
+    document.querySelectorAll('[data-style-option]').forEach((element) => {
+        element.addEventListener('click', () => setStyle(element.dataset.styleOption));
     });
 }
 
 function setLanguage(next) {
     if (next === currentLang) return;
 
-    const nextLanguage = next === 'en' ? 'en' : 'de';
+    const nextLanguage = normLang(next);
     writeStorage('tommy-lang', nextLanguage);
 
     if (reducedMotion) {
@@ -340,6 +354,19 @@ let motionOn = readStorage('tommy-motion')
     : !reducedMotionQuery.matches;
 
 let autoplayOn = readStorage('tommy-autoplay') !== 'off';
+
+const STYLES = ['glass', 'metro', 'retro', 'neon', 'brutal'];
+let stylePref = STYLES.includes(readStorage('tommy-style')) ? readStorage('tommy-style') : 'glass';
+
+function setStyle(name) {
+    stylePref = STYLES.includes(name) ? name : 'glass';
+    writeStorage('tommy-style', stylePref);
+    root.setAttribute('data-style', stylePref);
+
+    document.querySelectorAll('[data-style-option]').forEach((element) => {
+        element.setAttribute('aria-pressed', String(element.dataset.styleOption === stylePref));
+    });
+}
 
 function resolveTheme(pref) {
     if (pref === 'auto') {
@@ -455,7 +482,8 @@ function resetSettings() {
         'tommy-accent',
         'tommy-fx',
         'tommy-motion',
-        'tommy-autoplay'
+        'tommy-autoplay',
+        'tommy-style'
     ].forEach(removeStorage);
 
     setTheme('dark');
@@ -463,6 +491,7 @@ function resetSettings() {
     setFx(true);
     setMotion(!reducedMotionQuery.matches);
     setAutoplay(true);
+    setStyle('glass');
 }
 
 /* =========================================================
@@ -1164,6 +1193,7 @@ function init() {
     // Einstellungen zuerst anwenden, damit die Seite direkt richtig erscheint.
     applyTheme(themePref);
     setAccent(accentPref);
+    setStyle(stylePref);
     setFx(fxOn);
 
     root.classList.toggle('no-motion', !motionOn);
