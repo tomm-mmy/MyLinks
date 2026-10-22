@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html lang="de" data-theme="dark" data-style="glass" data-background="gradient" data-layout="normal">
+<html lang="de" data-theme="dark" data-style="aurora" data-background="gradient" data-layout="tiles" data-accent="orange">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="theme-color" content="#08090c">
-    <meta name="description" content="Tommy – Discord Development, JavaScript, Python und Core3D.">
-    <title>Tommy — Links</title>
+    <meta name="description" content="Tommy, Discord Development, JavaScript, Python und Core3D.">
+    <title>Tommy, Links</title>
 
     <script>
         (function () {
@@ -85,35 +85,9 @@
                 </div>
 
                 <div class="setting-row">
-                    <span class="setting-label"><i data-lucide="sun-moon"></i><span data-i18n="setTheme">Design</span></span>
-                    <div class="seg" role="group" data-i18n-aria="setTheme">
-                        <button type="button" class="seg-btn seg-icon" data-theme-option="light" aria-pressed="false" data-i18n-aria="themeLight" data-i18n-title="themeLight"><i data-lucide="sun"></i></button>
-                        <button type="button" class="seg-btn seg-icon" data-theme-option="dark" aria-pressed="false" data-i18n-aria="themeDark" data-i18n-title="themeDark"><i data-lucide="moon"></i></button>
-                        <button type="button" class="seg-btn seg-icon" data-theme-option="auto" aria-pressed="false" data-i18n-aria="themeAuto" data-i18n-title="themeAuto"><i data-lucide="monitor"></i></button>
-                    </div>
-                </div>
-
-                <div class="setting-row stack">
-                    <span class="setting-label"><i data-lucide="layers"></i><span data-i18n="setStyle">Stil</span></span>
-                    <div class="style-grid" role="group" data-i18n-aria="setStyle">
-                        <button type="button" class="style-btn" data-style-option="glass" aria-pressed="false"><i data-lucide="gem"></i><span>Glass</span></button>
-                        <button type="button" class="style-btn" data-style-option="metro" aria-pressed="false"><i data-lucide="layout-dashboard"></i><span>Metro</span></button>
-                        <button type="button" class="style-btn" data-style-option="retro" aria-pressed="false"><i data-lucide="tv"></i><span>Retro</span></button>
-                        <button type="button" class="style-btn" data-style-option="neon" aria-pressed="false"><i data-lucide="sparkles"></i><span>Neon</span></button>
-                        <button type="button" class="style-btn" data-style-option="brutal" aria-pressed="false"><i data-lucide="box"></i><span>Brutal</span></button>
-                        <button type="button" class="style-btn" data-style-option="aurora" aria-pressed="false"><i data-lucide="waves"></i><span>Aurora</span></button>
-                        <button type="button" class="style-btn" data-style-option="mono" aria-pressed="false"><i data-lucide="contrast"></i><span>Mono</span></button>
-                        <button type="button" class="style-btn" data-style-option="frost" aria-pressed="false"><i data-lucide="snowflake"></i><span>Frost</span></button>
-                    </div>
-                </div>
-
-                <div class="setting-row">
                     <span class="setting-label"><i data-lucide="palette"></i><span data-i18n="setAccent">Akzentfarbe</span></span>
                     <div class="swatches" role="group" data-i18n-aria="setAccent">
-                        <button type="button" class="swatch" data-accent-option="violet" style="--sw:#8b5cf6" aria-pressed="false" data-i18n-aria="accentViolet" data-i18n-title="accentViolet"></button>
                         <button type="button" class="swatch" data-accent-option="blue" style="--sw:#3b82f6" aria-pressed="false" data-i18n-aria="accentBlue" data-i18n-title="accentBlue"></button>
-                        <button type="button" class="swatch" data-accent-option="pink" style="--sw:#ec4899" aria-pressed="false" data-i18n-aria="accentPink" data-i18n-title="accentPink"></button>
-                        <button type="button" class="swatch" data-accent-option="green" style="--sw:#10b981" aria-pressed="false" data-i18n-aria="accentGreen" data-i18n-title="accentGreen"></button>
                         <button type="button" class="swatch" data-accent-option="orange" style="--sw:#f97316" aria-pressed="false" data-i18n-aria="accentOrange" data-i18n-title="accentOrange"></button>
                     </div>
                 </div>
@@ -134,37 +108,7 @@
                         <button type="button" class="option-pill" data-layout-option="tiles">Kacheln</button>
                     </div>
                 </div>
-
-                <div class="setting-row">
-                    <span class="setting-label"><i data-lucide="minimize-2"></i><span data-i18n="setCompact">Kompaktmodus</span></span>
-                    <button type="button" class="switch" id="switch-compact" role="switch" aria-checked="false" data-i18n-aria="setCompact"><span class="switch-knob"></span></button>
-                </div>
-
-                <div class="setting-row">
-                    <span class="setting-label"><i data-lucide="user-round"></i><span data-i18n="setProfile">Profilansicht</span></span>
-                    <button type="button" class="switch" id="switch-profile" role="switch" aria-checked="true" data-i18n-aria="setProfile"><span class="switch-knob"></span></button>
-                </div>
-
-                <div class="setting-row">
-                    <span class="setting-label"><i data-lucide="sparkles"></i><span data-i18n="setFx">Hintergrund-Effekte</span></span>
-                    <button type="button" class="switch" id="switch-fx" role="switch" aria-checked="true" data-i18n-aria="setFx"><span class="switch-knob"></span></button>
-                </div>
-
-                <div class="setting-row">
-                    <span class="setting-label"><i data-lucide="zap"></i><span data-i18n="setMotion">Animationen</span></span>
-                    <button type="button" class="switch" id="switch-motion" role="switch" aria-checked="true" data-i18n-aria="setMotion"><span class="switch-knob"></span></button>
-                </div>
-
-                <div class="setting-row">
-                    <span class="setting-label"><i data-lucide="headphones"></i><span data-i18n="setAutoplay">Musik beim Betreten</span></span>
-                    <button type="button" class="switch" id="switch-autoplay" role="switch" aria-checked="true" data-i18n-aria="setAutoplay"><span class="switch-knob"></span></button>
-                </div>
-
-                <button type="button" class="settings-reset" id="settings-reset">
-                    <i data-lucide="rotate-ccw"></i>
-                    <span data-i18n="setReset">Zurücksetzen</span>
-                </button>
-            </div>
+            </div></div>
         </div>
     </div>
 
@@ -209,7 +153,7 @@
                 <section class="book-page" data-page="2">
                     <span class="book-icon"><i data-lucide="sliders-horizontal"></i></span>
                     <h2 data-i18n="book3Title">Gut zu wissen</h2>
-                    <p data-i18n="book3Text">Beim Betreten läuft Musik von NEFFEX. Pausieren oder leiser machen kannst du im Player. Über das Zahnrad oben rechts änderst du Sprache, Design, Akzentfarbe und mehr.</p>
+                    <p data-i18n="book3Text">Über das Zahnrad oben rechts kannst du die Sprache und Akzentfarbe ändern.</p>
                 </section>
 
                 <section class="book-page" data-page="3">
@@ -240,7 +184,7 @@
         <!-- Profil -->
         <section class="card profile">
             <div class="profile-image-wrapper">
-                <div class="profile-logo" role="img" aria-label="Tommy – T">T</div>
+                <div class="profile-logo" role="img" aria-label="Tommy, T">T</div>
                 <span class="online-dot" id="online-dot"></span>
             </div>
 
