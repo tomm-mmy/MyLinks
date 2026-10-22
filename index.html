@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="de" data-theme="dark" data-style="aurora" data-background="gradient" data-layout="tiles" data-accent="orange">
+<html lang="de" data-theme="dark" data-style="aurora" data-background="grid" data-layout="tiles" data-accent="orange">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,39 +8,19 @@
     <title>Tommy, Links</title>
 
     <script>
-        (function () { 
+        (function () {
             var root = document.documentElement;
-            function get(k) { try { return localStorage.getItem(k); } catch (e) { return null; } }
+            root.setAttribute('lang', 'de');
+            root.setAttribute('data-style', 'aurora');
+            root.setAttribute('data-background', 'grid');
+            root.setAttribute('data-layout', 'tiles');
             try {
-                if ('scrollRestoration' in history) {
-                    history.scrollRestoration = 'manual';
-                }
-                var theme = get('tommy-theme');
-                var lang = get('tommy-lang');
-                var accent = get('tommy-accent');
-                if (theme === 'auto') {
-                    theme = window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
-                }
-                if (theme === 'light' || theme === 'dark') {
-                    root.setAttribute('data-theme', theme);
-                }
-                if (['de','en','pl','nl','ru','it','sv'].indexOf(lang) !== -1) {
-                    root.setAttribute('lang', lang);
-                }
-                if (['blue', 'pink', 'green', 'orange'].indexOf(accent) !== -1) {
-                    root.setAttribute('data-accent', accent);
-                }
-                var st = get('tommy-style');
-                if (['glass','metro','retro','neon','brutal','aurora','mono','frost'].indexOf(st) !== -1) { root.setAttribute('data-style', st); }
-                if (get('tommy-fx') === 'off') { root.classList.add('no-fx'); }
-                if (get('tommy-motion') === 'off') { root.classList.add('no-motion'); }
-                if (get('tommy-motion') === 'on') { root.classList.add('motion-on'); }
-                if (get('tommy-compact') === 'on') { root.classList.add('compact-mode'); }
-                if (get('tommy-profile') === 'off') { root.classList.add('hide-profile'); }
-                var bg = get('tommy-background');
-                if (['grid','gradient','plain'].indexOf(bg) !== -1) { root.setAttribute('data-background', bg); }
-                var layout = get('tommy-layout');
-                if (['normal','tiles'].indexOf(layout) !== -1) { root.setAttribute('data-layout', layout); }
+                var accent = localStorage.getItem('tommy-accent');
+                root.setAttribute('data-accent', accent === 'blue' ? 'blue' : 'orange');
+                localStorage.setItem('tommy-lang', 'de');
+                localStorage.setItem('tommy-style', 'aurora');
+                localStorage.setItem('tommy-background', 'grid');
+                localStorage.setItem('tommy-layout', 'tiles');
             } catch (e) {}
         })();
     </script>
@@ -72,43 +52,13 @@
                 </div>
 
                 <div class="setting-row">
-                    <span class="setting-label"><i data-lucide="languages"></i><span data-i18n="setLanguage">Sprache</span></span>
-                    <select class="lang-select" id="lang-select" data-i18n-aria="setLanguage">
-                        <option value="de">Deutsch</option>
-                        <option value="en">English</option>
-                        <option value="pl">Polski</option>
-                        <option value="nl">Nederlands</option>
-                        <option value="ru">Русский</option>
-                        <option value="it">Italiano</option>
-                        <option value="sv">Svenska</option>
-                    </select>
-                </div>
-
-                <div class="setting-row">
                     <span class="setting-label"><i data-lucide="palette"></i><span data-i18n="setAccent">Akzentfarbe</span></span>
                     <div class="swatches" role="group" data-i18n-aria="setAccent">
                         <button type="button" class="swatch" data-accent-option="blue" style="--sw:#3b82f6" aria-pressed="false" data-i18n-aria="accentBlue" data-i18n-title="accentBlue"></button>
                         <button type="button" class="swatch" data-accent-option="orange" style="--sw:#f97316" aria-pressed="false" data-i18n-aria="accentOrange" data-i18n-title="accentOrange"></button>
                     </div>
                 </div>
-
-                <div class="setting-row stack">
-                    <span class="setting-label"><i data-lucide="image"></i><span data-i18n="setBackground">Hintergrundstil</span></span>
-                    <div class="option-pills" role="group" aria-label="Hintergrundstil">
-                        <button type="button" class="option-pill" data-background-option="grid">Gitternetz</button>
-                        <button type="button" class="option-pill" data-background-option="gradient">Verläufe</button>
-                        <button type="button" class="option-pill" data-background-option="plain">Schlicht</button>
-                    </div>
-                </div>
-
-                <div class="setting-row stack">
-                    <span class="setting-label"><i data-lucide="layout-grid"></i><span data-i18n="setLayout">Kartenlayout</span></span>
-                    <div class="option-pills" role="group" aria-label="Kartenlayout">
-                        <button type="button" class="option-pill" data-layout-option="normal">Normal</button>
-                        <button type="button" class="option-pill" data-layout-option="tiles">Kacheln</button>
-                    </div>
-                </div>
-            </div></div>
+            </div>
         </div>
     </div>
 
@@ -153,7 +103,7 @@
                 <section class="book-page" data-page="2">
                     <span class="book-icon"><i data-lucide="sliders-horizontal"></i></span>
                     <h2 data-i18n="book3Title">Gut zu wissen</h2>
-                    <p data-i18n="book3Text">Über das Zahnrad oben rechts kannst du die Sprache und Akzentfarbe ändern.</p>
+                    <p data-i18n="book3Text">Über das Zahnrad oben rechts kannst du zwischen Orange und Blau wechseln.</p>
                 </section>
 
                 <section class="book-page" data-page="3">
@@ -240,82 +190,7 @@
             </div>
         </section>
 
-        <!-- Musik -->
-        <section class="card music-card">
-            <div class="music-cover">
-                <div class="music-cover-overlay"></div>
-                <div class="music-cover-text">
-                    <span>NEFFEX</span>
-                    <strong>BURN<br>THE BRIDGE</strong>
-                </div>
-            </div>
-
-            <div class="music-content">
-                <div class="music-top">
-                    <div>
-                        <span class="music-label" data-i18n="nowPlaying">NOW PLAYING</span>
-                        <h2 id="track-title">BURN THE BRIDGE</h2>
-                        <p id="track-artist">NEFFEX</p>
-                    </div>
-
-                    <a
-                        class="soundcloud-button"
-                        href="https://soundcloud.com/neffexmusic/burn-the-bridge-copyright-free"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        data-i18n-aria="soundcloudAria"
-                    >
-                        SoundCloud
-                        <i data-lucide="arrow-up-right"></i>
-                    </a>
-                </div>
-
-                <div class="music-controls">
-                    <button class="play-button" id="play-button" type="button" aria-label="Musik abspielen">
-                        <i data-lucide="play" class="play-icon"></i>
-                        <i data-lucide="pause" class="pause-icon"></i>
-                    </button>
-
-                    <div class="music-progress-area">
-                        <div class="music-time">
-                            <span id="current-time">0:00</span>
-                            <span id="duration">0:00</span>
-                        </div>
-                        <input
-                            id="seek"
-                            class="progress"
-                            type="range"
-                            min="0"
-                            max="100"
-                            value="0"
-                            step="0.1"
-                            data-i18n-aria="seekAria"
-                        >
-                    </div>
-
-                    <button class="volume-button" id="volume-button" type="button" aria-label="Ton ausschalten">
-                        <i data-lucide="volume-2" class="volume-on-icon"></i>
-                        <i data-lucide="volume-x" class="volume-off-icon"></i>
-                    </button>
-                </div>
-
-                <div class="volume-area">
-                    <input
-                        id="volume"
-                        class="volume-slider"
-                        type="range"
-                        min="0"
-                        max="1"
-                        step="0.01"
-                        value="0.5"
-                        data-i18n-aria="volumeAria"
-                    >
-                </div>
-            </div>
-
-            <audio id="audio" preload="metadata" loop></audio>
-        </section>
-
+        <!-- Musik-Player vorerst entfernt -->
         <!-- Meine Projekte -->
         <section class="section">
             <div class="section-heading">
