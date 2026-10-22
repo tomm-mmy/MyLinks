@@ -2889,3 +2889,32 @@ body {
     :root[data-layout="tiles"] #sec-projects > .collapse > .collapse-inner { grid-template-columns: minmax(0,1fr); }
     .generated-banner { min-height: 140px; padding: 20px; }
 }
+
+
+/* MyLinks vereinfachtes Design: Aurora und Kacheln sind fest eingestellt. */
+:root[data-style="aurora"] .background-glow {
+    opacity: 0.48;
+}
+:root[data-style="aurora"] .background-grid {
+    opacity: 0.32;
+}
+:root[data-layout="tiles"] .project-grid,
+:root[data-layout="tiles"] .cards-grid {
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr));
+}
+.music-card {
+    display: none !important;
+}
+.settings-panel {
+    max-height: min(78vh, 680px);
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    scrollbar-width: thin;
+}
+.settings-panel::-webkit-scrollbar {
+    width: 7px;
+}
+.settings-panel::-webkit-scrollbar-thumb {
+    background: var(--accent);
+    border-radius: 10px;
+}
