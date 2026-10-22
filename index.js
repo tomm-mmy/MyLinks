@@ -42,7 +42,7 @@ const translations = {
         book2Title: 'Was gibt es zu sehen?',
         book2Text: 'Meine Projekte, Gaming-Communities, der Hoster meiner Discord Bots und mein Discord-Status live. Klapp eine Karte auf, dann siehst du mehr Details und weitere Links.',
         book3Title: 'Gut zu wissen',
-        book3Text: 'Beim Betreten läuft Musik von NEFFEX. Pausieren oder leiser machen kannst du im Player. Über das Zahnrad oben rechts änderst du Sprache, Design, Akzentfarbe und mehr.',
+        book3Text: 'Über das Zahnrad oben rechts kannst du Sprache und Akzentfarbe ändern.',
         book4Title: 'Datenschutz',
         book4Text: 'Deine Einstellungen werden nur lokal in deinem Browser gespeichert. Der Discord-Status wird live über die Lanyard-API abgefragt.',
         welcomeTitle: 'Willkommen',
@@ -72,10 +72,10 @@ const translations = {
         coreText: 'Core3D ist eine Community rund um 3D-Design und 3D-Druck, die ich gemeinsam mit einem Freund betreibe. Ich kümmere mich um die Community und den Discord; mein Freund konzentriert sich auf die 3D-Arbeiten. Wir wollen einen Ort schaffen, an dem man Projekte zeigen, Fragen stellen und sich austauschen kann.',
         tag3d: '3D-Druck',
         tagCommunity: 'Community',
-        tagLead: 'Leitung',
+        tagLead: '',
         tagMember: 'Mitglied',
         easText: 'EAS ist ein Roleplay-Projekt, bei dem ich zum Team gehöre. Die Entwicklung läuft noch und ich bin nicht der Projektinhaber. Im Discord kannst du schon vorbeischauen und die weiteren Updates zum Projekt verfolgen.',
-        truckerText: 'Bei Fichtelhillz Trucker dreht sich alles um Euro Truck Simulator 2, gemeinsame Touren und Convoys. Ich bin dort Mitglied und schaue bei der Community mit. Egal ob du gerade erst anfängst oder schon viele Kilometer gefahren bist – im Mittelpunkt stehen gemeinsames Fahren und Austausch.',
+        truckerText: 'Bei Fichtelhillz Trucker dreht sich alles um Euro Truck Simulator 2, gemeinsame Touren und Convoys. Ich bin dort Mitglied und schaue bei der Community mit. Egal ob du gerade erst anfängst oder schon viele Kilometer gefahren bist, im Mittelpunkt stehen gemeinsames Fahren und Austausch.',
         serverixText: 'Serverix nutze ich, um meine Discord-Bots zu hosten. Dort laufen meine Projekte und ihre Dienste. Wenn du mehr über den Hoster erfahren oder dich mit der Community austauschen möchtest, findest du den passenden Einstieg über den Serverix-Discord.',
         openDiscord: 'Discord öffnen',
         joinDiscord: 'Discord beitreten',
@@ -162,7 +162,7 @@ const translations = {
         coreText: 'A server about 3D design and 3D printing that I run together with a friend. I lead the community, my buddy takes care of the 3D work.',
         tag3d: '3D printing',
         tagCommunity: 'Community',
-        tagLead: 'Leadership',
+        tagLead: '',
         tagMember: 'Member',
         easText: 'A roleplay project where I am part of the team. Others do the building, but you can already join the Discord.',
         truckerText: 'A community around trucking in ETS2 with shared tours, convoys and chatting. I am a member there, beginners and pros are welcome.',
@@ -210,6 +210,8 @@ const LANGS = ['de', 'en', 'pl', 'nl', 'ru', 'it', 'sv'];
 const normLang = (l) => (LANGS.includes(l) ? l : 'de');
 const $ = (id) => document.getElementById(id);
 const root = document.documentElement;
+root.setAttribute('data-style', 'aurora');
+root.setAttribute('data-layout', 'tiles');
 
 const els = {
     welcomeScreen: $('welcome-screen'),
@@ -519,15 +521,15 @@ function resetSettings() {
     ].forEach(removeStorage);
 
     setTheme('dark');
-    setAccent('violet');
+    setAccent('orange');
     setFx(true);
     setMotion(!reducedMotionQuery.matches);
     setAutoplay(true);
-    setStyle('glass');
+    setStyle('aurora');
     setCompact(false);
     setProfile(true);
     setBackground('gradient');
-    setLayout('normal');
+    setLayout('tiles');
 }
 
 
