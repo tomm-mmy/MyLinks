@@ -38,9 +38,9 @@ const translations = {
         bookPrev: 'Vorherige Seite',
         bookNext: 'Nächste Seite',
         book1Title: 'Was ist das hier?',
-        book1Text: 'Das ist meine Link-Seite. Hier findest du meine Projekte, Communities und Links an einem Ort, statt verstreut auf lauter einzelnen Seiten.',
+        book1Text: 'Hier findest du meine Projekte, Communities und wichtigen Links an einem Ort.',
         book2Title: 'Was gibt es zu sehen?',
-        book2Text: 'Meine Projekte, Gaming-Communities, der Hoster meiner Discord Bots und mein Discord-Status live. Klapp eine Karte auf, dann siehst du mehr Details und weitere Links.',
+        book2Text: 'Hier gibt es meine Projekte, Gaming Communities, den Hoster meiner Discord Bots und meinen aktuellen Discord Status. Öffne eine Kachel, um mehr zu erfahren.',
         book3Title: 'Gut zu wissen',
         book3Text: 'Über das Zahnrad oben rechts kannst du Sprache und Akzentfarbe ändern.',
         book4Title: 'Datenschutz',
@@ -48,8 +48,8 @@ const translations = {
         welcomeTitle: 'Willkommen',
         welcomeText: 'Klicke zum Betreten',
         enter: 'Seite betreten',
-        location: '17 Jahre · Österreich',
-        bio: 'Ich bin Tommy aus Österreich und beschäftige mich mit Discord-Bots, Websites und kleinen eigenen Projekten. Am meisten arbeite ich mit JavaScript und Python. Neben dem Coden bin ich gern in Gaming- und Entwickler-Communities unterwegs und probiere neue Ideen aus.',
+        location: '17 Jahre, Österreich',
+        bio: 'Ich bin Tommy aus Österreich. In meiner Freizeit entwickle ich Discord Bots und Websites, meistens mit JavaScript und Python. Außerdem bin ich gern in Gaming Communities unterwegs und arbeite an eigenen Ideen.',
         statusAria: 'Statusseite',
         discordProfileAria: 'Discord Profil',
         soundcloudAria: 'NEFFEX auf SoundCloud öffnen',
@@ -69,14 +69,14 @@ const translations = {
         statusTeam: 'Im Team',
         statusMember: 'Mitglied',
         statusHost: 'Hoster',
-        coreText: 'Core3D ist eine Community rund um 3D-Design und 3D-Druck, die ich gemeinsam mit einem Freund betreibe. Ich kümmere mich um die Community und den Discord; mein Freund konzentriert sich auf die 3D-Arbeiten. Wir wollen einen Ort schaffen, an dem man Projekte zeigen, Fragen stellen und sich austauschen kann.',
+        coreText: 'Core3D ist eine Community für 3D Design und 3D Druck, die ich zusammen mit einem Freund betreibe. Ich kümmere mich um die Community und den Discord. Mein Freund übernimmt die 3D Arbeiten. Wir möchten einen Ort bieten, an dem man eigene Projekte zeigen und sich austauschen kann.',
         tag3d: '3D-Druck',
         tagCommunity: 'Community',
         tagLead: '',
         tagMember: 'Mitglied',
-        easText: 'EAS ist ein Roleplay-Projekt, bei dem ich zum Team gehöre. Die Entwicklung läuft noch und ich bin nicht der Projektinhaber. Im Discord kannst du schon vorbeischauen und die weiteren Updates zum Projekt verfolgen.',
-        truckerText: 'Bei Fichtelhillz Trucker dreht sich alles um Euro Truck Simulator 2, gemeinsame Touren und Convoys. Ich bin dort Mitglied und schaue bei der Community mit. Egal ob du gerade erst anfängst oder schon viele Kilometer gefahren bist, im Mittelpunkt stehen gemeinsames Fahren und Austausch.',
-        serverixText: 'Serverix nutze ich, um meine Discord-Bots zu hosten. Dort laufen meine Projekte und ihre Dienste. Wenn du mehr über den Hoster erfahren oder dich mit der Community austauschen möchtest, findest du den passenden Einstieg über den Serverix-Discord.',
+        easText: 'EAS ist ein Roleplay Projekt, bei dem ich im Team mitarbeite. Das Projekt wird noch entwickelt. Im Discord findest du Neuigkeiten und kannst den Fortschritt mitverfolgen.',
+        truckerText: 'Bei Fichtelhillz Trucker geht es um Euro Truck Simulator 2, gemeinsame Touren und Convoys. Ich bin dort Mitglied. Im Mittelpunkt stehen das gemeinsame Fahren und der Austausch mit anderen.',
+        serverixText: 'Bei Serverix hoste ich meine Discord Bots. Über die Links findest du die Website, den Status und die Community des Hosters.',
         openDiscord: 'Discord öffnen',
         joinDiscord: 'Discord beitreten',
         skillGaming: 'Zocken',
@@ -132,13 +132,13 @@ const translations = {
         book2Title: 'What is there to see?',
         book2Text: 'My projects, gaming communities, the host of my Discord bots and my live Discord status. Open a card to see more details and further links.',
         book3Title: 'Good to know',
-        book3Text: 'Music by NEFFEX plays when you enter. You can pause it or turn it down in the player. The gear icon in the top right lets you change language, theme, accent color and more.',
+        book3Text: 'Über das Zahnrad oben rechts kannst du die Akzentfarbe zwischen Orange und Blau wechseln.',
         book4Title: 'Privacy',
         book4Text: 'Your settings are only stored locally in your browser. The Discord status is requested live through the Lanyard API.',
         welcomeTitle: 'Welcome',
         welcomeText: 'Click to enter',
         enter: 'Enter site',
-        location: '17 years old · Austria',
+        location: '17 years old, Austria',
         bio: 'I’m Tommy, and in my free time I mainly focus on Discord development, JavaScript and Python. I build my own projects, work on bots and websites, and enjoy exploring new technical ideas. I’m also interested in gaming communities and in bringing people together to turn ideas into real projects.',
         statusAria: 'Status page',
         discordProfileAria: 'Discord profile',
@@ -206,8 +206,8 @@ Object.entries(NEW_LANGS).forEach(([code, values]) => {
 
 
 
-const LANGS = ['de', 'en', 'pl', 'nl', 'ru', 'it', 'sv'];
-const normLang = (l) => (LANGS.includes(l) ? l : 'de');
+const LANGS = ['de'];
+const normLang = () => 'de';
 const $ = (id) => document.getElementById(id);
 const root = document.documentElement;
 root.setAttribute('data-style', 'aurora');
@@ -233,7 +233,9 @@ const els = {
 
 let lastVolume = music.defaultVolume;
 let audioError = false;
-let currentLang = normLang(root.getAttribute('lang'));
+let currentLang = 'de';
+root.setAttribute('lang', 'de');
+try { localStorage.setItem('tommy-lang', 'de'); localStorage.setItem('tommy-style', 'aurora'); localStorage.setItem('tommy-background', 'grid'); localStorage.setItem('tommy-layout', 'tiles'); } catch {}
 
 function t(key) {
     return translations[currentLang]?.[key] ?? translations.en?.[key] ?? translations.de[key] ?? key;
@@ -333,7 +335,7 @@ function setLanguage(next) {
 
 
 const THEMES = ['light', 'dark', 'auto'];
-const ACCENTS = ['violet', 'blue', 'pink', 'green', 'orange'];
+const ACCENTS = ['blue', 'orange'];
 const reducedMotionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
 const lightQuery = window.matchMedia('(prefers-color-scheme: light)');
 
@@ -343,7 +345,7 @@ let themePref = THEMES.includes(readStorage('tommy-theme'))
 
 let accentPref = ACCENTS.includes(readStorage('tommy-accent'))
     ? readStorage('tommy-accent')
-    : 'violet';
+    : 'orange';
 
 let fxOn = readStorage('tommy-fx') !== 'off';
 
@@ -354,21 +356,21 @@ let motionOn = readStorage('tommy-motion')
 let autoplayOn = readStorage('tommy-autoplay') !== 'off';
 let compactOn = readStorage('tommy-compact') === 'on';
 let profileOn = readStorage('tommy-profile') !== 'off';
-let backgroundPref = ['grid','gradient','plain'].includes(readStorage('tommy-background')) ? readStorage('tommy-background') : 'gradient';
-let layoutPref = ['normal','tiles'].includes(readStorage('tommy-layout')) ? readStorage('tommy-layout') : 'normal';
+let backgroundPref = 'grid';
+let layoutPref = 'tiles';
 
 const STYLES = ['glass', 'metro', 'retro', 'neon', 'brutal', 'aurora', 'mono', 'frost'];
-let stylePref = STYLES.includes(readStorage('tommy-style')) ? readStorage('tommy-style') : 'glass';
+let stylePref = 'aurora';
 
 function setBackground(name) {
-    backgroundPref = ['grid', 'gradient', 'plain'].includes(name) ? name : 'gradient';
+    backgroundPref = 'grid';
     writeStorage('tommy-background', backgroundPref);
     root.setAttribute('data-background', backgroundPref);
     document.querySelectorAll('[data-background-option]').forEach((el) => el.setAttribute('aria-pressed', String(el.dataset.backgroundOption === backgroundPref)));
 }
 
 function setLayout(name) {
-    layoutPref = ['normal', 'tiles'].includes(name) ? name : 'normal';
+    layoutPref = 'tiles';
     writeStorage('tommy-layout', layoutPref);
     root.setAttribute('data-layout', layoutPref);
     document.querySelectorAll('[data-layout-option]').forEach((el) => el.setAttribute('aria-pressed', String(el.dataset.layoutOption === layoutPref)));
@@ -444,7 +446,7 @@ lightQuery.addEventListener('change', () => {
 });
 
 function setAccent(name) {
-    accentPref = ACCENTS.includes(name) ? name : 'violet';
+    accentPref = ACCENTS.includes(name) ? name : 'orange';
     writeStorage('tommy-accent', accentPref);
 
     if (accentPref === 'violet') {
@@ -528,7 +530,7 @@ function resetSettings() {
     setStyle('aurora');
     setCompact(false);
     setProfile(true);
-    setBackground('gradient');
+    setBackground('grid');
     setLayout('tiles');
 }
 
@@ -590,8 +592,8 @@ function setupSettings() {
     setSwitch('switch-autoplay', autoplayOn);
     setSwitch('switch-compact', compactOn);
     setSwitch('switch-profile', profileOn);
-    setBackground(backgroundPref);
-    setLayout(layoutPref);
+    setBackground('grid');
+    setLayout('tiles');
     setAccent(accentPref);
 }
 
@@ -1100,76 +1102,7 @@ reducedMotionQuery.addEventListener?.('change', (event) => {
 ========================================================= */
 
 function initAudio() {
-    if (
-        !els.audio ||
-        !els.playButton ||
-        !els.volumeButton ||
-        !els.volume ||
-        !els.seek
-    ) {
-        console.warn('Musikplayer: Mindestens ein HTML-Element fehlt.');
-        return;
-    }
-
-    const volume = loadVolume();
-
-    if (els.title) els.title.textContent = music.title;
-    if (els.artist) els.artist.textContent = music.artist;
-
-    els.audio.src = music.file;
-    els.audio.preload = 'metadata';
-    els.audio.volume = volume;
-
-    els.volume.value = volume;
-    lastVolume = volume;
-
-    updateRange(els.volume);
-    updateRange(els.seek);
-    updatePlayButton();
-    updateVolumeButton();
-
-    els.playButton.addEventListener('click', togglePlay);
-    els.volumeButton.addEventListener('click', toggleMute);
-    els.volume.addEventListener('input', changeVolume);
-    els.seek.addEventListener('input', seek);
-
-    els.audio.addEventListener('timeupdate', updateProgress);
-
-    els.audio.addEventListener('loadedmetadata', () => {
-        if (els.duration) {
-            els.duration.textContent = formatTime(els.audio.duration);
-        }
-        updateProgress();
-    });
-
-    els.audio.addEventListener('play', () => {
-        updatePlayButton();
-
-        if (!document.hidden) {
-            setupAnalyser();
-            startVisualizer();
-        }
-    });
-
-    els.audio.addEventListener('pause', () => {
-        updatePlayButton();
-
-        // Der Visualizer lässt die Werte sanft auf null zurückgehen.
-        if (!document.hidden && !visualizerOff && analyser) {
-            startVisualizer();
-        }
-    });
-
-    els.audio.addEventListener('volumechange', updateVolumeButton);
-
-    els.audio.addEventListener('error', () => {
-        console.error('Musikdatei konnte nicht geladen werden:', music.file);
-        audioError = true;
-
-        if (els.artist) {
-            els.artist.textContent = t('musicMissing');
-        }
-    });
+    // Musik ist vorerst deaktiviert und wird nicht initialisiert.
 }
 
 /* =========================================================
@@ -1202,15 +1135,7 @@ function enterWebsite() {
         els.welcomeScreen.classList.add('hidden');
         els.welcomeScreen.setAttribute('aria-hidden', 'true');
     }
-
-    if (autoplayOn && els.audio) {
-        setupAnalyser();
-
-        els.audio.play().catch((error) => {
-            // Browser können Autoplay trotz Nutzereingabe blockieren.
-            console.warn('Musik konnte nicht automatisch starten:', error);
-        });
-    }
+    // Kein automatischer Musikstart. Der Musikplayer ist vorerst entfernt.
 }
 
 function init() {
@@ -1230,20 +1155,19 @@ function init() {
     }
 
     // Einstellungen zuerst anwenden, damit die Seite direkt richtig erscheint.
-    applyTheme(themePref);
+    applyTheme('dark');
     setAccent(accentPref);
-    setStyle(stylePref);
+    setStyle('aurora');
     setCompact(compactOn);
     setProfile(profileOn);
-    setBackground(backgroundPref);
-    setLayout(layoutPref);
+    setBackground('grid');
+    setLayout('tiles');
     setFx(fxOn);
 
     root.classList.toggle('no-motion', !motionOn);
     root.classList.toggle('motion-on', motionOn);
 
-    initAudio();
-    applyLanguage(currentLang);
+    applyLanguage('de');
     setupSettings();
     setupBook();
     setupSections();
