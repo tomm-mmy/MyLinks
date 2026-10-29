@@ -39,7 +39,7 @@ const T = {
         info3: 'Deine Einstellungen bleiben nur in deinem Browser gespeichert.',
         welcomeTitle: 'Servus!', welcomeText: 'Klick zum Reinschaun', enter: 'Reinschaun',
         location: '17 Jahr, aus Österreich',
-        bio: 'Servus, i bin da Tommy aus Österreich. In meiner Freizeit bastl i an Discord Bots, meistens mit JavaScript. I bin gern in Gaming-Communities unterwegs und probier immer wieder eigene Ideen aus.',
+        bio: 'Servus, i bin da Tommy aus Österreich. In meiner Freizeit bastl i an Discord Bots, meistens mit JavaScript. I bin gern in Gaming Communities unterwegs und probier immer wieder eigene Ideen aus.',
         discordAria: 'Mei Discord Profil öffnen',
         secProjects: 'Meine Projekte', secGaming: 'Zocken', secHosting: 'Hosting', secBots: 'Meine öffentlichen Bots', secSkills: 'Was i so mach',
         stCommunity: 'Community', stLive: 'Online', stTeam: 'Im Team', stMember: 'Mitglied', stHost: 'Hoster',
