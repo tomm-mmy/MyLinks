@@ -52,7 +52,7 @@ const T = {
         oktav: 'Der offizielle Server zum Glockenspiel auf Roblox. I bin im Team dabei und das Spiel wird laufend weiterentwickelt.',
         oktavMore: 'Das is der offizielle Server vom Glockenspiel Oktavstadt auf Roblox. Bei uns dreht si alles um Glocken und neue Ideen. Vorbeischaun kann jeder.',
         eas: 'A Roleplay Projekt, bei dem i im Team dabei bin. Das Bauen übernehmen die Devs, im Discord kannst aber jetzt schon vorbeischaun.',
-        easMore: 'EAS is ein Roleplay- Projekt und grad in Entwicklung (V2). I bin im Team dabei und helf mit, beim Bauen packen hauptsächlich die anderen an.',
+        easMore: 'EAS is ein Roleplay Projekt und grad in Entwicklung (V2). I bin im Team dabei und helf mit, beim Bauen packen hauptsächlich die anderen an.',
         trucker: 'A Community für ETS2-Fans mit gemeinsamen Touren, Convoys und gemütlichem Ratschen. Egal ob Anfänger oder Profi, jeder is willkommen.',
         truckerMore: 'Bei Fichtelhillz Trucker treffen si alle, die gern ETS2 fahren. Ob Touren, Convoys oder einfach a bissl ratschen, es is für jeden was dabei. I bin dort Mitglied.',
         serverix: 'Do laufen meine Discord-Bots. Wennst magst, schau beim Serverix Discord vorbei.',
