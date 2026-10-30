@@ -1,6 +1,6 @@
 'use strict';
 
-/* ---------- Texte (Standard: Englisch) ---------- */
+
 const T = {
     en: {
         settings: 'Settings', language: 'Language', accent: 'Accent color', theme: 'Theme', dark: 'Dark', light: 'Light',
