@@ -24,6 +24,9 @@ const T = {
         oktavMore: 'This is the official server of the bell game Oktavstadt on Roblox. Everything here revolves around bells, and everyone is welcome.',
         eas: 'A roleplay project where I am part of the team. The devs do the building, but you can already join the Discord.',
         easMore: 'EAS is a roleplay project currently in development (V2). I am part of the team and help move it forward, while most of the building is done by others.',
+        neubrucken: 'A German FiveM roleplay server with different paths, including police, mechanics, shops, Stadtwerke and fire & rescue. I am part of the team, but I do not work on server development.',
+        neubruckenMore: 'Neubrücken RP is a German FiveM roleplay server with modern scripts and an active community. I am part of the team, but I am not involved in developing the server. I lead the Stadtwerke faction. The associated factions are Stadtwerke, Neubrücken Autocare (NBAC) and the Feuer- und Rettungswache.',
+        factionLinks: 'FACTIONS', voiceTitle: 'VOICE & CONNECTION', voiceText: 'The community uses TeamSpeak 3 with the Yaca Voice Plugin. The video explains how Yaca works. To join FiveM, use the Cfx.re link or enter the command below in the F8 console.',
         trucker: 'A community around trucking in ETS2 with shared tours, convoys and chatting. Beginners and pros are welcome.',
         truckerMore: 'Fichtelhillz Trucker is a community for everyone who enjoys ETS2, whether it is tours, convoys or just chatting. I am a member there.',
         serverix: 'This is where I host my Discord bots. You can join the Serverix Discord.',
@@ -53,6 +56,9 @@ const T = {
         oktavMore: 'Das is der offizielle Server vom Glockenspiel Oktavstadt auf Roblox. Bei uns dreht si alles um Glocken und neue Ideen. Vorbeischaun kann jeder.',
         eas: 'A Roleplay Projekt, bei dem i im Team dabei bin. Das Bauen übernehmen die Devs, im Discord kannst aber jetzt schon vorbeischaun.',
         easMore: 'EAS is ein Roleplay Projekt und grad in Entwicklung (V2). I bin im Team dabei und helf mit, beim Bauen packen hauptsächlich die anderen an.',
+        neubrucken: 'A deutscher FiveM-Roleplay-Server mit Polizei, Mechanikern, Verkauf, Stadtwerken, Feuerwehr und mehr. I bin Teil vom Team, arbeite aber ned an der Serverentwicklung mit.',
+        neubruckenMore: 'Neubrücken RP is ein deutscher FiveM-Roleplay-Server mit modernen Scripts und einer aktiven Community. I bin im Team dabei, entwickle den Server aber ned mit. Die Fraktion Stadtwerke leit i. Dazu kommen die Neubrücken Autocare (NBAC) und die Feuer- und Rettungswache.',
+        factionLinks: 'FRAKTIONEN', voiceTitle: 'VOICE & VERBINDUNG', voiceText: 'Gspielt wird mit TeamSpeak 3 und dem Yaca Voice Plugin. Im Video wird erklärt, wie Yaca funktioniert. Für FiveM kannst den Cfx.re-Link verwenden oder den Befehl unten in der F8-Konsole eingeben.',
         trucker: 'A Community für ETS2-Fans mit gemeinsamen Touren, Convoys und gemütlichem Ratschen. Egal ob Anfänger oder Profi, jeder is willkommen.',
         truckerMore: 'Bei Fichtelhillz Trucker treffen si alle, die gern ETS2 fahren. Ob Touren, Convoys oder einfach a bissl ratschen, es is für jeden was dabei. I bin dort Mitglied.',
         serverix: 'Do laufen meine Discord-Bots. Wennst magst, schau beim Serverix Discord vorbei.',
@@ -74,6 +80,25 @@ const SECTIONS = [
     },
     {
         id: 'gaming', title: 'secGaming', cards: [
+            {
+                id: 'neubrucken', name: 'Neubrücken RP', icon: 'car-front', tone: 'sky', kicker: 'FIVEM ROLEPLAY', sub: 'GERMAN ROLEPLAY SERVER',
+                status: 'stTeam', cls: 'dev', text: 'neubrucken', more: 'neubruckenMore', tags: ['FiveM', 'Roleplay', 'Team'],
+                links: [{ href: 'https://discord.gg/JZXH4UFb42', label: 'joinDiscord', arrow: true }],
+                chips: [{
+                    title: 'factionLinks', items: [
+                        { href: 'https://discord.gg/wuQt9gfCBp', raw: 'Stadtwerke Neubrücken', icon: 'zap' },
+                        { href: 'https://discord.gg/Ah58hTpdRT', raw: 'NBAC – Neubrücken Autocare', icon: 'wrench' },
+                        { href: 'https://discord.gg/sYc43WPxGj', raw: 'Feuer- und Rettungswache', icon: 'flame' }
+                    ]
+                }],
+                connect: {
+                    title: 'voiceTitle', description: 'voiceText', command: 'connect 134.255.217.241',
+                    links: [
+                        { href: 'https://cfx.re/join/kbar6a', raw: 'FiveM Server öffnen', icon: 'gamepad-2' },
+                        { href: 'https://www.youtube.com/watch?v=ej72yy5ZSDI&start=4', raw: 'Yaca Voice erklärt', icon: 'youtube' }
+                    ]
+                }
+            },
             {
                 id: 'oktav', name: 'Oktavstadt', icon: 'bell', tone: 'sky', kicker: 'GAMING', sub: 'ROBLOX · COMMUNITY',
                 status: 'stLive', cls: 'active', text: 'oktav', more: 'oktavMore', tags: ['Roblox', 'Team'],
@@ -174,6 +199,7 @@ function cardHtml(c) {
         <div class="card-links project-links">${c.links.map(linkHtml).join('')}</div>
         <div class="collapse closed" id="d-${c.id}"><div class="collapse-inner"><div class="card-details">
             <p class="details-text" ${i(c.more)}></p>${chips}
+            ${c.connect ? `<div class="connect-details"><div class="link-group-title" ${i(c.connect.title)}></div><p class="details-text" ${i(c.connect.description)}></p><div class="link-grid">${c.connect.links.map((l) => `<a class="link-chip" href="${l.href}" target="_blank" rel="noopener noreferrer"><i data-lucide="${l.icon}"></i><span>${l.raw}</span></a>`).join('')}</div><div class="connect-command"><span>F8</span><code>${c.connect.command}</code></div></div>` : ''}
         </div></div></div>
     </article>`;
 }
@@ -259,7 +285,7 @@ function init() {
         }
 
         const head = target.closest('.card-head');
-        if (head && !target.closest('a')) toggleCard(head);
+        if (head && !target.closest('a, button, input, select, textarea')) toggleCard(head);
     });
 
     document.addEventListener('keydown', (e) => {
