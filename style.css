@@ -327,3 +327,10 @@ footer span { display: block; margin-top: 7px; color: var(--tx3); font-size: 10p
 @media (prefers-reduced-motion: reduce) {
     .card, .project-link, .link-chip { transition: none; }
 }
+
+
+/* ---------- FiveM-Verbindungsinfos ---------- */
+.connect-details { margin-top: 18px; padding-top: 14px; border-top: 1px solid var(--bd); }
+.connect-command { display: flex; align-items: center; gap: 12px; margin-top: 12px; padding: 11px 13px; border: 1px solid var(--bd); border-radius: 12px; background: var(--card); }
+.connect-command > span { flex: 0 0 auto; padding: 4px 7px; border-radius: 7px; color: rgb(var(--a2)); background: rgb(var(--a) / .14); font-size: 10px; font-weight: 800; }
+.connect-command code { min-width: 0; overflow-wrap: anywhere; color: var(--tx); font-size: 12px; user-select: all; }
