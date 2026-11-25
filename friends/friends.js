@@ -4,7 +4,7 @@
     const config = window.FRIENDS_CONFIG;
     const root = document.getElementById('friends-grid');
     const section = document.getElementById('friends-section');
-    if (!config || !root || !Array.isArray(config.users)) return;
+    if (!config || !root || !Array.isArray(config.users)) return; 
 
     const users = config.users.filter(user => /^\d{17,20}$/.test(String(user.id)));
     const presenceById = new Map();
