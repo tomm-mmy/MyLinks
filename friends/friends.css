@@ -7,7 +7,7 @@
     align-items: stretch;
 }
 .friend-card {
-    min-width: 0;
+    min-width: 0; 
     padding: 17px;
     border: 1px solid var(--bd);
     border-radius: 22px;
