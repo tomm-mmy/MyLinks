@@ -132,6 +132,18 @@
             </div>
         </section>
 
+        <!-- Friends werden separat aus dem Ordner friends/ geladen -->
+        <section class="section friends-section reveal" id="friends-section">
+            <div class="section-heading">
+                <span class="section-line"></span>
+                <h2><span data-friends-i18n="title">Friends</span></h2>
+                <span class="section-line"></span>
+            </div>
+            <div id="friends-grid" class="friends-grid" aria-live="polite">
+                <div class="friends-loading" data-friends-i18n="loading">Friends werden geladen …</div>
+            </div>
+        </section>
+
         <!-- Sections werden aus index.js erzeugt -->
         <div id="sections"></div>
 
@@ -143,7 +155,10 @@
     </main>
 
     <script src="https://unpkg.com/lucide@0.469.0/dist/umd/lucide.min.js"></script>
+    <link rel="stylesheet" href="friends/friends.css">
     <script src="index.js"></script>
     <script src="lanyard.js"></script>
+    <script src="friends/config.js"></script>
+    <script src="friends/friends.js"></script>
 </body>
 </html>
