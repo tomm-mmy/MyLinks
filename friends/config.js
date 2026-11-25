@@ -1,11 +1,6 @@
 'use strict';
 
-/*
- * Friends-Konfiguration
- * Neue Freunde hier ergänzen. Links werden manuell gepflegt.
- * Optional werden zusätzlich öffentliche Link-Felder aus Lanyard KV gelesen.
- * Manuelle Links haben immer Vorrang.
- */
+
 window.FRIENDS_CONFIG = {
     refreshFallbackMs: 45000,
     reconnectBaseMs: 2000,
