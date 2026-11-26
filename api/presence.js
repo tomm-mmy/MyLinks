@@ -17,18 +17,18 @@ export default async function handler(req, res) {
     });
   }
 
-  let parsedUrl;
+  let targetUrl;
   try {
-    parsedUrl = new URL(upstream);
-    if (parsedUrl.protocol !== 'https:') {
-      return res.status(500).json({ error: 'Upstream URL must use HTTPS' });
+    targetUrl = new URL(upstream);
+    if (targetUrl.protocol !== 'https:' && targetUrl.protocol !== 'http:') {
+      return res.status(500).json({ error: 'Invalid MYLINK_API_URL protocol' });
     }
   } catch {
     return res.status(500).json({ error: 'Invalid MYLINK_API_URL' });
   }
 
   try {
-    const response = await fetch(parsedUrl.toString(), {
+    const response = await fetch(targetUrl.toString(), {
       method: 'GET',
       headers: {
         Authorization: `Bearer ${apiKey}`,
@@ -38,14 +38,14 @@ export default async function handler(req, res) {
       signal: AbortSignal.timeout(7000)
     });
 
-    const rawText = await response.text();
+    const rawBody = await response.text();
     if (!response.ok) {
-      return res.status(502).json({ error: 'Upstream returned an error' });
+      return res.status(502).json({ error: 'Upstream presence API returned an error' });
     }
 
-    JSON.parse(rawText);
+    JSON.parse(rawBody);
     res.setHeader('Content-Type', 'application/json; charset=utf-8');
-    return res.status(200).send(rawText);
+    return res.status(200).send(rawBody);
   } catch {
     return res.status(502).json({ error: 'Could not reach Mylink presence API' });
   }
