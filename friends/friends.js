@@ -264,10 +264,74 @@
     window.addEventListener('pagehide', () => {
         stopped = true;
         clearTimers();
+        clearInterval(botRefreshTimer);
         languageObserver.disconnect();
         try { socket?.close(); } catch {}
     }, { once: true });
 
     applyTranslations();
+
+    function normalizeBotPresence(raw, id) {
+        if (!raw) return null;
+        const status = ['online', 'idle', 'dnd'].includes(raw.status) ? raw.status : 'offline';
+        return {
+            discord_user: {
+                id,
+                username: raw.username || raw.globalName || `Discord ${id.slice(-4)}`,
+                global_name: raw.globalName || raw.username || `Discord ${id.slice(-4)}`,
+                avatar: raw.avatar || null
+            },
+            discord_status: status,
+            activities: Array.isArray(raw.activities) ? raw.activities : [],
+            listening_to_spotify: false,
+            updated_at: raw.updatedAt || null,
+            source: 'mylink'
+        };
+    }
+
+    async function loadBotPresence() {
+        const endpoint = config.presenceApiUrl || '/api/presence';
+        try {
+            const response = await fetch(endpoint, {
+                method: 'GET',
+                cache: 'no-store',
+                headers: { Accept: 'application/json' }
+            });
+            if (!response.ok) throw new Error(`Mylink API HTTP ${response.status}`);
+            const payload = await response.json();
+            const records = payload?.data && typeof payload.data === 'object' ? payload.data : payload;
+            if (!records || typeof records !== 'object' || Array.isArray(records)) {
+                throw new Error('Ungültige Antwort von der Mylink API');
+            }
+            let loaded = 0;
+            for (const user of users) {
+                const raw = records[user.id] || records[String(user.id)];
+                if (!raw) continue;
+                const normalized = normalizeBotPresence(raw, user.id);
+                if (normalized) {
+                    presenceById.set(user.id, normalized);
+                    loaded++;
+                }
+            }
+            if (loaded) {
+                render();
+                const indicator = document.getElementById('friends-connection-state');
+                if (indicator) indicator.textContent = `${loaded} LIVE`;
+            }
+            return loaded;
+        } catch (error) {
+            console.warn('Friends: Mylink API konnte nicht geladen werden:', error);
+            const indicator = document.getElementById('friends-connection-state');
+            if (indicator) indicator.textContent = 'LANYARD FALLBACK';
+            return 0;
+        }
+    }
+
+    // Mylink bot presence is the primary source; Lanyard remains a fallback.
+    loadBotPresence();
+    const botRefreshTimer = setInterval(() => {
+        if (!document.hidden) loadBotPresence();
+    }, config.refreshFallbackMs || 30000);
+
     connect();
 })();
