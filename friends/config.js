@@ -2,7 +2,8 @@
 
 
 window.FRIENDS_CONFIG = {
-    refreshFallbackMs: 45000,
+    presenceApiUrl: '/api/presence',
+    refreshFallbackMs: 30000,
     reconnectBaseMs: 2000,
     reconnectMaxMs: 30000,
     users: [
