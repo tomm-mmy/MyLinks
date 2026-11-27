@@ -3,9 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="theme-color" content="#0b101b">
+  <meta name="theme-color" content="#070b14">
   <meta name="description" content="MyLinks – Projekte, Gaming, Hosting und Live-Status.">
-  <title>MyLinks – Dashboard</title>
+  <title>MyLinks – Tommy</title>
   <script>
     (() => {
       const r = document.documentElement;
@@ -25,6 +25,7 @@
   <link rel="stylesheet" href="assets/css/dashboard.css">
 </head>
 <body>
+  <div class="ambient-bg" aria-hidden="true"></div>
   <div class="sidebar-backdrop" id="sidebar-backdrop" hidden></div>
 
   <div class="layout">
@@ -34,7 +35,7 @@
           <span class="brand-mark">M</span>
           <span class="brand-text">
             <strong>MyLinks</strong>
-            <small data-i18n="brandSub">DASHBOARD</small>
+            <small data-i18n="brandSub">PERSONAL HUB</small>
           </span>
         </a>
         <button class="sidebar-close" id="sidebar-close" type="button" aria-label="Menü schließen">
@@ -51,7 +52,7 @@
           </a>
           <a class="nav-item" href="#profile" data-nav="profile">
             <i data-lucide="user-round"></i>
-            <span data-i18n="profile">Profil</span>
+            <span data-i18n="profile">Über mich</span>
           </a>
           <a class="nav-item" href="#friends-section" data-nav="friends">
             <i data-lucide="users-round"></i>
@@ -93,7 +94,7 @@
         </div>
 
         <button class="nav-item settings-btn" id="settings-button" type="button" aria-expanded="false" aria-controls="settings-panel">
-          <i data-lucide="settings-2"></i>
+          <i data-lucide="sliders-horizontal"></i>
           <span data-i18n="settings">Einstellungen</span>
         </button>
 
@@ -149,21 +150,68 @@
       </header>
 
       <main class="main-wrap">
-        <section class="hero" id="overview">
-          <div class="hero-copy">
-            <span class="eyebrow" data-i18n="welcomeEyebrow">WILLKOMMEN</span>
-            <h1><span data-i18n="hello">Hey, ich bin</span> <em>Tommy.</em></h1>
-            <p data-i18n="welcomeDashboard">Hier findest du meine Projekte, Communities, Hosting-Infos und den Live-Status über meine Bot-API.</p>
+        <section class="hero-bento" id="overview">
+          <div class="hero-card">
+            <div>
+              <span class="hero-pill">
+                <i data-lucide="sparkles" style="width:14px;height:14px;color:var(--accent)"></i>
+                <span data-i18n="welcomeEyebrow">PORTFOLIO &amp; LIVE DASHBOARD</span>
+              </span>
+              <h1><span data-i18n="hello">Hey, ich bin</span> <em>Tommy.</em></h1>
+              <p data-i18n="welcomeDashboard">Hier findest du meine Projekte, Communities, Hosting-Infos und den Live-Status über meine eigene Discord-Bot-API.</p>
+            </div>
             <div class="hero-actions">
               <a class="btn-primary" href="#page-projects">
                 <span data-i18n="exploreProjects">Projekte ansehen</span>
-                <i data-lucide="arrow-up-right"></i>
+                <i data-lucide="arrow-up-right" style="width:16px;height:16px"></i>
               </a>
               <a class="btn-secondary" href="#friends-section">
                 <span data-i18n="friends">Freunde</span>
               </a>
+              <a class="btn-secondary" href="https://discord.com/users/881206091009122406" target="_blank" rel="noopener noreferrer">
+                <span>Discord</span>
+                <i data-lucide="external-link" style="width:14px;height:14px"></i>
+              </a>
             </div>
           </div>
+
+          <aside class="identity-card" id="profile" aria-label="Profilkarte">
+            <div class="identity-banner">
+              <span class="identity-badge">LIVE API</span>
+            </div>
+            <div class="identity-body">
+              <div class="identity-head">
+                <div class="avatar-box" id="owner-avatar-box">
+                  <img class="avatar-img" id="owner-avatar-img" src="assets/images/profile.jpg" alt="Tommy">
+                  <span class="status-dot" id="online-dot" data-status="offline"></span>
+                </div>
+                <a class="btn-outline" href="https://discord.com/users/881206091009122406" target="_blank" rel="noopener noreferrer">
+                  <i data-lucide="message-circle" style="width:14px;height:14px"></i>
+                  <span>Discord</span>
+                  <i data-lucide="arrow-up-right" style="width:14px;height:14px"></i>
+                </a>
+              </div>
+
+              <div class="identity-title">
+                <h2>Tommy</h2>
+                <div class="profile-sub" data-i18n="profileSubtitle">Developer · Gaming · Communities</div>
+              </div>
+
+              <div class="live-box">
+                <span class="live-status" id="presence-status">Offline</span>
+                <span class="live-activity" id="presence-activity" hidden></span>
+              </div>
+
+              <p class="profile-bio" data-i18n="bio">Ich entwickle Discord-Bots mit JavaScript, betreue Communities und arbeite an eigenen Web- und Gaming-Projekten.</p>
+
+              <div class="tag-row">
+                <span>JavaScript</span>
+                <span>Discord Bots</span>
+                <span>Gaming</span>
+                <span>Web</span>
+              </div>
+            </div>
+          </aside>
         </section>
 
         <section class="quick-grid" aria-label="Schnellzugriff">
@@ -182,49 +230,6 @@
             <span><strong>Hosting</strong><small data-i18n="tileHosting">Bot-Hosting &amp; Status</small></span>
             <i class="q-arrow" data-lucide="chevron-right"></i>
           </a>
-        </section>
-
-        <section class="panel profile-panel" id="profile">
-          <div class="panel-head">
-            <div>
-              <span class="eyebrow" data-i18n="profileEyebrow">PROFIL</span>
-              <h2 data-i18n="profile">Über mich</h2>
-            </div>
-            <span class="badge-tag">LIVE API</span>
-          </div>
-
-          <div class="profile-row">
-            <div class="avatar-box">
-              <div class="avatar-letter">T</div>
-              <span class="status-dot" id="online-dot" data-status="offline"></span>
-            </div>
-            <div class="profile-info">
-              <div class="profile-top">
-                <div>
-                  <h3>Tommy</h3>
-                  <div class="profile-sub" data-i18n="profileSubtitle">Developer · Gaming · Communities</div>
-                </div>
-                <a class="btn-outline" href="https://discord.com/users/881206091009122406" target="_blank" rel="noopener noreferrer">
-                  <i data-lucide="message-circle"></i>
-                  <span>Discord</span>
-                  <i data-lucide="arrow-up-right"></i>
-                </a>
-              </div>
-
-              <div class="live-meta">
-                <span class="live-status" id="presence-status">Offline</span>
-                <span class="live-activity" id="presence-activity" hidden></span>
-              </div>
-
-              <p class="profile-bio" data-i18n="bio">Ich entwickle Discord-Bots mit JavaScript, betreue Communities und arbeite an eigenen Web- und Gaming-Projekten.</p>
-              <div class="tag-row">
-                <span>JavaScript</span>
-                <span>Discord Bots</span>
-                <span>Gaming</span>
-                <span>Web</span>
-              </div>
-            </div>
-          </div>
         </section>
 
         <section class="panel" id="friends-section">
