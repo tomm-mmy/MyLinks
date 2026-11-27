@@ -1,59 +1,23 @@
 'use strict';
 
 (() => {
-  const OWNER_ID = '881206091009122406';
-  const FRIENDS = [
-    {
-      id: '1287327628818251843',
-      fallbackName: 'JulBa10',
-      links: [
-        { label: 'YouTube', url: 'https://youtube.com/@julba10?si=RQ2QFl7W07l0iSPz' },
-        { label: 'Twitch', url: 'https://www.twitch.tv/julianbala10' },
-        { label: 'Roblox', url: 'https://www.roblox.com/de/users/7710897847/profile' }
-      ]
-    },
-    {
-      id: '895697786656415775',
-      fallbackName: 'AnnaGlocke',
-      links: [
-        { label: 'YouTube', url: 'https://www.youtube.com/channel/UC74nf0V1Q7jrRPSmY0AlJDg' },
-        { label: 'Twitch', url: 'https://www.twitch.tv/annaglocke_yt' }
-      ]
-    },
-    {
-      id: '1081597724132134923',
-      fallbackName: 'Friend · 4923',
-      links: [{ label: 'YouTube', url: 'https://www.youtube.com/channel/UCvvtWlqO0nSGC3gtfaORYIQ' }]
-    },
-    {
-      id: '1079334365588365392',
-      fallbackName: 'Friend · 5392',
-      links: [{ label: 'YouTube', url: 'https://www.youtube.com/channel/UC5Kt3LfWdviSyXlaDoSKF4w' }]
-    },
-    {
-      id: '1161326264779559092',
-      fallbackName: 'Pavyan Systems',
-      links: [{ label: 'Website', url: 'https://pavyan-systems.com/' }]
-    },
-    {
-      id: '1204084190014865439',
-      fallbackName: 'Friend · 5439',
-      links: []
-    }
-  ];
-
-  const state = { records: {}, connected: false };
+  const OWNER_ID = window.MyLinksFriends?.OWNER_ID || '881206091009122406';
+  const state = {
+    records: {},
+    connected: false,
+    filter: 'all'
+  };
 
   function getLang() {
     return document.documentElement.lang === 'en' ? 'en' : 'de';
   }
 
-  function statusText(st, lang) {
+  function statusLabel(status, lang) {
     const map = {
       de: { online: 'Online', idle: 'Abwesend', dnd: 'Bitte nicht stören', offline: 'Offline' },
       en: { online: 'Online', idle: 'Away', dnd: 'Do not disturb', offline: 'Offline' }
     };
-    return (map[lang] || map.de)[st] || 'Offline';
+    return (map[lang] || map.de)[status] || 'Offline';
   }
 
   function formatActivity(activities, lang) {
@@ -62,22 +26,23 @@
     }
     const main = activities.find((a) => [0, 1, 3, 5].includes(a.type) && a.name);
     if (main) {
-      const prefix = {
+      const prefixMap = {
         0: lang === 'de' ? 'Spielt' : 'Playing',
         1: lang === 'de' ? 'Streamt' : 'Streaming',
         3: lang === 'de' ? 'Schaut' : 'Watching',
         5: lang === 'de' ? 'Wettkampf' : 'Competing'
-      }[main.type] || 'Aktiv';
-      return main.details ? `${prefix} ${main.name} · ${main.details}` : `${prefix} ${main.name}`;
+      };
+      const base = `${prefixMap[main.type] || 'Aktiv'} ${main.name}`;
+      return main.details ? `${base} · ${main.details}` : base;
     }
     const custom = activities.find((a) => a.type === 4 && (a.state || a.name));
     return custom ? (custom.state || custom.name) : (lang === 'de' ? 'Keine aktive Aktivität' : 'No active activity');
   }
 
-  function avatarUrl(userId, hash) {
-    if (!hash || !/^[a-zA-Z0-9_-]+$/.test(String(hash))) return null;
-    const ext = String(hash).startsWith('a_') ? 'gif' : 'png';
-    return `https://cdn.discordapp.com/avatars/${userId}/${hash}.${ext}?size=128`;
+  function buildAvatarUrl(userId, avatarHash) {
+    if (!avatarHash || !/^[a-zA-Z0-9_-]+$/.test(String(avatarHash))) return null;
+    const ext = String(avatarHash).startsWith('a_') ? 'gif' : 'png';
+    return `https://cdn.discordapp.com/avatars/${userId}/${avatarHash}.${ext}?size=256`;
   }
 
   function safeUrl(raw) {
@@ -89,116 +54,172 @@
     }
   }
 
-  function setApiBadge(ok, msg) {
+  function setApiBadge(ok, message) {
     const dot = document.getElementById('api-status-dot');
-    const txt = document.getElementById('api-status-text');
+    const text = document.getElementById('api-status-text');
     if (dot) {
       dot.classList.remove('ok', 'err');
       dot.classList.add(ok ? 'ok' : 'err');
     }
-    if (txt) txt.textContent = msg;
+    if (text) text.textContent = message;
   }
 
   function renderOwner() {
     const lang = getLang();
     const rec = state.records[OWNER_ID] || null;
-    const st = ['online', 'idle', 'dnd'].includes(rec?.status) ? rec.status : 'offline';
+    const status = ['online', 'idle', 'dnd'].includes(rec?.status) ? rec.status : 'offline';
 
     const ring = document.getElementById('online-dot');
     const stEl = document.getElementById('presence-status');
     const actEl = document.getElementById('presence-activity-text');
+    const nameEl = document.getElementById('owner-display-name');
     const avImg = document.getElementById('owner-avatar-img');
+    const enterAvImg = document.getElementById('enter-avatar-img');
 
     if (ring) {
-      ring.dataset.status = st;
-      ring.title = statusText(st, lang);
+      ring.dataset.status = status;
+      ring.title = statusLabel(status, lang);
     }
-    if (stEl) stEl.textContent = statusText(st, lang);
+    if (stEl) stEl.textContent = statusLabel(status, lang);
     if (actEl) actEl.textContent = formatActivity(rec?.activities, lang);
 
-    const liveAv = avatarUrl(OWNER_ID, rec?.avatar);
-    if (avImg && liveAv) avImg.src = liveAv;
+    const liveName = rec?.globalName || rec?.username;
+    if (nameEl && liveName) {
+      nameEl.textContent = liveName;
+    }
+
+    const liveAvatar = buildAvatarUrl(OWNER_ID, rec?.avatar);
+    if (liveAvatar) {
+      if (avImg && avImg.src !== liveAvatar) avImg.src = liveAvatar;
+      if (enterAvImg && enterAvImg.src !== liveAvatar) enterAvImg.src = liveAvatar;
+    }
   }
 
-  function renderFriendsSection() {
-    const host = document.getElementById('friends-slot');
+  function renderFriends() {
+    const slot = document.getElementById('friends-slot');
     const countEl = document.getElementById('friends-count');
-    if (!host) return;
+    if (!slot) return;
 
     const lang = getLang();
+    const friends = window.MyLinksFriends?.getFriends ? window.MyLinksFriends.getFriends() : [];
     let onlineCount = 0;
-    host.textContent = '';
 
-    FRIENDS.forEach((f) => {
+    const enriched = friends.map((f) => {
       const rec = state.records[f.id] || null;
-      const st = ['online', 'idle', 'dnd'].includes(rec?.status) ? rec.status : 'offline';
-      if (st !== 'offline') onlineCount++;
+      const status = ['online', 'idle', 'dnd'].includes(rec?.status) ? rec.status : 'offline';
+      const isActive = status !== 'offline';
+      if (isActive) onlineCount++;
 
-      const name = rec?.globalName || rec?.username || f.fallbackName;
-      const avSrc = avatarUrl(f.id, rec?.avatar);
+      const displayName = rec?.globalName || rec?.username || f.fallbackName;
+      const avatarSrc = buildAvatarUrl(f.id, rec?.avatar);
+      const activityText = formatActivity(rec?.activities, lang);
 
-      const box = document.createElement('article');
-      box.className = 'friend-box';
-      box.dataset.status = st;
-
-      const top = document.createElement('div');
-      top.className = 'friend-top';
-
-      const avBox = document.createElement('div');
-      avBox.className = 'friend-av-box';
-      const av = document.createElement('div');
-      av.className = 'friend-av';
-
-      if (avSrc) {
-        const img = document.createElement('img');
-        img.src = avSrc;
-        img.alt = name;
-        img.loading = 'lazy';
-        av.appendChild(img);
-      } else {
-        av.textContent = name.slice(0, 2).toUpperCase();
-      }
-
-      const fDot = document.createElement('span');
-      fDot.className = 'friend-dot';
-      avBox.append(av, fDot);
-
-      const meta = document.createElement('div');
-      const h3 = document.createElement('div');
-      h3.className = 'friend-name';
-      h3.textContent = name;
-      const sub = document.createElement('div');
-      sub.className = 'friend-sub';
-      sub.textContent = `${statusText(st, lang)} · ${formatActivity(rec?.activities, lang)}`;
-      meta.append(h3, sub);
-
-      top.append(avBox, meta);
-      box.appendChild(top);
-
-      if (f.links?.length) {
-        const linksRow = document.createElement('div');
-        linksRow.className = 'tile-actions';
-        f.links.forEach((l) => {
-          const href = safeUrl(l.url);
-          if (!href) return;
-          const a = document.createElement('a');
-          a.className = 'mini-btn';
-          a.href = href;
-          a.target = '_blank';
-          a.rel = 'noopener noreferrer';
-          a.textContent = l.label;
-          linksRow.appendChild(a);
-        });
-        box.appendChild(linksRow);
-      }
-
-      host.appendChild(box);
+      return {
+        ...f,
+        status,
+        isActive,
+        displayName,
+        avatarSrc,
+        activityText
+      };
     });
 
-    if (countEl) countEl.textContent = `${onlineCount} / ${FRIENDS.length} online`;
+    // Sort active friends first, then keep deterministic order
+    enriched.sort((a, b) => Number(b.isActive) - Number(a.isActive));
+
+    const visible = state.filter === 'active'
+      ? enriched.filter((x) => x.isActive)
+      : enriched;
+
+    slot.textContent = '';
+
+    if (!visible.length) {
+      const empty = document.createElement('div');
+      empty.className = 'friends-empty';
+      empty.textContent = lang === 'de'
+        ? 'Aktuell niemand online.'
+        : 'Nobody online right now.';
+      slot.appendChild(empty);
+    } else {
+      visible.forEach((f) => {
+        const card = document.createElement('article');
+        card.className = 'friend-card';
+        card.dataset.status = f.status;
+
+        const top = document.createElement('div');
+        top.className = 'friend-top';
+
+        const avBox = document.createElement('div');
+        avBox.className = 'friend-av-box';
+
+        const av = document.createElement('div');
+        av.className = 'friend-av';
+
+        if (f.avatarSrc) {
+          const img = document.createElement('img');
+          img.src = f.avatarSrc;
+          img.alt = f.displayName;
+          img.loading = 'lazy';
+          img.onerror = () => {
+            img.remove();
+            av.textContent = f.displayName.slice(0, 2).toUpperCase();
+          };
+          av.appendChild(img);
+        } else {
+          av.textContent = f.displayName.slice(0, 2).toUpperCase();
+        }
+
+        const dot = document.createElement('span');
+        dot.className = 'friend-dot';
+        avBox.append(av, dot);
+
+        const info = document.createElement('div');
+        info.className = 'friend-meta';
+
+        const name = document.createElement('div');
+        name.className = 'friend-name';
+        name.textContent = f.displayName;
+
+        const statusRow = document.createElement('div');
+        statusRow.className = 'friend-status-line';
+        statusRow.textContent = statusLabel(f.status, lang);
+
+        info.append(name, statusRow);
+        top.append(avBox, info);
+
+        const act = document.createElement('div');
+        act.className = 'friend-activity-chip';
+        act.textContent = f.activityText;
+
+        card.append(top, act);
+
+        if (Array.isArray(f.links) && f.links.length) {
+          const linksRow = document.createElement('div');
+          linksRow.className = 'friend-links-row';
+          f.links.forEach((l) => {
+            const href = safeUrl(l.url);
+            if (!href) return;
+            const a = document.createElement('a');
+            a.className = 'friend-link-btn';
+            a.href = href;
+            a.target = '_blank';
+            a.rel = 'noopener noreferrer';
+            a.textContent = l.label;
+            linksRow.appendChild(a);
+          });
+          card.appendChild(linksRow);
+        }
+
+        slot.appendChild(card);
+      });
+    }
+
+    if (countEl) {
+      countEl.textContent = `${onlineCount} / ${friends.length} online`;
+    }
   }
 
-  async function refresh() {
+  async function fetchPresence() {
     try {
       const res = await fetch('/api/presence', {
         method: 'GET',
@@ -220,19 +241,28 @@
       setApiBadge(false, `API: ${err.message}`);
     }
     renderOwner();
-    renderFriendsSection();
+    renderFriends();
   }
 
-  window.MyLinksHub = {
-    refresh,
-    rerenderPresence: () => {
+  function setFriendFilter(filter) {
+    state.filter = filter === 'active' ? 'active' : 'all';
+    document.querySelectorAll('[data-friend-filter]').forEach((btn) => {
+      btn.classList.toggle('active', btn.dataset.friendFilter === state.filter);
+    });
+    renderFriends();
+  }
+
+  window.MyLinksPresence = {
+    refresh: fetchPresence,
+    rerender: () => {
       renderOwner();
-      renderFriendsSection();
-    }
+      renderFriends();
+    },
+    setFriendFilter
   };
 
-  refresh();
+  fetchPresence();
   setInterval(() => {
-    if (!document.hidden) refresh();
+    if (!document.hidden) fetchPresence();
   }, 30000);
 })();
