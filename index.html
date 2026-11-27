@@ -3,14 +3,14 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="theme-color" content="#070b14">
-  <meta name="description" content="MyLinks – Projekte, Gaming, Hosting und Live-Status.">
-  <title>MyLinks – Tommy</title>
+  <meta name="theme-color" content="#07080f">
+  <meta name="description" content="Tommy – Projekte, Gaming, Discord-Bots und Live-Status.">
+  <title>Tommy – MyLinks</title>
   <script>
     (() => {
       const r = document.documentElement;
       const get = (k) => {
-        try { return localStorage.getItem('ml-' + k); } catch { return null; }
+        try { return localStorage.getItem('tl-' + k); } catch { return null; }
       };
       r.setAttribute('lang', get('lang') === 'en' ? 'en' : 'de');
       r.setAttribute('data-accent', ['blue', 'violet', 'pink', 'green', 'orange'].includes(get('accent')) ? get('accent') : 'blue');
@@ -19,256 +19,183 @@
   </script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="assets/css/tokens.css">
-  <link rel="stylesheet" href="assets/css/sidebar.css">
-  <link rel="stylesheet" href="assets/css/dashboard.css">
+  <link rel="stylesheet" href="assets/css/guns-card.css">
+  <link rel="stylesheet" href="assets/css/audio-player.css">
 </head>
-<body>
-  <div class="ambient-bg" aria-hidden="true"></div>
-  <div class="sidebar-backdrop" id="sidebar-backdrop" hidden></div>
+<body class="locked">
+  <div class="glass-backdrop" aria-hidden="true">
+    <div class="orb orb-a"></div>
+    <div class="orb orb-b"></div>
+    <div class="orb orb-c"></div>
+    <div class="grid-overlay"></div>
+  </div>
 
-  <div class="layout">
-    <aside class="sidebar" id="sidebar" aria-label="Seitenleiste">
-      <div class="sidebar-top">
-        <a class="brand" href="#overview">
-          <span class="brand-mark">M</span>
-          <span class="brand-text">
-            <strong>MyLinks</strong>
-            <small data-i18n="brandSub">PERSONAL HUB</small>
-          </span>
-        </a>
-        <button class="sidebar-close" id="sidebar-close" type="button" aria-label="Menü schließen">
-          <i data-lucide="x"></i>
-        </button>
+  <!-- Top Controls -->
+  <header class="top-bar">
+    <button class="glass-btn icon-only" id="info-button" type="button" aria-label="Info" title="Info">
+      <i data-lucide="info"></i>
+    </button>
+
+    <div class="settings-wrap">
+      <button class="glass-btn icon-only" id="settings-button" type="button" aria-expanded="false" aria-controls="settings-panel" aria-label="Einstellungen" title="Einstellungen">
+        <i data-lucide="sliders-horizontal"></i>
+      </button>
+
+      <div class="settings-popover" id="settings-panel" role="dialog" aria-hidden="true">
+        <h2 data-i18n="settings">Einstellungen</h2>
+
+        <div class="setting-row">
+          <span data-i18n="language">Sprache</span>
+          <div class="seg">
+            <button type="button" class="seg-btn" data-lang-opt="de" aria-pressed="false">DE</button>
+            <button type="button" class="seg-btn" data-lang-opt="en" aria-pressed="false">EN</button>
+          </div>
+        </div>
+
+        <div class="setting-row">
+          <span data-i18n="theme">Darstellung</span>
+          <div class="seg">
+            <button type="button" class="seg-btn" data-theme-opt="dark" aria-pressed="false" data-i18n="dark">Dunkel</button>
+            <button type="button" class="seg-btn" data-theme-opt="light" aria-pressed="false" data-i18n="light">Hell</button>
+          </div>
+        </div>
+
+        <div class="setting-row">
+          <span data-i18n="accent">Akzentfarbe</span>
+          <div class="swatches">
+            <button type="button" class="swatch" data-accent-opt="blue" style="--sw:#3b82f6" aria-label="Blau"></button>
+            <button type="button" class="swatch" data-accent-opt="violet" style="--sw:#8b5cf6" aria-label="Violett"></button>
+            <button type="button" class="swatch" data-accent-opt="pink" style="--sw:#ec4899" aria-label="Pink"></button>
+            <button type="button" class="swatch" data-accent-opt="green" style="--sw:#10b981" aria-label="Grün"></button>
+            <button type="button" class="swatch" data-accent-opt="orange" style="--sw:#f97316" aria-label="Orange"></button>
+          </div>
+        </div>
       </div>
+    </div>
+  </header>
 
-      <div class="nav-section">
-        <span class="nav-label" data-i18n="workspace">BEREICH</span>
-        <nav class="nav-list">
-          <a class="nav-item active" href="#overview" data-nav="overview">
-            <i data-lucide="layout-dashboard"></i>
-            <span data-i18n="overview">Übersicht</span>
-          </a>
-          <a class="nav-item" href="#profile" data-nav="profile">
-            <i data-lucide="user-round"></i>
-            <span data-i18n="profile">Über mich</span>
-          </a>
-          <a class="nav-item" href="#friends-section" data-nav="friends">
-            <i data-lucide="users-round"></i>
-            <span data-i18n="friends">Freunde</span>
-          </a>
-        </nav>
+  <!-- Click to Enter Overlay (activates audio + reveals card cleanly) -->
+  <div class="enter-screen" id="welcome-screen">
+    <div class="enter-card">
+      <div class="enter-avatar-ring">
+        <img src="assets/images/profile.jpg" alt="Tommy" class="enter-avatar">
       </div>
+      <span class="enter-kicker" data-i18n="enterKicker">PERSONAL LINK HUB</span>
+      <h1 data-i18n="welcomeTitle">Tommy</h1>
+      <p data-i18n="welcomeText">Klicken zum Eintreten &amp; Sound starten</p>
+      <button class="enter-btn" id="enter-button" type="button">
+        <span data-i18n="enter">Enter</span>
+        <i data-lucide="arrow-right"></i>
+      </button>
+    </div>
+  </div>
 
-      <div class="nav-section">
-        <span class="nav-label" data-i18n="areas">PROJEKTE &amp; MEHR</span>
-        <nav class="nav-list">
-          <a class="nav-item" href="#page-projects" data-nav="projects">
-            <i data-lucide="layers-3"></i>
-            <span data-i18n="secProjects">Projekte</span>
-          </a>
-          <a class="nav-item" href="#page-gaming" data-nav="gaming">
-            <i data-lucide="gamepad-2"></i>
-            <span data-i18n="secGaming">Gaming</span>
-          </a>
-          <a class="nav-item" href="#page-hosting" data-nav="hosting">
-            <i data-lucide="server"></i>
-            <span data-i18n="secHosting">Hosting</span>
-          </a>
-          <a class="nav-item" href="#page-bots" data-nav="bots">
-            <i data-lucide="bot"></i>
-            <span data-i18n="secBots">Bots</span>
-          </a>
-          <a class="nav-item" href="#page-skills" data-nav="skills">
-            <i data-lucide="code-2"></i>
-            <span data-i18n="secSkills">Skills</span>
-          </a>
-        </nav>
-      </div>
+  <!-- Info Modal -->
+  <div class="modal-backdrop" id="info-overlay" aria-hidden="true">
+    <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="info-title">
+      <button class="glass-btn icon-only modal-close" id="info-close" type="button" aria-label="Schließen">
+        <i data-lucide="x"></i>
+      </button>
+      <span class="modal-kicker">MYLINKS</span>
+      <h2 id="info-title" data-i18n="infoTitle">Über diese Seite</h2>
+      <p data-i18n="info1">Persönliche Link-Page im Glas-Design mit Live-Discord-Status über die eigene Bot-API, Projekten, Freunden und Musik.</p>
+      <p data-i18n="info2">Design, Sprache und Akzentfarbe werden lokal in deinem Browser gespeichert.</p>
+    </div>
+  </div>
 
-      <div class="sidebar-footer">
-        <div class="api-pill" id="api-status-pill">
+  <!-- Main Guns.lol Glass Profile + Sections -->
+  <main class="hub-container">
+    <article class="glass-profile">
+      <div class="profile-banner">
+        <img src="assets/images/serverixbanner.jpg" alt="Banner" class="banner-img">
+        <div class="banner-scrim"></div>
+        <div class="api-badge" id="api-status-pill">
           <span class="api-dot" id="api-status-dot"></span>
           <span id="api-status-text">API: Prüfe …</span>
         </div>
+      </div>
 
-        <button class="nav-item settings-btn" id="settings-button" type="button" aria-expanded="false" aria-controls="settings-panel">
-          <i data-lucide="sliders-horizontal"></i>
-          <span data-i18n="settings">Einstellungen</span>
-        </button>
+      <div class="profile-content">
+        <div class="profile-header">
+          <div class="avatar-wrap">
+            <img src="assets/images/profile.jpg" alt="Tommy" class="profile-avatar" id="owner-avatar-img">
+            <span class="status-ring" id="online-dot" data-status="offline" title="Offline"></span>
+          </div>
 
-        <div class="settings-panel" id="settings-panel" role="dialog" aria-hidden="true">
-          <h3 data-i18n="settings">Einstellungen</h3>
-          <div class="setting-row">
-            <span data-i18n="language">Sprache</span>
-            <div class="seg">
-              <button class="seg-btn" data-lang-opt="de" type="button">DE</button>
-              <button class="seg-btn" data-lang-opt="en" type="button">EN</button>
+          <div class="profile-titles">
+            <div class="name-row">
+              <h1>Tommy</h1>
+              <span class="role-pill" data-i18n="roleTag">Developer &amp; Builder</span>
             </div>
+            <p class="handle-line">
+              <i data-lucide="map-pin"></i>
+              <span data-i18n="location">Österreich · Discord Bots &amp; Gaming</span>
+            </p>
           </div>
-          <div class="setting-row">
-            <span data-i18n="theme">Darstellung</span>
-            <div class="seg">
-              <button class="seg-btn" data-theme-opt="dark" type="button" data-i18n="dark">Dunkel</button>
-              <button class="seg-btn" data-theme-opt="light" type="button" data-i18n="light">Hell</button>
-            </div>
+        </div>
+
+        <div class="live-presence-bar" id="presence-bar">
+          <span class="presence-state" id="presence-status">Offline</span>
+          <span class="presence-sep">•</span>
+          <span class="presence-activity" id="presence-activity-text" data-i18n="noActivity">Keine aktive Aktivität</span>
+        </div>
+
+        <p class="bio-text" data-i18n="bio">
+          Ich baue Discord-Bots mit JavaScript, betreue Communities und setze eigene Web- und Gaming-Ideen um.
+        </p>
+
+        <!-- Compact Glass Music Player -->
+        <section class="audio-bar" aria-label="Musik-Player">
+          <button class="play-btn" id="audio-toggle" type="button" aria-label="Musik abspielen oder pausieren">
+            <i data-lucide="play" id="audio-play-icon"></i>
+          </button>
+          <div class="track-meta">
+            <div class="track-title" id="track-title">NEFFEX – Burn The Bridge</div>
+            <div class="track-sub" id="track-sub">Click to Enter Audio</div>
           </div>
-          <div class="setting-row">
-            <span data-i18n="accent">Akzentfarbe</span>
-            <div class="swatches">
-              <button class="swatch" data-accent-opt="blue" style="--sw:#5b8cff" aria-label="Blau" type="button"></button>
-              <button class="swatch" data-accent-opt="violet" style="--sw:#a78bfa" aria-label="Violett" type="button"></button>
-              <button class="swatch" data-accent-opt="pink" style="--sw:#f472b6" aria-label="Pink" type="button"></button>
-              <button class="swatch" data-accent-opt="green" style="--sw:#34d399" aria-label="Grün" type="button"></button>
-              <button class="swatch" data-accent-opt="orange" style="--sw:#fb923c" aria-label="Orange" type="button"></button>
-            </div>
+          <div class="vol-wrap">
+            <i data-lucide="volume-2" class="vol-icon"></i>
+            <input type="range" id="audio-volume" min="0" max="100" value="35" aria-label="Lautstärke">
           </div>
+          <audio id="bg-audio" src="assets/audio/burn-the-bridge.mp3" loop preload="metadata"></audio>
+        </section>
+
+        <!-- Primary Social & Action Links -->
+        <div class="social-row">
+          <a class="social-pill primary" href="https://discord.com/users/881206091009122406" target="_blank" rel="noopener noreferrer">
+            <i data-lucide="message-circle"></i>
+            <span>Discord</span>
+            <i data-lucide="arrow-up-right"></i>
+          </a>
+          <a class="social-pill" href="#sec-projects">
+            <i data-lucide="layers"></i>
+            <span data-i18n="secProjects">Projekte</span>
+          </a>
+          <a class="social-pill" href="#sec-friends">
+            <i data-lucide="users"></i>
+            <span data-i18n="secFriends">Freunde</span>
+          </a>
+          <button class="social-pill" id="refresh-btn" type="button">
+            <i data-lucide="refresh-cw"></i>
+            <span data-i18n="refresh">Status</span>
+          </button>
         </div>
       </div>
-    </aside>
+    </article>
 
-    <div class="content-col">
-      <header class="topbar">
-        <div class="topbar-left">
-          <button class="menu-btn" id="mobile-menu" type="button" aria-label="Menü öffnen">
-            <i data-lucide="menu"></i>
-          </button>
-          <div>
-            <div class="eyebrow" data-i18n="topEyebrow">PERSÖNLICHER BEREICH</div>
-            <div class="top-title" data-i18n="topTitle">MyLinks Übersicht</div>
-          </div>
-        </div>
-        <div class="topbar-right">
-          <button class="icon-btn" id="refresh-presence-btn" type="button" aria-label="Status aktualisieren" title="Status aktualisieren">
-            <i data-lucide="refresh-cw"></i>
-          </button>
-          <button class="icon-btn" id="info-button" type="button" aria-label="Info" title="Info">
-            <i data-lucide="info"></i>
-          </button>
-        </div>
-      </header>
+    <!-- Dynamic Sections rendered by assets/js/app.js & assets/js/api.js -->
+    <div id="dynamic-sections"></div>
 
-      <main class="main-wrap">
-        <section class="hero-bento" id="overview">
-          <div class="hero-card">
-            <div>
-              <span class="hero-pill">
-                <i data-lucide="sparkles" style="width:14px;height:14px;color:var(--accent)"></i>
-                <span data-i18n="welcomeEyebrow">PORTFOLIO &amp; LIVE DASHBOARD</span>
-              </span>
-              <h1><span data-i18n="hello">Hey, ich bin</span> <em>Tommy.</em></h1>
-              <p data-i18n="welcomeDashboard">Hier findest du meine Projekte, Communities, Hosting-Infos und den Live-Status über meine eigene Discord-Bot-API.</p>
-            </div>
-            <div class="hero-actions">
-              <a class="btn-primary" href="#page-projects">
-                <span data-i18n="exploreProjects">Projekte ansehen</span>
-                <i data-lucide="arrow-up-right" style="width:16px;height:16px"></i>
-              </a>
-              <a class="btn-secondary" href="#friends-section">
-                <span data-i18n="friends">Freunde</span>
-              </a>
-              <a class="btn-secondary" href="https://discord.com/users/881206091009122406" target="_blank" rel="noopener noreferrer">
-                <span>Discord</span>
-                <i data-lucide="external-link" style="width:14px;height:14px"></i>
-              </a>
-            </div>
-          </div>
-
-          <aside class="identity-card" id="profile" aria-label="Profilkarte">
-            <div class="identity-banner">
-              <span class="identity-badge">LIVE API</span>
-            </div>
-            <div class="identity-body">
-              <div class="identity-head">
-                <div class="avatar-box" id="owner-avatar-box">
-                  <img class="avatar-img" id="owner-avatar-img" src="assets/images/profile.jpg" alt="Tommy">
-                  <span class="status-dot" id="online-dot" data-status="offline"></span>
-                </div>
-                <a class="btn-outline" href="https://discord.com/users/881206091009122406" target="_blank" rel="noopener noreferrer">
-                  <i data-lucide="message-circle" style="width:14px;height:14px"></i>
-                  <span>Discord</span>
-                  <i data-lucide="arrow-up-right" style="width:14px;height:14px"></i>
-                </a>
-              </div>
-
-              <div class="identity-title">
-                <h2>Tommy</h2>
-                <div class="profile-sub" data-i18n="profileSubtitle">Developer · Gaming · Communities</div>
-              </div>
-
-              <div class="live-box">
-                <span class="live-status" id="presence-status">Offline</span>
-                <span class="live-activity" id="presence-activity" hidden></span>
-              </div>
-
-              <p class="profile-bio" data-i18n="bio">Ich entwickle Discord-Bots mit JavaScript, betreue Communities und arbeite an eigenen Web- und Gaming-Projekten.</p>
-
-              <div class="tag-row">
-                <span>JavaScript</span>
-                <span>Discord Bots</span>
-                <span>Gaming</span>
-                <span>Web</span>
-              </div>
-            </div>
-          </aside>
-        </section>
-
-        <section class="quick-grid" aria-label="Schnellzugriff">
-          <a class="quick-card" href="#page-projects">
-            <span class="q-icon violet"><i data-lucide="layers-3"></i></span>
-            <span><strong>Projekte</strong><small data-i18n="tileProjects">Eigene &amp; Team-Projekte</small></span>
-            <i class="q-arrow" data-lucide="chevron-right"></i>
-          </a>
-          <a class="quick-card" href="#page-gaming">
-            <span class="q-icon blue"><i data-lucide="gamepad-2"></i></span>
-            <span><strong>Gaming</strong><small data-i18n="tileGaming">Roblox, ETS2 &amp; Roleplay</small></span>
-            <i class="q-arrow" data-lucide="chevron-right"></i>
-          </a>
-          <a class="quick-card" href="#page-hosting">
-            <span class="q-icon green"><i data-lucide="server"></i></span>
-            <span><strong>Hosting</strong><small data-i18n="tileHosting">Bot-Hosting &amp; Status</small></span>
-            <i class="q-arrow" data-lucide="chevron-right"></i>
-          </a>
-        </section>
-
-        <section class="panel" id="friends-section">
-          <div class="panel-head">
-            <div>
-              <span class="eyebrow" data-i18n="communityEyebrow">COMMUNITY</span>
-              <h2 data-i18n="friends">Freunde</h2>
-            </div>
-            <span class="badge-tag" id="friends-count">0 / 6</span>
-          </div>
-          <div id="friends-grid" class="friends-grid" aria-live="polite"></div>
-        </section>
-
-        <div id="sections"></div>
-
-        <footer class="footer">
-          <span>© 2026 Tommy · MyLinks</span>
-          <span data-i18n="footer">Sauber aufgebaut &amp; lokal gespeichert.</span>
-        </footer>
-      </main>
-    </div>
-  </div>
-
-  <div class="modal-backdrop" id="info-overlay" aria-hidden="true">
-    <div class="modal-box" role="dialog" aria-modal="true" aria-labelledby="info-modal-title">
-      <button class="icon-btn modal-close" id="info-close" type="button" aria-label="Schließen">
-        <i data-lucide="x"></i>
-      </button>
-      <span class="eyebrow">MYLINKS</span>
-      <h2 id="info-modal-title" data-i18n="infoTitle">Über MyLinks</h2>
-      <p data-i18n="info1">Alle wichtigen Links, Projekte und Status-Infos an einem übersichtlichen Ort.</p>
-      <p data-i18n="info3">Darstellung, Sprache und Akzentfarbe bleiben lokal in deinem Browser gespeichert.</p>
-    </div>
-  </div>
+    <footer class="hub-footer">
+      <span>© 2026 Tommy · MyLinks</span>
+      <span data-i18n="footer">Glass Link Hub · Live Bot API</span>
+    </footer>
+  </main>
 
   <script src="https://unpkg.com/lucide@0.469.0/dist/umd/lucide.min.js"></script>
-  <script src="friends/config.js"></script>
   <script src="assets/js/api.js"></script>
-  <script src="assets/js/sidebar.js"></script>
   <script src="assets/js/app.js"></script>
 </body>
 </html>
