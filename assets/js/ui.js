@@ -13,6 +13,17 @@
       dark: 'Dunkel',
       light: 'Hell',
       accent: 'Akzentfarbe',
+      languageHint: 'Deutsch oder English',
+      themeHint: 'Helles oder dunkles Design',
+      accentHint: 'Farbe der Highlights',
+      infoProfileTitle: 'Profil & Discord-Status',
+      infoProfileText: 'Zeigt mein Profil und – sofern die Bot-API erreichbar ist – meinen aktuellen Discord-Status.',
+      infoProjectsTitle: 'Projekte & Gaming',
+      infoProjectsText: 'Ein Überblick über Projekte, Communities, meine Rolle und weiterführende Links.',
+      infoMusicTitle: 'Musikplayer',
+      infoMusicText: 'Die Wiedergabe startet erst nach einem Klick auf „Enter“, da Browser Autoplay blockieren.',
+      infoSettingsTitle: 'Persönliche Einstellungen',
+      infoSettingsText: 'Sprache, Darstellung und Akzentfarbe werden lokal in diesem Browser gespeichert.',
       roleTag: 'Developer & Builder',
       location: 'Österreich · Discord Bots & Gaming',
       noActivity: 'Keine aktive Aktivität',
@@ -21,14 +32,10 @@
       secProjects: 'Projekte & Gaming',
       kickerHosting: 'INFRASTRUKTUR & MODULE',
       secHosting: 'Hosting & Bots',
-      kickerFriends: 'LIVE COMMUNITY',
-      secFriends: 'Freunde',
-      filterAll: 'Alle',
-      filterOnline: 'Aktiv / Online',
       refresh: 'Status',
       infoTitle: 'Über diese Seite',
-      info1: 'Persönliche Link-Page im Glas-Design mit Live-Discord-Status über die eigene Bot-API, Projekten, Freunden und Musik.',
-      info2: 'Design, Sprache und Akzentfarbe werden lokal in deinem Browser gespeichert.',
+      info1: 'MyLinks ist meine persönliche Startseite. Hier findest du meine Projekte, Communities, Gaming-Bereiche und wichtige externe Links an einem Ort.',
+      info2: 'MyLinks lädt keine Freundesliste. Externe Dienste wie Discord werden erst geöffnet, wenn du einen entsprechenden Link auswählst.',
       footer: 'Glass Link Hub · Bot Presence API'
     },
     en: {
@@ -42,6 +49,17 @@
       dark: 'Dark',
       light: 'Light',
       accent: 'Accent color',
+      languageHint: 'German or English',
+      themeHint: 'Light or dark appearance',
+      accentHint: 'Highlight color',
+      infoProfileTitle: 'Profile & Discord presence',
+      infoProfileText: 'Shows my profile and, when the bot API is reachable, my current Discord presence.',
+      infoProjectsTitle: 'Projects & gaming',
+      infoProjectsText: 'An overview of projects, communities, my role and useful links.',
+      infoMusicTitle: 'Music player',
+      infoMusicText: 'Playback starts after clicking Enter because browsers block autoplay.',
+      infoSettingsTitle: 'Personal settings',
+      infoSettingsText: 'Language, appearance and accent color are stored locally in this browser.',
       roleTag: 'Developer & Builder',
       location: 'Austria · Discord Bots & Gaming',
       noActivity: 'No active activity',
@@ -50,14 +68,10 @@
       secProjects: 'Projects & Gaming',
       kickerHosting: 'INFRASTRUCTURE & MODULES',
       secHosting: 'Hosting & Bots',
-      kickerFriends: 'LIVE COMMUNITY',
-      secFriends: 'Friends',
-      filterAll: 'All',
-      filterOnline: 'Active / Online',
       refresh: 'Refresh',
       infoTitle: 'About this page',
-      info1: 'Glass link hub with live Discord presence from my bot API, projects, friends and background music.',
-      info2: 'Theme, language and accent color are stored locally in your browser.',
+      info1: 'MyLinks is my personal home page for projects, communities, gaming areas and useful external links.',
+      info2: 'MyLinks does not load a friends list. External services such as Discord only open when you select a link.',
       footer: 'Glass Link Hub · Bot Presence API'
     }
   };
@@ -141,12 +155,6 @@
     b.addEventListener('click', () => applyAccent(b.dataset.accentOpt));
   });
 
-  document.querySelectorAll('[data-friend-filter]').forEach((btn) => {
-    btn.addEventListener('click', () => {
-      window.MyLinksPresence?.setFriendFilter(btn.dataset.friendFilter);
-    });
-  });
-
   document.getElementById('refresh-btn')?.addEventListener('click', () => {
     window.MyLinksPresence?.refresh();
   });
@@ -155,6 +163,7 @@
   document.getElementById('info-button')?.addEventListener('click', () => {
     infoOverlay?.classList.add('open');
     infoOverlay?.setAttribute('aria-hidden', 'false');
+    window.lucide?.createIcons();
   });
   document.getElementById('info-close')?.addEventListener('click', () => {
     infoOverlay?.classList.remove('open');
