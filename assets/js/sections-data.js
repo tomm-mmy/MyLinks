@@ -9,15 +9,21 @@
       items: [
         {
           id: 'core3d',
-          kind: '3d-print',
           name: 'Core3D',
-          badge: 'Community',
-          cover: 'assets/images/coreprofilbild.jpg',
-          descDe: '3D-Design, Modelle und 3D-Druck Community.',
-          descEn: '3D design, models and 3D printing community.',
-          detailsDe: 'Gemeinsames Projekt rund um 3D-Druck und Community-Aufbau.',
-          detailsEn: 'Collaborative project focused on 3D printing and community growth.',
-          tags: ['3D Druck', 'Community'],
+          category: '3D-Druck & Design',
+          statusDe: 'Aktiv',
+          statusEn: 'Active',
+          roleDe: 'Co-Leitung',
+          roleEn: 'Co-Lead',
+          platform: 'Discord & YouTube',
+          descDe: 'Community für 3D-Modelle, Druckprofile, Materialtipps und gemeinsamen Austausch.',
+          descEn: 'Community for 3D models, print profiles, filament tips and collaboration.',
+          meta: [
+            { labelDe: 'Fokus', labelEn: 'Focus', valueDe: '3D-Druck & CAD', valueEn: '3D Print & CAD' },
+            { labelDe: 'Bereich', labelEn: 'Scope', valueDe: 'Community', valueEn: 'Community' }
+          ],
+          detailsDe: 'Austausch zu Slicing, Druckern, Bauteilen und gemeinsamen Community-Projekten.',
+          detailsEn: 'Discussions around slicing, printers, parts and community builds.',
           links: [
             { label: 'Discord', url: 'https://discord.gg/33mb9W3KgB' },
             { label: 'YouTube', url: 'https://www.youtube.com/@Core3D_Print' }
@@ -25,15 +31,21 @@
         },
         {
           id: 'oktavstadt',
-          kind: 'roblox',
           name: 'Oktavstadt',
-          badge: 'Live',
-          cover: 'assets/images/oktavstadt.jpg',
-          descDe: 'Roblox-Projekt rund um Glocken und Community.',
-          descEn: 'Roblox bell simulation and community project.',
-          detailsDe: 'Offizielle Community und Spiel auf Roblox.',
-          detailsEn: 'Official server and game experience on Roblox.',
-          tags: ['Roblox', 'Team'],
+          category: 'Roblox Simulation',
+          statusDe: 'Live',
+          statusEn: 'Live',
+          roleDe: 'Team / Dev',
+          roleEn: 'Team / Dev',
+          platform: 'Roblox & Discord',
+          descDe: 'Roblox-Projekt rund um Glockenläuten, Technik und aktive Community-Sessions.',
+          descEn: 'Roblox project centered around bell mechanics, engineering and active sessions.',
+          meta: [
+            { labelDe: 'Engine', labelEn: 'Engine', valueDe: 'Roblox Studio', valueEn: 'Roblox Studio' },
+            { labelDe: 'Status', labelEn: 'Status', valueDe: 'Spielbar', valueEn: 'Playable' }
+          ],
+          detailsDe: 'Mitwirkung an Skripten, Systemen und Community-Struktur rund um Oktavstadt.',
+          detailsEn: 'Contributing to scripts, systems and community setup for Oktavstadt.',
           links: [
             { label: 'Discord', url: 'https://discord.gg/f9WwmEBtmE' },
             { label: 'Roblox', url: 'https://www.roblox.com/de/games/105633432256999/Oktavstadt' }
@@ -41,30 +53,42 @@
         },
         {
           id: 'eas',
-          kind: 'roleplay',
           name: 'EAS',
-          badge: 'In Arbeit',
-          cover: 'assets/images/eas.jpg',
-          descDe: 'Roleplay-Projekt in Entwicklung (V2).',
-          descEn: 'Roleplay project currently in V2 development.',
-          detailsDe: 'Team-Projekt mit Fokus auf Roleplay und Server-Aufbau.',
-          detailsEn: 'Team project centered around structured roleplay.',
-          tags: ['Roleplay', 'V2'],
+          category: 'Roleplay',
+          statusDe: 'In Arbeit (V2)',
+          statusEn: 'In Dev (V2)',
+          roleDe: 'Mitwirkender',
+          roleEn: 'Contributor',
+          platform: 'Discord',
+          descDe: 'Strukturiertes Roleplay-Projekt im Aufbau mit Fokus auf neue Systeme für V2.',
+          descEn: 'Structured roleplay project building new systems for its V2 release.',
+          meta: [
+            { labelDe: 'Version', labelEn: 'Version', valueDe: 'V2 Aufbau', valueEn: 'V2 Build' },
+            { labelDe: 'Typ', labelEn: 'Type', valueDe: 'Roleplay', valueEn: 'Roleplay' }
+          ],
+          detailsDe: 'Vorbereitung und Strukturierung von Abläufen, Rollen und Server-Komponenten.',
+          detailsEn: 'Structuring workflows, roles and server components ahead of release.',
           links: [
             { label: 'Discord', url: 'https://discord.gg/pQCr73nwWY' }
           ]
         },
         {
           id: 'trucker',
-          kind: 'ets2',
           name: 'Fichtelhillz Trucker',
-          badge: 'Mitglied',
-          cover: 'assets/images/trucker.png',
-          descDe: 'ETS2-Community für Touren und Convoys.',
-          descEn: 'ETS2 community for tours and convoys.',
-          detailsDe: 'Gemeinsame Fahrten und Austausch rund um Euro Truck Simulator 2.',
-          detailsEn: 'Shared convoys and driving sessions in Euro Truck Simulator 2.',
-          tags: ['ETS2', 'Convoys'],
+          category: 'Euro Truck Simulator 2',
+          statusDe: 'Mitglied',
+          statusEn: 'Member',
+          roleDe: 'Fahrer',
+          roleEn: 'Driver',
+          platform: 'ETS2 · Discord',
+          descDe: 'Fahrergemeinschaft für regelmäßige Touren, Schwertransporte und Convoy-Abende.',
+          descEn: 'Driving crew for regular routes, heavy cargo runs and convoy nights.',
+          meta: [
+            { labelDe: 'Spiel', labelEn: 'Game', valueDe: 'ETS2', valueEn: 'ETS2' },
+            { labelDe: 'Modus', labelEn: 'Mode', valueDe: 'Convoy', valueEn: 'Convoy' }
+          ],
+          detailsDe: 'Gemeinsame Routenplanung, Mods und entspannte Multiplayer-Fahrten.',
+          detailsEn: 'Shared route planning, mods and relaxed multiplayer sessions.',
           links: [
             { label: 'Discord', url: 'https://discord.gg/2WqvykHESn' }
           ]
@@ -78,15 +102,21 @@
       items: [
         {
           id: 'serverix',
-          kind: 'hosting',
           name: 'Serverix',
-          badge: 'Hosting',
-          cover: 'assets/images/serverixbanner.jpg',
-          descDe: 'Hosting-Umgebung für Discord-Bots und Status-Monitoring.',
-          descEn: 'Hosting environment for Discord bots and status monitoring.',
-          detailsDe: 'Hier laufen meine Bots; Statusseite und Discord sind direkt verlinkt.',
-          detailsEn: 'Hosts my Discord bots with direct links to status and community.',
-          tags: ['Hosting', 'Bots'],
+          category: 'Bot-Hosting & Monitoring',
+          statusDe: 'Aktiv',
+          statusEn: 'Active',
+          roleDe: 'Nutzer',
+          roleEn: 'User',
+          platform: 'Web · Status · Discord',
+          descDe: 'Hosting-Umgebung für eigene Discord-Bots mit direktem Zugriff auf Statusseite und Support.',
+          descEn: 'Hosting stack for custom Discord bots with direct status page and support links.',
+          meta: [
+            { labelDe: 'Zweck', labelEn: 'Purpose', valueDe: 'Bot Runtime', valueEn: 'Bot Runtime' },
+            { labelDe: 'Telemetrie', labelEn: 'Telemetry', valueDe: 'Live Status', valueEn: 'Live Status' }
+          ],
+          detailsDe: 'Laufzeitumgebung für Bot-Prozesse und schnellen Check von Uptime und Ausfällen.',
+          detailsEn: 'Runtime environment for bot processes and quick uptime checks.',
           links: [
             { label: 'Website', url: 'https://serverix.host/' },
             { label: 'Status', url: 'https://status.serverix.host/' },
@@ -95,15 +125,21 @@
         },
         {
           id: 'public-bots',
-          kind: 'bots',
           name: 'Public Bots',
-          badge: 'In Arbeit',
-          cover: null,
-          descDe: 'Öffentliche Bots werden vorbereitet und folgen hier.',
-          descEn: 'Public Discord bots are currently in development.',
-          detailsDe: 'Eigene Module für Moderation, Status und Community-Tools.',
-          detailsEn: 'Custom modules for moderation, status and community utilities.',
-          tags: ['Node.js', 'Discord.js'],
+          category: 'Discord.js Module',
+          statusDe: 'In Vorbereitung',
+          statusEn: 'Preparing',
+          roleDe: 'Entwickler',
+          roleEn: 'Developer',
+          platform: 'Node.js · Discord API',
+          descDe: 'Eigenentwickelte Bot-Module für Moderation, Status-Abfragen und Server-Automatisierung.',
+          descEn: 'Custom bot modules for moderation, live presence queries and server automation.',
+          meta: [
+            { labelDe: 'Stack', labelEn: 'Stack', valueDe: 'Node.js', valueEn: 'Node.js' },
+            { labelDe: 'Verfügbarkeit', labelEn: 'Release', valueDe: 'Bald', valueEn: 'Soon' }
+          ],
+          detailsDe: 'Saubere Trennung zwischen Test- und Produktivbetrieb sowie eigener Presence-API.',
+          detailsEn: 'Clean separation between testing and production alongside the presence API.',
           links: []
         }
       ]
@@ -119,100 +155,100 @@
     }
   }
 
-  function resolveBannerUrl(item) {
-    if (item.cover) return item.cover;
-    if (window.MyLinksBannerGen?.generate) {
-      return window.MyLinksBannerGen.generate({
-        kind: item.kind,
-        title: item.name,
-        subtitle: item.badge
-      });
-    }
-    return 'assets/images/serverixbanner.jpg';
-  }
-
-  function renderAllSections() {
+  function renderSections() {
     const host = document.getElementById('showcase-sections');
     if (!host) return;
     const lang = document.documentElement.lang === 'en' ? 'en' : 'de';
     host.textContent = '';
 
     SECTIONS.forEach((sec) => {
-      const sectionEl = document.createElement('section');
-      sectionEl.className = 'section-block';
-      sectionEl.id = sec.id;
+      const section = document.createElement('section');
+      section.className = 'section-block';
+      section.id = sec.id;
 
       const head = document.createElement('div');
       head.className = 'section-head';
 
-      const titleWrap = document.createElement('div');
+      const titleGroup = document.createElement('div');
       const kicker = document.createElement('span');
       kicker.className = 'section-kicker';
       kicker.dataset.i18n = sec.kickerKey;
       const h2 = document.createElement('h2');
       h2.dataset.i18n = sec.titleKey;
-      titleWrap.append(kicker, h2);
+      titleGroup.append(kicker, h2);
 
-      const countSpan = document.createElement('span');
-      countSpan.className = 'section-count';
-      countSpan.textContent = String(sec.items.length);
+      const count = document.createElement('span');
+      count.className = 'section-count';
+      count.textContent = `${sec.items.length}`;
 
-      head.append(titleWrap, countSpan);
-      sectionEl.appendChild(head);
+      head.append(titleGroup, count);
+      section.appendChild(head);
 
       const grid = document.createElement('div');
-      grid.className = 'cards-2col';
+      grid.className = 'data-cards-grid';
 
-      sec.items.forEach((it) => {
+      sec.items.forEach((item) => {
         const card = document.createElement('article');
-        card.className = 'link-tile';
+        card.className = 'data-card';
 
-        const cover = document.createElement('div');
-        cover.className = 'tile-cover';
-        cover.style.backgroundImage = `url("${resolveBannerUrl(it)}")`;
+        // Top row: Category + Status pill (no banner images)
+        const top = document.createElement('div');
+        top.className = 'data-card-top';
 
-        const coverBar = document.createElement('div');
-        coverBar.className = 'tile-cover-title';
+        const cat = document.createElement('span');
+        cat.className = 'data-category';
+        cat.textContent = item.category;
+
+        const status = document.createElement('span');
+        status.className = 'data-status-pill';
+        status.textContent = lang === 'en' ? item.statusEn : item.statusDe;
+
+        top.append(cat, status);
+
+        // Title + Role/Platform line
+        const titleRow = document.createElement('div');
+        titleRow.className = 'data-title-row';
 
         const h3 = document.createElement('h3');
-        h3.textContent = it.name;
+        h3.textContent = item.name;
 
-        const badge = document.createElement('span');
-        badge.className = 'tile-status';
-        badge.textContent = it.badge;
+        const roleTag = document.createElement('span');
+        roleTag.className = 'data-role-chip';
+        roleTag.textContent = lang === 'en' ? item.roleEn : item.roleDe;
 
-        coverBar.append(h3, badge);
-        cover.appendChild(coverBar);
+        titleRow.append(h3, roleTag);
 
-        const body = document.createElement('div');
-        body.className = 'tile-body';
+        const platformLine = document.createElement('div');
+        platformLine.className = 'data-platform-line';
+        platformLine.textContent = item.platform;
 
         const desc = document.createElement('p');
-        desc.textContent = lang === 'en' ? it.descEn : it.descDe;
-        body.appendChild(desc);
+        desc.className = 'data-desc';
+        desc.textContent = lang === 'en' ? item.descEn : item.descDe;
 
-        if (Array.isArray(it.tags) && it.tags.length) {
-          const tagsRow = document.createElement('div');
-          tagsRow.className = 'tile-tags';
-          it.tags.forEach((tg) => {
-            const sp = document.createElement('span');
-            sp.className = 'tile-tag';
-            sp.textContent = tg;
-            tagsRow.appendChild(sp);
-          });
-          body.appendChild(tagsRow);
-        }
+        // Structured data rows (key-value pairs)
+        const specGrid = document.createElement('dl');
+        specGrid.className = 'data-spec-grid';
+        (item.meta || []).forEach((m) => {
+          const cell = document.createElement('div');
+          cell.className = 'data-spec-cell';
+          const dt = document.createElement('dt');
+          dt.textContent = lang === 'en' ? m.labelEn : m.labelDe;
+          const dd = document.createElement('dd');
+          dd.textContent = lang === 'en' ? m.valueEn : m.valueDe;
+          cell.append(dt, dd);
+          specGrid.appendChild(cell);
+        });
 
-        const detail = document.createElement('p');
-        detail.className = 'tile-detail';
-        detail.hidden = true;
-        detail.textContent = lang === 'en' ? it.detailsEn : it.detailsDe;
-        body.appendChild(detail);
+        const detailBox = document.createElement('p');
+        detailBox.className = 'data-extra-detail';
+        detailBox.hidden = true;
+        detailBox.textContent = lang === 'en' ? item.detailsEn : item.detailsDe;
 
         const actions = document.createElement('div');
-        actions.className = 'tile-actions';
+        actions.className = 'data-actions';
 
-        (it.links || []).forEach((l) => {
+        (item.links || []).forEach((l) => {
           const href = safeUrl(l.url);
           if (!href) return;
           const a = document.createElement('a');
@@ -224,32 +260,31 @@
           actions.appendChild(a);
         });
 
-        const moreBtn = document.createElement('button');
-        moreBtn.type = 'button';
-        moreBtn.className = 'mini-btn ghost-toggle';
-        moreBtn.textContent = lang === 'en' ? 'Details' : 'Mehr';
-        moreBtn.addEventListener('click', () => {
-          const nextOpen = detail.hidden;
-          detail.hidden = !nextOpen;
-          moreBtn.textContent = nextOpen
+        const detailBtn = document.createElement('button');
+        detailBtn.type = 'button';
+        detailBtn.className = 'mini-btn detail-toggle';
+        detailBtn.textContent = lang === 'en' ? 'More info' : 'Details';
+        detailBtn.addEventListener('click', () => {
+          const open = detailBox.hidden;
+          detailBox.hidden = !open;
+          detailBtn.textContent = open
             ? (lang === 'en' ? 'Less' : 'Weniger')
-            : (lang === 'en' ? 'Details' : 'Mehr');
+            : (lang === 'en' ? 'More info' : 'Details');
         });
-        actions.appendChild(moreBtn);
+        actions.appendChild(detailBtn);
 
-        body.appendChild(actions);
-        card.append(cover, body);
+        card.append(top, titleRow, platformLine, desc, specGrid, detailBox, actions);
         grid.appendChild(card);
       });
 
-      sectionEl.appendChild(grid);
-      host.appendChild(sectionEl);
+      section.appendChild(grid);
+      host.appendChild(section);
     });
   }
 
   window.MyLinksSections = {
-    render: renderAllSections
+    render: renderSections
   };
 
-  renderAllSections();
+  renderSections();
 })();
