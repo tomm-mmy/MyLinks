@@ -1,18 +1,18 @@
 :root {
-  --bg: #07080f;
-  --bg-2: #0c101d;
-  --glass: rgba(18, 22, 36, 0.58);
-  --glass-2: rgba(25, 31, 50, 0.52);
-  --glass-hover: rgba(34, 43, 68, 0.72);
-  --popover-bg: rgba(12, 15, 27, 0.9);
-  --edge: rgba(255, 255, 255, 0.11);
-  --edge-strong: rgba(255, 255, 255, 0.2);
-  --shine: inset 0 1px 0 rgba(255, 255, 255, 0.12);
-  --blur: blur(22px) saturate(165%);
+  --bg: #060811;
+  --bg-2: #0b0f1d;
+  --glass: rgba(16, 21, 36, 0.54);
+  --glass-2: rgba(24, 31, 52, 0.48);
+  --glass-hover: rgba(34, 44, 72, 0.68);
+  --popover-bg: rgba(11, 15, 28, 0.92);
+  --edge: rgba(255, 255, 255, 0.12);
+  --edge-strong: rgba(255, 255, 255, 0.22);
+  --shine: inset 0 1px 0 rgba(255, 255, 255, 0.15);
+  --blur: blur(26px) saturate(175%);
 
-  --text: #f5f7fc;
-  --text-2: #b8c2d8;
-  --muted: #7f8ca8;
+  --text: #f6f8fd;
+  --text-2: #bcc6dc;
+  --muted: #808ea9;
 
   --a: 59 130 246;
   --a2: 96 165 250;
@@ -21,9 +21,8 @@
   --accent-soft: rgb(var(--a) / 0.16);
   --accent-border: rgb(var(--a2) / 0.44);
 
-  --radius: 24px;
-  --radius-md: 16px;
-  --shadow: 0 24px 64px -16px rgba(0, 0, 0, 0.65);
+  --radius: 26px;
+  --shadow: 0 24px 64px -18px rgba(0, 0, 0, 0.68);
   --ease: cubic-bezier(0.22, 1, 0.36, 1);
 }
 
@@ -33,15 +32,15 @@ html[data-accent="green"]  { --a: 16 185 129; --a2: 52 211 153; }
 html[data-accent="orange"] { --a: 249 115 22; --a2: 251 146 60; }
 
 html[data-theme="light"] {
-  --bg: #eef2f8;
-  --bg-2: #e4eaf4;
-  --glass: rgba(255, 255, 255, 0.7);
-  --glass-2: rgba(255, 255, 255, 0.58);
-  --glass-hover: rgba(255, 255, 255, 0.88);
+  --bg: #edf2f8;
+  --bg-2: #e2e9f3;
+  --glass: rgba(255, 255, 255, 0.68);
+  --glass-2: rgba(255, 255, 255, 0.54);
+  --glass-hover: rgba(255, 255, 255, 0.86);
   --popover-bg: rgba(255, 255, 255, 0.94);
   --edge: rgba(15, 23, 42, 0.09);
   --edge-strong: rgba(15, 23, 42, 0.16);
-  --shine: inset 0 1px 0 rgba(255, 255, 255, 0.85);
+  --shine: inset 0 1px 0 rgba(255, 255, 255, 0.9);
   --text: #0f172a;
   --text-2: #334155;
   --muted: #64748b;
@@ -103,32 +102,32 @@ button {
 .orb {
   position: absolute;
   border-radius: 50%;
-  filter: blur(82px);
-  opacity: 0.45;
+  filter: blur(88px);
+  opacity: 0.48;
 }
 
 .orb-a {
-  width: 560px;
-  height: 560px;
-  top: -160px;
-  left: -120px;
-  background: radial-gradient(circle, rgb(var(--a) / 0.52), transparent 70%);
+  width: 580px;
+  height: 580px;
+  top: -170px;
+  left: -130px;
+  background: radial-gradient(circle, rgb(var(--a) / 0.55), transparent 70%);
 }
 
 .orb-b {
-  width: 480px;
-  height: 480px;
-  top: 22%;
-  right: -140px;
-  background: radial-gradient(circle, rgb(var(--a2) / 0.34), transparent 70%);
+  width: 500px;
+  height: 500px;
+  top: 24%;
+  right: -150px;
+  background: radial-gradient(circle, rgb(var(--a2) / 0.36), transparent 70%);
 }
 
 .orb-c {
-  width: 520px;
-  height: 520px;
-  bottom: -180px;
-  left: 28%;
-  background: radial-gradient(circle, rgb(var(--a) / 0.28), transparent 70%);
+  width: 540px;
+  height: 540px;
+  bottom: -190px;
+  left: 26%;
+  background: radial-gradient(circle, rgb(var(--a) / 0.3), transparent 70%);
 }
 
 .grid-overlay {
