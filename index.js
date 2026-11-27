@@ -1,6 +1,5 @@
 'use strict';
 
-
 const T = {
     en: {
         settings: 'Settings', language: 'Language', accent: 'Accent color', theme: 'Appearance', dark: 'Dark', light: 'Light', workspace: 'WORKSPACE', areas: 'SECTIONS', overview: 'Overview', profile: 'Profile', sideNoteTitle: 'One place for everything', sideNoteText: 'Projects, interests and links.', topEyebrow: 'PERSONAL SPACE', topTitle: 'My dashboard', localSettings: 'Saved locally', welcomeEyebrow: 'WELCOME BACK', hello: 'Hey, I am', welcomeDashboard: 'Here you can explore my projects, interests and what I am currently working on.', exploreProjects: 'Explore projects', tileProjects: 'Personal and shared projects', tileGaming: 'Communities and games', tileHosting: 'My hosting environment', profileEyebrow: 'ABOUT ME', profileSubtitle: 'Developer · Gaming · Communities', communityEyebrow: 'MY PEOPLE',
@@ -14,7 +13,7 @@ const T = {
         discordAria: 'Open my Discord profile',
         secProjects: 'My projects', secGaming: 'Gaming', secHosting: 'Hosting', secBots: 'My public bots', secSkills: 'What I do',
         stCommunity: 'Community', stLive: 'Released', stTeam: 'In the team', stMember: 'Member', stHost: 'Host',
-        openDiscord: 'Open Discord', joinDiscord: 'Join Discord', playRoblox: 'Play on Roblox',
+        openDiscord: 'Open Discord', joinDiscord: 'Join Discord', playRoblox: 'Play on Roblox', openWebsite: 'Open website',
         chRole: 'Channels', chHost: 'Host links', chLegal: 'Host legal',
         website: 'Official website', status: 'Serverix status', whatsapp: 'Serverix WhatsApp channel',
         imprint: 'Legal notice', privacy: 'Privacy policy', terms: 'Terms',
@@ -24,8 +23,8 @@ const T = {
         oktavMore: 'This is the official server of the bell game Oktavstadt on Roblox. Everything here revolves around bells, and everyone is welcome.',
         eas: 'A roleplay project where I am part of the team. The devs do the building, but you can already join the Discord.',
         easMore: 'EAS is a roleplay project currently in development (V2). I am part of the team and help move it forward, while most of the building is done by others.',
-        trucker: 'A community around trucking in ETS2 with shared tours, convoys and chatting. Beginners and pros are welcome.',
-        truckerMore: 'Fichtelhillz Trucker is a community for everyone who enjoys ETS2, whether it is tours, convoys or just chatting. I am a member there.',
+        pavyan: 'We offer reliable vServers and root servers for game servers, websites and projects, with fast and friendly support.',
+        pavyanMore: 'Pavyan provides vServers and root servers for game servers, websites and projects along with fast, friendly support. Check out the website or join the Discord.',
         serverix: 'This is where I host my Discord bots. You can join the Serverix Discord.',
         serverixMore: 'Serverix is the host where my Discord bots run. The links below belong to the host.',
         botsTitle: 'Coming soon', botsText: 'My public bots are still in the workshop. Once they are ready, you will find them here. Thanks for your patience!',
@@ -43,7 +42,7 @@ const T = {
         discordAria: 'Mei Discord Profil öffnen',
         secProjects: 'Meine Projekte', secGaming: 'Zocken', secHosting: 'Hosting', secBots: 'Meine öffentlichen Bots', secSkills: 'Was i so mach',
         stCommunity: 'Community', stLive: 'Online', stTeam: 'Im Team', stMember: 'Mitglied', stHost: 'Hoster',
-        openDiscord: 'Discord öffnen', joinDiscord: 'Zum Discord', playRoblox: 'Auf Roblox zocken',
+        openDiscord: 'Discord öffnen', joinDiscord: 'Zum Discord', playRoblox: 'Auf Roblox zocken', openWebsite: 'Webseite öffnen',
         chRole: 'Kanäle', chHost: 'Serverix Links', chLegal: 'Rechtliches von Serverix',
         website: 'Offizielle Seitn', status: 'Serverix-Status', whatsapp: 'Serverix auf WhatsApp',
         imprint: 'Impressum', privacy: 'Datenschutz', terms: 'AGB',
@@ -53,8 +52,8 @@ const T = {
         oktavMore: 'Das is der offizielle Server vom Glockenspiel Oktavstadt auf Roblox. Bei uns dreht si alles um Glocken und neue Ideen. Vorbeischaun kann jeder.',
         eas: 'A Roleplay Projekt, bei dem i im Team dabei bin. Das Bauen übernehmen die Devs, im Discord kannst aber jetzt schon vorbeischaun.',
         easMore: 'EAS is ein Roleplay Projekt und grad in Entwicklung (V2). I bin im Team dabei und helf mit, beim Bauen packen hauptsächlich die anderen an.',
-        trucker: 'A Community für ETS2-Fans mit gemeinsamen Touren, Convoys und gemütlichem Ratschen. Egal ob Anfänger oder Profi, jeder is willkommen.',
-        truckerMore: 'Bei Fichtelhillz Trucker treffen si alle, die gern ETS2 fahren. Ob Touren, Convoys oder einfach a bissl ratschen, es is für jeden was dabei. I bin dort Mitglied.',
+        pavyan: 'Wir bieten zuverlässige vServer und Root-Server für Gameserver, Websites und Projekte, mit schnellen und freundlichem Support.',
+        pavyanMore: 'Pavyan stellt vServer und Root-Server für Gameserver, Websites und Projekte bereit und bietet schnellen, freundlichen Support. Alle Infos gibt es auf der Website und im Discord.',
         serverix: 'Do laufen meine Discord-Bots. Wennst magst, schau beim Serverix Discord vorbei.',
         serverixMore: 'Serverix is der Hoster, auf dem meine Discord Bots laufen. Die wichtigsten Links findest weiter unten.',
         botsTitle: 'Kommt no', botsText: 'Meine öffentlichen Bots sind grad noch in Arbeit. Sobald sie fertig sind, findest sie do. Danke fürs Warten!',
@@ -68,8 +67,10 @@ const SECTIONS = [
         id: 'projects', title: 'secProjects', cards: [{
             id: 'core3d', name: 'Core3D', icon: 'printer', tone: 'violet', kicker: 'COMMUNITY', sub: '3D DESIGN · 3D PRINTING',
             status: 'stCommunity', cls: 'active', text: 'core', more: 'coreMore', tags: ['3D', 'Community'],
-            links: [{ href: 'https://discord.gg/33mb9W3KgB', label: 'openDiscord', arrow: true },
-                    { href: 'https://www.youtube.com/@Core3D_Print', raw: 'YouTube', icon: 'clapperboard' }]
+            links: [
+                { href: 'https://discord.gg/33mb9W3KgB', label: 'openDiscord', arrow: true },
+                { href: 'https://www.youtube.com/@Core3D_Print', raw: 'YouTube', icon: 'clapperboard' }
+            ]
         }]
     },
     {
@@ -77,9 +78,14 @@ const SECTIONS = [
             {
                 id: 'oktav', name: 'Oktavstadt', icon: 'bell', tone: 'sky', kicker: 'GAMING', sub: 'ROBLOX · COMMUNITY',
                 status: 'stLive', cls: 'active', text: 'oktav', more: 'oktavMore', tags: ['Roblox', 'Team'],
-                links: [{ href: 'https://discord.gg/f9WwmEBtmE', label: 'joinDiscord', arrow: true },
-                        { href: 'https://www.roblox.com/de/games/105633432256999/Oktavstadt', label: 'playRoblox', icon: 'gamepad-2' }],
-                chips: { title: 'chRole', items: [{ href: 'https://www.youtube.com/@Oktavstadt', raw: 'YouTube', icon: 'clapperboard' }] }
+                links: [
+                    { href: 'https://discord.gg/f9WwmEBtmE', label: 'joinDiscord', arrow: true },
+                    { href: 'https://www.roblox.com/de/games/105633432256999/Oktavstadt', label: 'playRoblox', icon: 'gamepad-2' }
+                ],
+                chips: {
+                    title: 'chRole',
+                    items: [{ href: 'https://www.youtube.com/@Oktavstadt', raw: 'YouTube', icon: 'clapperboard' }]
+                }
             },
             {
                 id: 'eas', name: 'EAS', icon: 'drama', tone: 'indigo', kicker: 'COMING SOON', sub: 'ROLEPLAY · V2',
@@ -87,14 +93,12 @@ const SECTIONS = [
                 links: [{ href: 'https://discord.gg/pQCr73nwWY', label: 'joinDiscord', arrow: true }]
             },
             {
-                id: 'trucker', name: 'Fichtelhillz Trucker', icon: 'truck', tone: 'amber', kicker: 'COMMUNITY', sub: 'EURO TRUCK SIMULATOR 2',
-                status: 'stMember', cls: 'dev', text: 'trucker', more: 'truckerMore', tags: ['ETS2', 'Trucking', 'Convoys'],
-                links: [{ href: 'https://discord.gg/2WqvykHESn', label: 'joinDiscord', arrow: true }],
-                chips: {
-                    title: 'chRole', items: [
-                        { href: 'https://www.youtube.com/@fichtelhillztrucker', raw: 'YouTube', icon: 'clapperboard' },
-                        { href: 'https://www.twitch.tv/fichtelhillztrucker', raw: 'Twitch', icon: 'radio' }]
-                }
+                id: 'pavyan', name: 'Pavyan', icon: 'server', tone: 'amber', kicker: 'INFRASTRUCTURE', sub: 'VSERVERS · ROOT SERVERS',
+                status: 'stHost', cls: 'active', text: 'pavyan', more: 'pavyanMore', tags: ['vServer', 'Root-Server', 'Gameserver'],
+                links: [
+                    { href: 'https://discord.gg/xqcxpdkmF8', label: 'joinDiscord', arrow: true },
+                    { href: 'https://pavyan-systems.com/', label: 'openWebsite', icon: 'globe' }
+                ]
             }
         ]
     },
@@ -105,16 +109,20 @@ const SECTIONS = [
             links: [{ href: 'https://discord.gg/Et9a3bzH7v', label: 'joinDiscord', arrow: true }],
             chips: [
                 {
-                    title: 'chHost', items: [
+                    title: 'chHost',
+                    items: [
                         { href: 'https://serverix.host/', label: 'website', icon: 'globe' },
                         { href: 'https://status.serverix.host/', label: 'status', icon: 'heart-pulse' },
-                        { href: 'https://whatsapp.com/channel/0029VbCDpfH35fM0pUsaN91C', label: 'whatsapp', icon: 'messages-square' }]
+                        { href: 'https://whatsapp.com/channel/0029VbCDpfH35fM0pUsaN91C', label: 'whatsapp', icon: 'messages-square' }
+                    ]
                 },
                 {
-                    title: 'chLegal', items: [
+                    title: 'chLegal',
+                    items: [
                         { href: 'https://serverix.host/impressum', label: 'imprint', icon: 'building-2' },
                         { href: 'https://serverix.host/datenschutz', label: 'privacy', icon: 'lock-keyhole' },
-                        { href: 'https://serverix.host/agb', label: 'terms', icon: 'file-signature' }]
+                        { href: 'https://serverix.host/agb', label: 'terms', icon: 'file-signature' }
+                    ]
                 }
             ]
         }]
@@ -220,61 +228,117 @@ function applyTheme(name) {
 }
 
 function setPanel(open) {
-    $('#settings-panel').classList.toggle('open', open);
-    $('#settings-panel').setAttribute('aria-hidden', String(!open));
-    $('#settings-button').setAttribute('aria-expanded', String(open));
+    $('#settings-panel')?.classList.toggle('open', open);
+    $('#settings-panel')?.setAttribute('aria-hidden', String(!open));
+    $('#settings-button')?.setAttribute('aria-expanded', String(open));
 }
 
 function setInfo(open) {
-    $('#info-overlay').classList.toggle('open', open);
-    $('#info-overlay').setAttribute('aria-hidden', String(!open));
+    $('#info-overlay')?.classList.toggle('open', open);
+    $('#info-overlay')?.setAttribute('aria-hidden', String(!open));
 }
 
 /* ---------- Start ---------- */
 function init() {
-    $('#sections').innerHTML = SECTIONS.map(sectionHtml).join('');
+    const sectionsHost = $('#sections');
+    if (!sectionsHost) return;
+
+    sectionsHost.innerHTML = SECTIONS.map(sectionHtml).join('');
     window.lucide?.createIcons();
-    applyLanguage(lang); applyAccent(store.get('accent')); applyTheme(store.get('theme'));
+    applyLanguage(lang);
+    applyAccent(store.get('accent'));
+    applyTheme(store.get('theme'));
 
     document.addEventListener('click', (e) => {
         const target = e.target;
-        const lg = target.closest('[data-lang-opt]'), ac = target.closest('[data-accent-opt]'), th = target.closest('[data-theme-opt]');
+        const lg = target.closest('[data-lang-opt]');
+        const ac = target.closest('[data-accent-opt]');
+        const th = target.closest('[data-theme-opt]');
+
         if (lg) applyLanguage(lg.dataset.langOpt);
         if (ac) applyAccent(ac.dataset.accentOpt);
         if (th) applyTheme(th.dataset.themeOpt);
-        if (target.closest('#settings-button')) setPanel(!$('#settings-panel').classList.contains('open'));
-        else if (!target.closest('.settings-panel')) setPanel(false);
+
+        if (target.closest('#settings-button')) {
+            setPanel(!$('#settings-panel')?.classList.contains('open'));
+        } else if (!target.closest('.settings-panel')) {
+            setPanel(false);
+        }
+
         const toggle = target.closest('.section-toggle');
-        if (toggle) { const open = toggle.getAttribute('aria-expanded') === 'true'; toggle.setAttribute('aria-expanded', String(!open)); $('#' + toggle.getAttribute('aria-controls')).classList.toggle('closed', open); }
+        if (toggle) {
+            const open = toggle.getAttribute('aria-expanded') === 'true';
+            toggle.setAttribute('aria-expanded', String(!open));
+            $('#' + toggle.getAttribute('aria-controls'))?.classList.toggle('closed', open);
+        }
+
         const head = target.closest('.card-head');
-        if (head && !target.closest('a, button, input, select, textarea')) toggleCard(head);
+        if (head && !target.closest('a, button, input, select, textarea')) {
+            toggleCard(head);
+        }
+
         const nav = target.closest('[data-nav]');
-        if (nav) { $$('.nav-link[data-nav]').forEach(x => x.classList.toggle('active', x === nav)); $('#sidebar')?.classList.remove('mobile-open'); }
-        if (target.closest('#mobile-menu')) $('#sidebar')?.classList.toggle('mobile-open');
+        if (nav) {
+            $$('.nav-link[data-nav]').forEach((x) => x.classList.toggle('active', x === nav));
+            $('#sidebar')?.classList.remove('mobile-open');
+        }
+
+        if (target.closest('#mobile-menu')) {
+            $('#sidebar')?.classList.toggle('mobile-open');
+        }
     });
+
     document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape') { setPanel(false); setInfo(false); $('#sidebar')?.classList.remove('mobile-open'); }
+        if (e.key === 'Escape') {
+            setPanel(false);
+            setInfo(false);
+            $('#sidebar')?.classList.remove('mobile-open');
+        }
         const head = e.target.closest?.('.card-head');
-        if (head && (e.key === 'Enter' || e.key === ' ')) { e.preventDefault(); toggleCard(head); }
+        if (head && (e.key === 'Enter' || e.key === ' ')) {
+            e.preventDefault();
+            toggleCard(head);
+        }
     });
+
     $('#info-button')?.addEventListener('click', () => setInfo(true));
     $('#info-close')?.addEventListener('click', () => setInfo(false));
-    $('#info-overlay')?.addEventListener('click', (e) => { if (e.target.id === 'info-overlay') setInfo(false); });
+    $('#info-overlay')?.addEventListener('click', (e) => {
+        if (e.target.id === 'info-overlay') setInfo(false);
+    });
+
     setupReveal();
-    const sections = $$('[data-nav]');
-    if ('IntersectionObserver' in window) {
-        const observer = new IntersectionObserver(entries => entries.forEach(entry => { if (entry.isIntersecting) { const id = entry.target.id.replace('page-',''); const nav = $(`[data-nav="${id}"]`); if (nav) { $$('.nav-link[data-nav]').forEach(x => x.classList.toggle('active', x === nav)); } } }), { rootMargin: '-25% 0px -65% 0px' });
-        ['overview','profile','page-projects','page-gaming','page-hosting','page-bots','page-skills','friends-section'].forEach(id => { const el = document.getElementById(id); if (el) observer.observe(el); });
+
+    const navItems = $$('[data-nav]');
+    if ('IntersectionObserver' in window && navItems.length) {
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry) => {
+                if (entry.isIntersecting) {
+                    const id = entry.target.id.replace('page-', '');
+                    const nav = $(`[data-nav="${id}"]`);
+                    if (nav) {
+                        $$('.nav-link[data-nav]').forEach((x) => x.classList.toggle('active', x === nav));
+                    }
+                }
+            });
+        }, { rootMargin: '-25% 0px -65% 0px' });
+
+        ['overview', 'profile', 'page-projects', 'page-gaming', 'page-hosting', 'page-bots', 'page-skills', 'friends-section'].forEach((id) => {
+            const el = document.getElementById(id);
+            if (el) observer.observe(el);
+        });
     }
+
     window.lucide?.createIcons();
 }
 
 function toggleCard(head) {
     const card = head.closest('.project-card');
+    if (!card) return;
     const open = head.getAttribute('aria-expanded') === 'true';
     head.setAttribute('aria-expanded', String(!open));
     card.classList.toggle('open', !open);
-    $('#' + head.getAttribute('aria-controls')).classList.toggle('closed', open);
+    $('#' + head.getAttribute('aria-controls'))?.classList.toggle('closed', open);
 }
 
 /* Sanftes Einblenden beim Scrollen */
@@ -286,7 +350,10 @@ function setupReveal() {
     }
     const io = new IntersectionObserver((entries) => {
         entries.forEach((en) => {
-            if (en.isIntersecting) { en.target.classList.add('in'); io.unobserve(en.target); }
+            if (en.isIntersecting) {
+                en.target.classList.add('in');
+                io.unobserve(en.target);
+            }
         });
     }, { threshold: 0.08, rootMargin: '0px 0px -30px 0px' });
     items.forEach((el) => io.observe(el));
