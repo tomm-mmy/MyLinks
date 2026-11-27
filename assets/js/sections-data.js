@@ -132,8 +132,8 @@
           roleDe: 'Entwickler',
           roleEn: 'Developer',
           platform: 'Node.js · Discord API',
-          descDe: 'Eigenentwickelte Bot-Module für Moderation, Status-Abfragen und Server-Automatisierung.',
-          descEn: 'Custom bot modules for moderation, live presence queries and server automation.',
+          descDe: 'Eigenentwickelte Bots  Jedlicher Art (Privat).',
+          descEn: 'Custom developed bots of any kind (Private).',
           meta: [
             { labelDe: 'Stack', labelEn: 'Stack', valueDe: 'Node.js', valueEn: 'Node.js' },
             { labelDe: 'Verfügbarkeit', labelEn: 'Release', valueDe: 'Bald', valueEn: 'Soon' }
@@ -183,6 +183,19 @@
 
       head.append(titleGroup, count);
       section.appendChild(head);
+
+      const intro = document.createElement('p');
+      intro.className = 'section-intro';
+      if (sec.id === 'sec-projects') {
+        intro.textContent = lang === 'en'
+          ? 'A selection of communities and projects I am involved in. Open a card for more context or follow one of its links.'
+          : 'Eine Auswahl an Communities und Projekten, bei denen ich mitwirke. Öffne die Details für mehr Hintergrund oder nutze direkt die jeweiligen Links.';
+      } else {
+        intro.textContent = lang === 'en'
+          ? 'Services and tools that support my projects, bot hosting and technical work.'
+          : 'Dienste und Werkzeuge, die meine Projekte, das Bot-Hosting und meine technische Arbeit unterstützen.';
+      }
+      section.appendChild(intro);
 
       const grid = document.createElement('div');
       grid.className = 'data-cards-grid';
