@@ -1,6 +1,6 @@
 .audio-player {
   margin-top: 16px;
-  padding: 13px 15px;
+  padding: 14px 16px;
   border-radius: 18px;
   background: linear-gradient(135deg, var(--glass-2), rgba(255, 255, 255, 0.02));
   border: 1px solid var(--edge);
@@ -57,7 +57,7 @@
   flex: 1;
   min-width: 0;
   display: grid;
-  gap: 4px;
+  gap: 3px;
 }
 
 .track-top {
@@ -69,9 +69,19 @@
 
 .track-title {
   font-family: 'Space Grotesk', sans-serif;
-  font-size: 13.5px;
+  font-size: 14px;
   font-weight: 700;
+  letter-spacing: 0.03em;
   color: var(--text);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.track-artist {
+  font-size: 11.5px;
+  font-weight: 500;
+  color: var(--text-2);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -128,7 +138,7 @@
   background: rgba(255, 255, 255, 0.1);
   overflow: hidden;
   cursor: pointer;
-  margin-top: 2px;
+  margin-top: 3px;
 }
 
 html[data-theme="light"] .progress-track {
