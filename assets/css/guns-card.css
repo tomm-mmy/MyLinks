@@ -132,9 +132,9 @@
   display: grid;
   place-items: center;
   padding: 20px;
-  background: rgba(7, 8, 15, 0.75);
-  backdrop-filter: blur(26px) saturate(140%);
-  -webkit-backdrop-filter: blur(26px) saturate(140%);
+  background: rgba(6, 8, 17, 0.78);
+  backdrop-filter: blur(28px) saturate(150%);
+  -webkit-backdrop-filter: blur(28px) saturate(150%);
   transition: opacity 0.45s var(--ease), visibility 0.45s ease;
 }
 
@@ -216,7 +216,7 @@
   margin: 0 auto;
   padding: 76px 0 48px;
   display: grid;
-  gap: 20px;
+  gap: 18px;
 }
 
 .glass-profile {
@@ -231,7 +231,7 @@
 
 .profile-banner {
   position: relative;
-  height: 168px;
+  height: 164px;
   overflow: hidden;
 }
 
@@ -245,7 +245,7 @@
 .banner-scrim {
   position: absolute;
   inset: 0;
-  background: linear-gradient(180deg, rgba(7, 8, 15, 0.14) 0%, rgba(7, 8, 15, 0.84) 100%);
+  background: linear-gradient(180deg, rgba(6, 8, 17, 0.14) 0%, rgba(6, 8, 17, 0.86) 100%);
 }
 
 .api-badge {
@@ -255,14 +255,14 @@
   display: inline-flex;
   align-items: center;
   gap: 7px;
-  padding: 6px 11px;
+  padding: 6px 12px;
   border-radius: 999px;
-  background: rgba(7, 8, 15, 0.68);
-  backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.14);
+  background: rgba(6, 8, 17, 0.72);
+  backdrop-filter: blur(14px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
   font-size: 11.5px;
   font-weight: 600;
-  color: #f5f7fc;
+  color: #f6f8fd;
 }
 
 .api-dot {
@@ -274,7 +274,7 @@
 
 .api-dot.ok {
   background: #22c55e;
-  box-shadow: 0 0 10px rgba(34, 197, 94, 0.75);
+  box-shadow: 0 0 10px rgba(34, 197, 94, 0.8);
 }
 
 .api-dot.err {
@@ -377,6 +377,7 @@
   border-radius: 14px;
   background: var(--glass-2);
   border: 1px solid var(--edge);
+  box-shadow: var(--shine);
   display: flex;
   align-items: center;
   flex-wrap: wrap;
@@ -396,6 +397,12 @@
 .presence-activity {
   color: var(--text-2);
   font-weight: 500;
+}
+
+.presence-sync {
+  margin-left: auto;
+  font-size: 11px;
+  color: var(--muted);
 }
 
 .bio-text {
@@ -443,7 +450,7 @@
   background: linear-gradient(135deg, var(--accent), var(--accent-bright));
   border-color: transparent;
   color: #ffffff;
-  box-shadow: 0 10px 24px -8px rgb(var(--a) / 0.6);
+  box-shadow: 0 10px 24px -8px rgb(var(--a) / 0.65);
 }
 
 .section-block {
@@ -490,116 +497,132 @@
   color: var(--muted);
 }
 
-.cards-2col {
+/* Bannerless Data Cards Grid */
+.data-cards-grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 14px;
+  gap: 13px;
 }
 
-.link-tile {
+.data-card {
+  padding: 16px;
   border-radius: 18px;
   background: var(--glass-2);
   border: 1px solid var(--edge);
   box-shadow: var(--shine);
-  overflow: hidden;
   display: flex;
   flex-direction: column;
+  gap: 10px;
   transition: all 0.2s var(--ease);
 }
 
-.link-tile:hover {
+.data-card:hover {
   background: var(--glass-hover);
   border-color: var(--accent-border);
   transform: translateY(-2px);
 }
 
-.tile-cover {
-  position: relative;
-  height: 112px;
-  background-size: cover;
-  background-position: center;
-  border-bottom: 1px solid var(--edge);
-}
-
-.tile-cover::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(180deg, rgba(7, 8, 15, 0.14) 0%, rgba(7, 8, 15, 0.84) 100%);
-}
-
-.tile-cover-title {
-  position: absolute;
-  left: 14px;
-  right: 14px;
-  bottom: 10px;
-  z-index: 2;
+.data-card-top {
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 8px;
 }
 
-.tile-cover-title h3 {
-  font-family: 'Space Grotesk', sans-serif;
-  font-size: 16px;
-  color: #ffffff;
+.data-category {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.4px;
+  color: var(--muted);
 }
 
-.tile-status {
+.data-status-pill {
   padding: 3px 9px;
   border-radius: 999px;
-  font-size: 10.5px;
-  font-weight: 700;
-  background: rgba(7, 8, 15, 0.58);
-  backdrop-filter: blur(8px);
-  border: 1px solid rgba(255, 255, 255, 0.22);
-  color: #ffffff;
-}
-
-.tile-body {
-  padding: 14px;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  flex: 1;
-}
-
-.tile-body p {
-  font-size: 13px;
-  color: var(--text-2);
-}
-
-.tile-detail {
-  padding: 9px 11px;
-  border-radius: 11px;
-  background: var(--glass);
-  border: 1px solid var(--edge);
-  font-size: 12px !important;
-  color: var(--muted) !important;
-}
-
-.tile-tags {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 6px;
-}
-
-.tile-tag {
-  padding: 3px 8px;
-  border-radius: 8px;
   background: var(--accent-soft);
   border: 1px solid var(--accent-border);
-  font-size: 11px;
-  font-weight: 600;
+  font-size: 10.5px;
+  font-weight: 700;
   color: var(--accent-bright);
 }
 
-.tile-actions {
+.data-title-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.data-title-row h3 {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 16.5px;
+  letter-spacing: -0.01em;
+}
+
+.data-role-chip {
+  padding: 2px 8px;
+  border-radius: 8px;
+  background: var(--glass);
+  border: 1px solid var(--edge);
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--text-2);
+  white-space: nowrap;
+}
+
+.data-platform-line {
+  font-size: 11.5px;
+  font-weight: 600;
+  color: var(--muted);
+}
+
+.data-desc {
+  font-size: 13px;
+  color: var(--text-2);
+  line-height: 1.5;
+}
+
+.data-spec-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.data-spec-cell {
+  padding: 8px 10px;
+  border-radius: 12px;
+  background: var(--glass);
+  border: 1px solid var(--edge);
+}
+
+.data-spec-cell dt {
+  font-size: 10.5px;
+  font-weight: 600;
+  color: var(--muted);
+}
+
+.data-spec-cell dd {
+  font-size: 12.5px;
+  font-weight: 700;
+  color: var(--text);
+  margin-top: 1px;
+}
+
+.data-extra-detail {
+  padding: 9px 11px;
+  border-radius: 12px;
+  background: var(--glass);
+  border: 1px dashed var(--edge-strong);
+  font-size: 12px;
+  color: var(--text-2);
+}
+
+.data-actions {
   display: flex;
   flex-wrap: wrap;
   gap: 7px;
   margin-top: auto;
+  padding-top: 2px;
 }
 
 .mini-btn {
@@ -683,7 +706,7 @@
 }
 
 @media (max-width: 660px) {
-  .cards-2col {
+  .data-cards-grid {
     grid-template-columns: 1fr;
   }
   .profile-content {
