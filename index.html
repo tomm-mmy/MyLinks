@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="theme-color" content="#07080f">
+  <meta name="theme-color" content="#070912">
   <meta name="description" content="Tommy – Projekte, Gaming, Discord-Bots, Freunde und Live-Status.">
   <title>Tommy – MyLinks</title>
   <script>
@@ -106,15 +106,15 @@
     </div>
   </div>
 
-  <!-- Main Guns.lol Glass Hub -->
+  <!-- Main Glass Hub -->
   <main class="hub-container">
     <article class="glass-profile">
-      <div class="profile-banner" id="owner-banner">
+      <div class="profile-banner">
         <img src="assets/images/serverixbanner.jpg" alt="Banner" class="banner-img">
         <div class="banner-scrim"></div>
-        <div class="api-badge" id="api-status-pill">
+        <div class="api-badge" id="api-status-pill" title="Verbindungsstatus zur Bot-API">
           <span class="api-dot" id="api-status-dot"></span>
-          <span id="api-status-text">API: Prüfe …</span>
+          <span id="api-status-text">Bot-API: Verbinde …</span>
         </div>
       </div>
 
@@ -141,13 +141,14 @@
           <span class="presence-state" id="presence-status">Offline</span>
           <span class="presence-sep">•</span>
           <span class="presence-activity" id="presence-activity-text" data-i18n="noActivity">Keine aktive Aktivität</span>
+          <span class="presence-sync" id="presence-sync-meta"></span>
         </div>
 
         <p class="bio-text" data-i18n="bio">
           Ich baue Discord-Bots mit JavaScript, betreue Communities und setze eigene Web- und Gaming-Ideen um.
         </p>
 
-        <!-- Enhanced Glass Music Player -->
+        <!-- Glass Music Player (prepared for HIDEAWAY – Zentryc, BLURREDMOVEMENT) -->
         <section class="audio-player" aria-label="Musik-Player">
           <div class="audio-main">
             <button class="play-btn" id="audio-toggle" type="button" aria-label="Musik abspielen oder pausieren">
@@ -156,9 +157,10 @@
 
             <div class="track-info">
               <div class="track-top">
-                <span class="track-title" id="track-title">NEFFEX – Burn The Bridge</span>
+                <span class="track-title" id="track-title">Desperate [Copyright-Free]</span>
                 <span class="track-time" id="track-time">0:00 / 0:00</span>
               </div>
+              <div class="track-artist" id="track-artist">NEFFEX &amp; TOKYO MACHINE · NCS</div>
               <div class="track-status-row">
                 <span class="eq-bars" id="eq-bars" aria-hidden="true">
                   <i></i><i></i><i></i><i></i>
@@ -178,10 +180,11 @@
             <input type="range" id="audio-volume" min="0" max="100" value="35" aria-label="Lautstärke">
           </div>
 
-          <audio id="bg-audio" src="assets/audio/burn-the-bridge.mp3" loop preload="metadata"></audio>
+          <!-- Place hideaway.mp3 in assets/audio/hideaway.mp3 once you have the audio file -->
+          <audio id="bg-audio" data-src="assets/audio/desperate.mp3" src="assets/audio/burn-the-bridge.mp3" loop preload="metadata"></audio>
         </section>
 
-        <!-- Primary Action & Navigation Row -->
+        <!-- Primary Action Row -->
         <div class="social-row">
           <a class="social-pill primary" href="https://discord.com/users/881206091009122406" target="_blank" rel="noopener noreferrer">
             <i data-lucide="message-circle"></i>
@@ -204,9 +207,10 @@
       </div>
     </article>
 
-    <!-- Target containers populated cleanly by modular JS files -->
+    <!-- Data-rich sections rendered without server banners -->
     <div id="showcase-sections"></div>
 
+    <!-- Improved Friends Section with strict validation & clean layout -->
     <section class="section-block" id="sec-friends">
       <div class="section-head">
         <div>
@@ -221,6 +225,7 @@
           <button type="button" class="filter-pill active" data-friend-filter="all" data-i18n="filterAll">Alle</button>
           <button type="button" class="filter-pill" data-friend-filter="active" data-i18n="filterOnline">Aktiv / Online</button>
         </div>
+        <span class="friends-sync-note" id="friends-sync-note"></span>
       </div>
 
       <div class="friends-grid" id="friends-slot" aria-live="polite"></div>
@@ -228,12 +233,11 @@
 
     <footer class="hub-footer">
       <span>© 2026 Tommy · MyLinks</span>
-      <span data-i18n="footer">Glass Link Hub · Live Bot API</span>
+      <span data-i18n="footer">Glass Link Hub · Bot Presence API</span>
     </footer>
   </main>
 
   <script src="https://unpkg.com/lucide@0.469.0/dist/umd/lucide.min.js"></script>
-  <script src="assets/js/banner-generator.js"></script>
   <script src="assets/js/sections-data.js"></script>
   <script src="assets/js/friends-data.js"></script>
   <script src="assets/js/api.js"></script>
