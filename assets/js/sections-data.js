@@ -61,7 +61,7 @@
           roleEn: 'Team',
           platform: 'Discord',
           descDe: 'Strukturiertes Projekt im Aufbau mit Fokus auf neue Systeme für V2.',
-          descEn: 'Structured  project building new systems for its V2 release.',
+          descEn: 'Structured project building new systems for its V2 release.',
           meta: [
             { labelDe: 'Version', labelEn: 'Version', valueDe: 'V2 Aufbau', valueEn: 'V2 Build' },
             { labelDe: 'Typ', labelEn: 'Type', valueDe: 'Roleplay', valueEn: 'Roleplay' }
@@ -73,7 +73,6 @@
           ]
         },
         {
-{
           id: 'pavyan',
           name: 'Pavyan',
           category: 'vServer & Root-Server',
@@ -88,7 +87,7 @@
             { labelDe: 'Fokus', labelEn: 'Focus', valueDe: 'vServer & Root', valueEn: 'vServer & Root' },
             { labelDe: 'Einsatz', labelEn: 'Use Case', valueDe: 'Games & Web', valueEn: 'Games & Web' }
           ],
-          detailsDe: 'Zuverlässige Server Infrastruktur für Gameserver, Websites und Projekte inklusive schnellem, freundlichem Support.',
+          detailsDe: 'Zuverlässige Server-Infrastruktur für Gameserver, Websites und Projekte inklusive schnellem, freundlichem Support.',
           detailsEn: 'Reliable server infrastructure for game servers, websites and projects with fast, friendly support.',
           links: [
             { label: 'Discord', url: 'https://discord.gg/xqcxpdkmF8' },
@@ -134,7 +133,7 @@
           roleDe: 'Entwickler',
           roleEn: 'Developer',
           platform: 'Node.js · Discord API',
-          descDe: 'Eigenentwickelte Bots  Jedlicher Art (Privat).',
+          descDe: 'Eigenentwickelte Bots jeglicher Art (Privat).',
           descEn: 'Custom developed bots of any kind (Private).',
           meta: [
             { labelDe: 'Stack', labelEn: 'Stack', valueDe: 'Node.js', valueEn: 'Node.js' },
