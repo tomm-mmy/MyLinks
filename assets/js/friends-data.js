@@ -3,7 +3,7 @@
 (() => {
   const OWNER_ID = '881206091009122406';
 
-  const FRIENDS = [
+  const RAW_FRIENDS = [
     {
       id: '1287327628818251843',
       fallbackName: 'JulBa10',
@@ -53,14 +53,38 @@
     return /^\d{17,20}$/.test(String(id || '').trim());
   }
 
+  function sanitizeLink(link) {
+    if (!link || typeof link !== 'object') return null;
+    const label = String(link.label || '').trim().slice(0, 24);
+    if (!label) return null;
+    try {
+      const u = new URL(String(link.url || '').trim());
+      if (u.protocol !== 'https:' && u.protocol !== 'http:') return null;
+      return { label, url: u.href };
+    } catch {
+      return null;
+    }
+  }
+
   function getValidatedFriends() {
-    const seen = new Set();
-    return FRIENDS.filter((item) => {
-      const cleanId = String(item?.id || '').trim();
-      if (!isValidSnowflake(cleanId) || seen.has(cleanId)) return false;
-      seen.add(cleanId);
-      return true;
-    });
+    const seen = new Set([OWNER_ID]);
+    const valid = [];
+
+    for (const item of RAW_FRIENDS) {
+      if (!item || typeof item !== 'object') continue;
+      const id = String(item.id || '').trim();
+      if (!isValidSnowflake(id) || seen.has(id)) continue;
+      seen.add(id);
+
+      const fallbackName = String(item.fallbackName || `User · ${id.slice(-4)}`).trim().slice(0, 40);
+      const links = Array.isArray(item.links)
+        ? item.links.map(sanitizeLink).filter(Boolean)
+        : [];
+
+      valid.push({ id, fallbackName, links });
+    }
+
+    return valid;
   }
 
   window.MyLinksFriends = {
