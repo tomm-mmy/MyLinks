@@ -22,6 +22,14 @@
 
     if (!audio || !playBtn) return;
 
+    const preferredSrc = audio.dataset.src;
+    const fallbackSrc = audio.getAttribute('src');
+    let triedFallback = false;
+
+    if (preferredSrc && preferredSrc !== fallbackSrc) {
+      audio.src = preferredSrc;
+    }
+
     let lastVolume = (Number(volInput?.value) || 35) / 100;
     audio.volume = lastVolume;
 
@@ -69,6 +77,14 @@
         timeLabel.textContent = `${formatTime(cur)} / ${formatTime(dur)}`;
       }
     }
+
+    audio.addEventListener('error', () => {
+      if (!triedFallback && fallbackSrc && audio.src.includes('desperate.mp3')) {
+        triedFallback = true;
+        audio.src = fallbackSrc;
+        audio.load();
+      }
+    });
 
     playBtn.addEventListener('click', () => {
       if (audio.paused) {
