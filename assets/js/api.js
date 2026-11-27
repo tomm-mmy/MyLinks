@@ -2,14 +2,80 @@
 
 (() => {
   const OWNER_ID = window.MyLinksFriends?.OWNER_ID || '881206091009122406';
+  const VALID_STATUSES = new Set(['online', 'idle', 'dnd', 'offline']);
+
   const state = {
     records: {},
     connected: false,
+    latencyMs: null,
+    lastSyncAt: null,
     filter: 'all'
   };
 
   function getLang() {
     return document.documentElement.lang === 'en' ? 'en' : 'de';
+  }
+
+  function normalizeStatus(rawStatus) {
+    const s = String(rawStatus || '').trim().toLowerCase();
+    if (s === 'do_not_disturb' || s === 'busy') return 'dnd';
+    if (s === 'away') return 'idle';
+    return VALID_STATUSES.has(s) ? s : 'offline';
+  }
+
+  function normalizeRecord(raw) {
+    if (!raw || typeof raw !== 'object') {
+      return {
+        status: 'offline',
+        username: null,
+        globalName: null,
+        avatar: null,
+        activities: []
+      };
+    }
+
+    // Supports either direct fields or nested { user, presence, activities }
+    const userObj = raw.user && typeof raw.user === 'object' ? raw.user : raw;
+    const status = normalizeStatus(raw.status || raw.discord_status || raw.presence?.status);
+    const username = typeof (userObj.username || raw.username) === 'string'
+      ? (userObj.username || raw.username).trim()
+      : null;
+    const globalName = typeof (userObj.globalName || userObj.global_name || raw.globalName || raw.global_name || raw.displayName) === 'string'
+      ? (userObj.globalName || userObj.global_name || raw.globalName || raw.global_name || raw.displayName).trim()
+      : null;
+    const avatar = typeof (userObj.avatar || raw.avatar) === 'string'
+      ? (userObj.avatar || raw.avatar).trim()
+      : null;
+
+    const activities = Array.isArray(raw.activities)
+      ? raw.activities
+      : (Array.isArray(raw.presence?.activities) ? raw.presence.activities : []);
+
+    return { status, username, globalName, avatar, activities };
+  }
+
+  function extractMapFromPayload(payload) {
+    if (!payload || typeof payload !== 'object' || Array.isArray(payload)) {
+      return null;
+    }
+    const candidate = payload.data && typeof payload.data === 'object' && !Array.isArray(payload.data)
+      ? payload.data
+      : (payload.users && typeof payload.users === 'object' && !Array.isArray(payload.users)
+        ? payload.users
+        : payload);
+
+    if (!candidate || typeof candidate !== 'object' || Array.isArray(candidate)) {
+      return null;
+    }
+
+    const cleanMap = {};
+    for (const [key, val] of Object.entries(candidate)) {
+      const k = String(key || '').trim();
+      if (/^\d{17,20}$/.test(k)) {
+        cleanMap[k] = normalizeRecord(val);
+      }
+    }
+    return cleanMap;
   }
 
   function statusLabel(status, lang) {
@@ -24,54 +90,52 @@
     if (!Array.isArray(activities) || !activities.length) {
       return lang === 'de' ? 'Keine aktive Aktivität' : 'No active activity';
     }
-    const main = activities.find((a) => [0, 1, 3, 5].includes(a.type) && a.name);
+    const main = activities.find((a) => a && typeof a === 'object' && [0, 1, 3, 5].includes(Number(a.type)) && a.name);
     if (main) {
+      const t = Number(main.type);
       const prefixMap = {
         0: lang === 'de' ? 'Spielt' : 'Playing',
         1: lang === 'de' ? 'Streamt' : 'Streaming',
         3: lang === 'de' ? 'Schaut' : 'Watching',
         5: lang === 'de' ? 'Wettkampf' : 'Competing'
       };
-      const base = `${prefixMap[main.type] || 'Aktiv'} ${main.name}`;
-      return main.details ? `${base} · ${main.details}` : base;
+      const base = `${prefixMap[t] || 'Aktiv'} ${String(main.name).trim()}`;
+      return main.details ? `${base} · ${String(main.details).trim()}` : base;
     }
-    const custom = activities.find((a) => a.type === 4 && (a.state || a.name));
-    return custom ? (custom.state || custom.name) : (lang === 'de' ? 'Keine aktive Aktivität' : 'No active activity');
+    const custom = activities.find((a) => a && typeof a === 'object' && Number(a.type) === 4 && (a.state || a.name));
+    if (custom) {
+      return String(custom.state || custom.name).trim();
+    }
+    return lang === 'de' ? 'Keine aktive Aktivität' : 'No active activity';
   }
 
   function buildAvatarUrl(userId, avatarHash) {
-    if (!avatarHash || !/^[a-zA-Z0-9_-]+$/.test(String(avatarHash))) return null;
-    const ext = String(avatarHash).startsWith('a_') ? 'gif' : 'png';
+    if (!avatarHash || !/^[a-zA-Z0-9_-]+$/.test(avatarHash)) return null;
+    const ext = avatarHash.startsWith('a_') ? 'gif' : 'png';
     return `https://cdn.discordapp.com/avatars/${userId}/${avatarHash}.${ext}?size=256`;
   }
 
-  function safeUrl(raw) {
-    try {
-      const u = new URL(raw);
-      return (u.protocol === 'https:' || u.protocol === 'http:') ? u.href : null;
-    } catch {
-      return null;
-    }
-  }
-
-  function setApiBadge(ok, message) {
+  function setApiBadge(ok, message, titleText) {
     const dot = document.getElementById('api-status-dot');
     const text = document.getElementById('api-status-text');
+    const pill = document.getElementById('api-status-pill');
     if (dot) {
       dot.classList.remove('ok', 'err');
       dot.classList.add(ok ? 'ok' : 'err');
     }
     if (text) text.textContent = message;
+    if (pill && titleText) pill.title = titleText;
   }
 
   function renderOwner() {
     const lang = getLang();
-    const rec = state.records[OWNER_ID] || null;
-    const status = ['online', 'idle', 'dnd'].includes(rec?.status) ? rec.status : 'offline';
+    const rec = state.records[OWNER_ID] || normalizeRecord(null);
+    const status = rec.status;
 
     const ring = document.getElementById('online-dot');
     const stEl = document.getElementById('presence-status');
     const actEl = document.getElementById('presence-activity-text');
+    const syncEl = document.getElementById('presence-sync-meta');
     const nameEl = document.getElementById('owner-display-name');
     const avImg = document.getElementById('owner-avatar-img');
     const enterAvImg = document.getElementById('enter-avatar-img');
@@ -81,14 +145,22 @@
       ring.title = statusLabel(status, lang);
     }
     if (stEl) stEl.textContent = statusLabel(status, lang);
-    if (actEl) actEl.textContent = formatActivity(rec?.activities, lang);
+    if (actEl) actEl.textContent = formatActivity(rec.activities, lang);
 
-    const liveName = rec?.globalName || rec?.username;
+    if (syncEl) {
+      if (state.connected && typeof state.latencyMs === 'number') {
+        syncEl.textContent = `· ${state.latencyMs} ms`;
+      } else {
+        syncEl.textContent = '';
+      }
+    }
+
+    const liveName = rec.globalName || rec.username;
     if (nameEl && liveName) {
       nameEl.textContent = liveName;
     }
 
-    const liveAvatar = buildAvatarUrl(OWNER_ID, rec?.avatar);
+    const liveAvatar = buildAvatarUrl(OWNER_ID, rec.avatar);
     if (liveAvatar) {
       if (avImg && avImg.src !== liveAvatar) avImg.src = liveAvatar;
       if (enterAvImg && enterAvImg.src !== liveAvatar) enterAvImg.src = liveAvatar;
@@ -98,6 +170,7 @@
   function renderFriends() {
     const slot = document.getElementById('friends-slot');
     const countEl = document.getElementById('friends-count');
+    const noteEl = document.getElementById('friends-sync-note');
     if (!slot) return;
 
     const lang = getLang();
@@ -105,18 +178,17 @@
     let onlineCount = 0;
 
     const enriched = friends.map((f) => {
-      const rec = state.records[f.id] || null;
-      const status = ['online', 'idle', 'dnd'].includes(rec?.status) ? rec.status : 'offline';
-      const isActive = status !== 'offline';
+      const rec = state.records[f.id] || normalizeRecord(null);
+      const isActive = rec.status !== 'offline';
       if (isActive) onlineCount++;
 
-      const displayName = rec?.globalName || rec?.username || f.fallbackName;
-      const avatarSrc = buildAvatarUrl(f.id, rec?.avatar);
-      const activityText = formatActivity(rec?.activities, lang);
+      const displayName = rec.globalName || rec.username || f.fallbackName;
+      const avatarSrc = buildAvatarUrl(f.id, rec.avatar);
+      const activityText = formatActivity(rec.activities, lang);
 
       return {
         ...f,
-        status,
+        status: rec.status,
         isActive,
         displayName,
         avatarSrc,
@@ -124,7 +196,6 @@
       };
     });
 
-    // Sort active friends first, then keep deterministic order
     enriched.sort((a, b) => Number(b.isActive) - Number(a.isActive));
 
     const visible = state.filter === 'active'
@@ -137,8 +208,8 @@
       const empty = document.createElement('div');
       empty.className = 'friends-empty';
       empty.textContent = lang === 'de'
-        ? 'Aktuell niemand online.'
-        : 'Nobody online right now.';
+        ? 'Aktuell keine aktiven Freunde online.'
+        : 'No friends active or online right now.';
       slot.appendChild(empty);
     } else {
       visible.forEach((f) => {
@@ -180,11 +251,11 @@
         name.className = 'friend-name';
         name.textContent = f.displayName;
 
-        const statusRow = document.createElement('div');
-        statusRow.className = 'friend-status-line';
-        statusRow.textContent = statusLabel(f.status, lang);
+        const statusLine = document.createElement('div');
+        statusLine.className = 'friend-status-line';
+        statusLine.textContent = statusLabel(f.status, lang);
 
-        info.append(name, statusRow);
+        info.append(name, statusLine);
         top.append(avBox, info);
 
         const act = document.createElement('div');
@@ -193,15 +264,13 @@
 
         card.append(top, act);
 
-        if (Array.isArray(f.links) && f.links.length) {
+        if (f.links.length) {
           const linksRow = document.createElement('div');
           linksRow.className = 'friend-links-row';
           f.links.forEach((l) => {
-            const href = safeUrl(l.url);
-            if (!href) return;
             const a = document.createElement('a');
             a.className = 'friend-link-btn';
-            a.href = href;
+            a.href = l.url;
             a.target = '_blank';
             a.rel = 'noopener noreferrer';
             a.textContent = l.label;
@@ -217,9 +286,23 @@
     if (countEl) {
       countEl.textContent = `${onlineCount} / ${friends.length} online`;
     }
+
+    if (noteEl) {
+      if (state.connected && state.lastSyncAt) {
+        const timeStr = state.lastSyncAt.toLocaleTimeString(lang === 'en' ? 'en-US' : 'de-DE', {
+          hour: '2-digit',
+          minute: '2-digit',
+          second: '2-digit'
+        });
+        noteEl.textContent = lang === 'de' ? `Sync ${timeStr}` : `Synced ${timeStr}`;
+      } else {
+        noteEl.textContent = lang === 'de' ? 'Warte auf Bot-API' : 'Waiting for bot API';
+      }
+    }
   }
 
   async function fetchPresence() {
+    const t0 = performance.now();
     try {
       const res = await fetch('/api/presence', {
         method: 'GET',
@@ -227,19 +310,37 @@
         headers: { Accept: 'application/json' },
         signal: AbortSignal.timeout(8000)
       });
-      if (!res.ok) throw new Error(`HTTP ${res.status}`);
-      const payload = await res.json();
-      const mapData = payload?.data && typeof payload.data === 'object' ? payload.data : payload;
-      if (!mapData || typeof mapData !== 'object' || Array.isArray(mapData)) {
-        throw new Error('Invalid payload');
+      if (!res.ok) {
+        throw new Error(`HTTP ${res.status}`);
       }
+      const payload = await res.json();
+      const mapData = extractMapFromPayload(payload);
+      if (!mapData) {
+        throw new Error('Ungültige Datenstruktur');
+      }
+
       state.records = mapData;
       state.connected = true;
-      setApiBadge(true, 'API: Verbunden');
+      state.latencyMs = typeof payload?.latencyMs === 'number'
+        ? payload.latencyMs
+        : Math.round(performance.now() - t0);
+      state.lastSyncAt = new Date();
+
+      setApiBadge(
+        true,
+        `Bot-API · ${state.latencyMs} ms`,
+        `Verbunden mit Bot-API (${Object.keys(mapData).length} Profile, ${state.latencyMs} ms)`
+      );
     } catch (err) {
       state.connected = false;
-      setApiBadge(false, `API: ${err.message}`);
+      state.latencyMs = null;
+      setApiBadge(
+        false,
+        `Bot-API · Offline`,
+        `Verbindung fehlgeschlagen: ${err.message}`
+      );
     }
+
     renderOwner();
     renderFriends();
   }
@@ -264,5 +365,5 @@
   fetchPresence();
   setInterval(() => {
     if (!document.hidden) fetchPresence();
-  }, 30000);
+  }, 25000);
 })();
