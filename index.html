@@ -22,7 +22,6 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="assets/css/tokens.css">
   <link rel="stylesheet" href="assets/css/guns-card.css">
-  <link rel="stylesheet" href="assets/css/friends-grid.css">
   <link rel="stylesheet" href="assets/css/audio-player.css">
 </head>
 <body class="locked">
@@ -48,7 +47,7 @@
         <h2 data-i18n="settings">Einstellungen</h2>
 
         <div class="setting-row">
-          <span data-i18n="language">Sprache</span>
+          <div class="setting-copy"><span data-i18n="language">Sprache</span><small data-i18n="languageHint">Deutsch oder English</small></div>
           <div class="seg">
             <button type="button" class="seg-btn" data-lang-opt="de" aria-pressed="false">DE</button>
             <button type="button" class="seg-btn" data-lang-opt="en" aria-pressed="false">EN</button>
@@ -56,7 +55,7 @@
         </div>
 
         <div class="setting-row">
-          <span data-i18n="theme">Darstellung</span>
+          <div class="setting-copy"><span data-i18n="theme">Darstellung</span><small data-i18n="themeHint">Helles oder dunkles Design</small></div>
           <div class="seg">
             <button type="button" class="seg-btn" data-theme-opt="dark" aria-pressed="false" data-i18n="dark">Dunkel</button>
             <button type="button" class="seg-btn" data-theme-opt="light" aria-pressed="false" data-i18n="light">Hell</button>
@@ -64,7 +63,7 @@
         </div>
 
         <div class="setting-row">
-          <span data-i18n="accent">Akzentfarbe</span>
+          <div class="setting-copy"><span data-i18n="accent">Akzentfarbe</span><small data-i18n="accentHint">Farbe der Highlights</small></div>
           <div class="swatches">
             <button type="button" class="swatch" data-accent-opt="blue" style="--sw:#3b82f6" aria-label="Blau"></button>
             <button type="button" class="swatch" data-accent-opt="violet" style="--sw:#8b5cf6" aria-label="Violett"></button>
@@ -101,8 +100,14 @@
       </button>
       <span class="modal-kicker">MYLINKS</span>
       <h2 id="info-title" data-i18n="infoTitle">Über diese Seite</h2>
-      <p data-i18n="info1">Persönliche Link-Page im Glas-Design mit Live-Discord-Status über die eigene Bot-API, Projekten, Freunden und Musik.</p>
-      <p data-i18n="info2">Design, Sprache und Akzentfarbe werden lokal in deinem Browser gespeichert.</p>
+      <p data-i18n="info1">MyLinks ist meine persönliche Startseite. Hier findest du meine Projekte, Communities, Gaming-Bereiche und wichtige externe Links an einem Ort.</p>
+      <div class="info-feature-list">
+        <div class="info-feature"><i data-lucide="user-round"></i><div><strong data-i18n="infoProfileTitle">Profil &amp; Discord-Status</strong><span data-i18n="infoProfileText">Zeigt mein Profil und – sofern die Bot-API erreichbar ist – meinen aktuellen Discord-Status.</span></div></div>
+        <div class="info-feature"><i data-lucide="layers"></i><div><strong data-i18n="infoProjectsTitle">Projekte &amp; Gaming</strong><span data-i18n="infoProjectsText">Ein Überblick über Projekte, Communities, meine Rolle und weiterführende Links.</span></div></div>
+        <div class="info-feature"><i data-lucide="music-2"></i><div><strong data-i18n="infoMusicTitle">Musikplayer</strong><span data-i18n="infoMusicText">Die Wiedergabe startet erst nach einem Klick auf „Enter“, da Browser Autoplay blockieren.</span></div></div>
+        <div class="info-feature"><i data-lucide="sliders-horizontal"></i><div><strong data-i18n="infoSettingsTitle">Persönliche Einstellungen</strong><span data-i18n="infoSettingsText">Sprache, Darstellung und Akzentfarbe werden lokal in diesem Browser gespeichert.</span></div></div>
+      </div>
+      <p class="info-note" data-i18n="info2">MyLinks lädt keine Freundesliste. Externe Dienste wie Discord werden erst geöffnet, wenn du einen entsprechenden Link auswählst.</p>
     </div>
   </div>
 
@@ -181,7 +186,7 @@
           </div>
 
           <!-- Place hideaway.mp3 in assets/audio/hideaway.mp3 once you have the audio file -->
-          <audio id="bg-audio" data-src="assets/audio/desperate.mp3" src="assets/audio/burn-the-bridge.mp3" loop preload="metadata"></audio>
+          <audio id="bg-audio" src="assets/audio/NEFFEX-_-TOKYO-MACHINE-Desperate.mp3" loop preload="metadata"></audio>
         </section>
 
         <!-- Primary Action Row -->
@@ -195,10 +200,6 @@
             <i data-lucide="layers"></i>
             <span data-i18n="secProjects">Projekte &amp; Gaming</span>
           </a>
-          <a class="social-pill" href="#sec-friends">
-            <i data-lucide="users"></i>
-            <span data-i18n="secFriends">Freunde</span>
-          </a>
           <button class="social-pill" id="refresh-btn" type="button">
             <i data-lucide="refresh-cw"></i>
             <span data-i18n="refresh">Status</span>
@@ -210,27 +211,6 @@
     <!-- Data-rich sections rendered without server banners -->
     <div id="showcase-sections"></div>
 
-    <!-- Improved Friends Section with strict validation & clean layout -->
-    <section class="section-block" id="sec-friends">
-      <div class="section-head">
-        <div>
-          <span class="section-kicker" data-i18n="kickerFriends">LIVE COMMUNITY</span>
-          <h2 data-i18n="secFriends">Freunde</h2>
-        </div>
-        <span class="section-count" id="friends-count">0 / 6 online</span>
-      </div>
-
-      <div class="friends-toolbar">
-        <div class="filter-pills" role="group" aria-label="Freunde filtern">
-          <button type="button" class="filter-pill active" data-friend-filter="all" data-i18n="filterAll">Alle</button>
-          <button type="button" class="filter-pill" data-friend-filter="active" data-i18n="filterOnline">Aktiv / Online</button>
-        </div>
-        <span class="friends-sync-note" id="friends-sync-note"></span>
-      </div>
-
-      <div class="friends-grid" id="friends-slot" aria-live="polite"></div>
-    </section>
-
     <footer class="hub-footer">
       <span>© 2026 Tommy · MyLinks</span>
       <span data-i18n="footer">Glass Link Hub · Bot Presence API</span>
@@ -239,7 +219,6 @@
 
   <script src="https://unpkg.com/lucide@0.469.0/dist/umd/lucide.min.js"></script>
   <script src="assets/js/sections-data.js"></script>
-  <script src="assets/js/friends-data.js"></script>
   <script src="assets/js/api.js"></script>
   <script src="assets/js/audio-player.js"></script>
   <script src="assets/js/ui.js"></script>
