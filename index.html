@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="theme-color" content="#07080f">
-  <meta name="description" content="Tommy – Projekte, Gaming, Discord-Bots und Live-Status.">
+  <meta name="description" content="Tommy – Projekte, Gaming, Discord-Bots, Freunde und Live-Status.">
   <title>Tommy – MyLinks</title>
   <script>
     (() => {
@@ -22,6 +22,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="assets/css/tokens.css">
   <link rel="stylesheet" href="assets/css/guns-card.css">
+  <link rel="stylesheet" href="assets/css/friends-grid.css">
   <link rel="stylesheet" href="assets/css/audio-player.css">
 </head>
 <body class="locked">
@@ -76,15 +77,15 @@
     </div>
   </header>
 
-  <!-- Click to Enter Overlay (activates audio + reveals card cleanly) -->
+  <!-- Click to Enter Overlay -->
   <div class="enter-screen" id="welcome-screen">
     <div class="enter-card">
       <div class="enter-avatar-ring">
-        <img src="assets/images/profile.jpg" alt="Tommy" class="enter-avatar">
+        <img src="assets/images/profile.jpg" alt="Tommy" class="enter-avatar" id="enter-avatar-img">
       </div>
       <span class="enter-kicker" data-i18n="enterKicker">PERSONAL LINK HUB</span>
       <h1 data-i18n="welcomeTitle">Tommy</h1>
-      <p data-i18n="welcomeText">Klicken zum Eintreten &amp; Sound starten</p>
+      <p data-i18n="welcomeText">Klicken zum Eintreten &amp; Musik starten</p>
       <button class="enter-btn" id="enter-button" type="button">
         <span data-i18n="enter">Enter</span>
         <i data-lucide="arrow-right"></i>
@@ -105,10 +106,10 @@
     </div>
   </div>
 
-  <!-- Main Guns.lol Glass Profile + Sections -->
+  <!-- Main Guns.lol Glass Hub -->
   <main class="hub-container">
     <article class="glass-profile">
-      <div class="profile-banner">
+      <div class="profile-banner" id="owner-banner">
         <img src="assets/images/serverixbanner.jpg" alt="Banner" class="banner-img">
         <div class="banner-scrim"></div>
         <div class="api-badge" id="api-status-pill">
@@ -126,7 +127,7 @@
 
           <div class="profile-titles">
             <div class="name-row">
-              <h1>Tommy</h1>
+              <h1 id="owner-display-name">Tommy</h1>
               <span class="role-pill" data-i18n="roleTag">Developer &amp; Builder</span>
             </div>
             <p class="handle-line">
@@ -146,23 +147,41 @@
           Ich baue Discord-Bots mit JavaScript, betreue Communities und setze eigene Web- und Gaming-Ideen um.
         </p>
 
-        <!-- Compact Glass Music Player -->
-        <section class="audio-bar" aria-label="Musik-Player">
-          <button class="play-btn" id="audio-toggle" type="button" aria-label="Musik abspielen oder pausieren">
-            <i data-lucide="play" id="audio-play-icon"></i>
-          </button>
-          <div class="track-meta">
-            <div class="track-title" id="track-title">NEFFEX – Burn The Bridge</div>
-            <div class="track-sub" id="track-sub">Click to Enter Audio</div>
+        <!-- Enhanced Glass Music Player -->
+        <section class="audio-player" aria-label="Musik-Player">
+          <div class="audio-main">
+            <button class="play-btn" id="audio-toggle" type="button" aria-label="Musik abspielen oder pausieren">
+              <i data-lucide="play"></i>
+            </button>
+
+            <div class="track-info">
+              <div class="track-top">
+                <span class="track-title" id="track-title">NEFFEX – Burn The Bridge</span>
+                <span class="track-time" id="track-time">0:00 / 0:00</span>
+              </div>
+              <div class="track-status-row">
+                <span class="eq-bars" id="eq-bars" aria-hidden="true">
+                  <i></i><i></i><i></i><i></i>
+                </span>
+                <span class="track-sub" id="track-sub">Bereit</span>
+              </div>
+              <div class="progress-track" id="audio-progress-bar" role="slider" aria-label="Wiedergabeposition" tabindex="0" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+                <div class="progress-fill" id="audio-progress-fill"></div>
+              </div>
+            </div>
           </div>
-          <div class="vol-wrap">
-            <i data-lucide="volume-2" class="vol-icon"></i>
+
+          <div class="audio-controls-side">
+            <button class="mute-btn" id="audio-mute" type="button" aria-label="Stummschalten">
+              <i data-lucide="volume-2"></i>
+            </button>
             <input type="range" id="audio-volume" min="0" max="100" value="35" aria-label="Lautstärke">
           </div>
+
           <audio id="bg-audio" src="assets/audio/burn-the-bridge.mp3" loop preload="metadata"></audio>
         </section>
 
-        <!-- Primary Social & Action Links -->
+        <!-- Primary Action & Navigation Row -->
         <div class="social-row">
           <a class="social-pill primary" href="https://discord.com/users/881206091009122406" target="_blank" rel="noopener noreferrer">
             <i data-lucide="message-circle"></i>
@@ -171,7 +190,7 @@
           </a>
           <a class="social-pill" href="#sec-projects">
             <i data-lucide="layers"></i>
-            <span data-i18n="secProjects">Projekte</span>
+            <span data-i18n="secProjects">Projekte &amp; Gaming</span>
           </a>
           <a class="social-pill" href="#sec-friends">
             <i data-lucide="users"></i>
@@ -185,8 +204,27 @@
       </div>
     </article>
 
-    <!-- Dynamic Sections rendered by assets/js/app.js & assets/js/api.js -->
-    <div id="dynamic-sections"></div>
+    <!-- Target containers populated cleanly by modular JS files -->
+    <div id="showcase-sections"></div>
+
+    <section class="section-block" id="sec-friends">
+      <div class="section-head">
+        <div>
+          <span class="section-kicker" data-i18n="kickerFriends">LIVE COMMUNITY</span>
+          <h2 data-i18n="secFriends">Freunde</h2>
+        </div>
+        <span class="section-count" id="friends-count">0 / 6 online</span>
+      </div>
+
+      <div class="friends-toolbar">
+        <div class="filter-pills" role="group" aria-label="Freunde filtern">
+          <button type="button" class="filter-pill active" data-friend-filter="all" data-i18n="filterAll">Alle</button>
+          <button type="button" class="filter-pill" data-friend-filter="active" data-i18n="filterOnline">Aktiv / Online</button>
+        </div>
+      </div>
+
+      <div class="friends-grid" id="friends-slot" aria-live="polite"></div>
+    </section>
 
     <footer class="hub-footer">
       <span>© 2026 Tommy · MyLinks</span>
@@ -195,7 +233,11 @@
   </main>
 
   <script src="https://unpkg.com/lucide@0.469.0/dist/umd/lucide.min.js"></script>
+  <script src="assets/js/banner-generator.js"></script>
+  <script src="assets/js/sections-data.js"></script>
+  <script src="assets/js/friends-data.js"></script>
   <script src="assets/js/api.js"></script>
-  <script src="assets/js/app.js"></script>
+  <script src="assets/js/audio-player.js"></script>
+  <script src="assets/js/ui.js"></script>
 </body>
 </html>
