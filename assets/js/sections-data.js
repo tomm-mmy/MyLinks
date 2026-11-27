@@ -16,10 +16,10 @@
           roleDe: 'Co-Leitung',
           roleEn: 'Co-Lead',
           platform: 'Discord & YouTube',
-          descDe: 'Community für 3D-Modelle, Druckprofile, Materialtipps und gemeinsamen Austausch.',
+          descDe: 'Community für 3D Modelle, Druckprofile, Materialtipps und gemeinsamen Austausch.',
           descEn: 'Community for 3D models, print profiles, filament tips and collaboration.',
           meta: [
-            { labelDe: 'Fokus', labelEn: 'Focus', valueDe: '3D-Druck & CAD', valueEn: '3D Print & CAD' },
+            { labelDe: 'Fokus', labelEn: 'Focus', valueDe: '3D Druck & CAD', valueEn: '3D Print & CAD' },
             { labelDe: 'Bereich', labelEn: 'Scope', valueDe: 'Community', valueEn: 'Community' }
           ],
           detailsDe: 'Austausch zu Slicing, Druckern, Bauteilen und gemeinsamen Community-Projekten.',
@@ -38,7 +38,7 @@
           roleDe: 'Team / Dev',
           roleEn: 'Team / Dev',
           platform: 'Roblox & Discord',
-          descDe: 'Roblox-Projekt rund um Glockenläuten, Technik und aktive Community-Sessions.',
+          descDe: 'Roblox Projekt rund um Glockenläuten, Technik und aktive Community Sessions.',
           descEn: 'Roblox project centered around bell mechanics, engineering and active sessions.',
           meta: [
             { labelDe: 'Engine', labelEn: 'Engine', valueDe: 'Roblox Studio', valueEn: 'Roblox Studio' },
@@ -57,11 +57,11 @@
           category: 'Roleplay',
           statusDe: 'In Arbeit (V2)',
           statusEn: 'In Dev (V2)',
-          roleDe: 'Mitwirkender',
-          roleEn: 'Contributor',
+          roleDe: 'Team',
+          roleEn: 'Team',
           platform: 'Discord',
-          descDe: 'Strukturiertes Roleplay-Projekt im Aufbau mit Fokus auf neue Systeme für V2.',
-          descEn: 'Structured roleplay project building new systems for its V2 release.',
+          descDe: 'Strukturiertes Projekt im Aufbau mit Fokus auf neue Systeme für V2.',
+          descEn: 'Structured  project building new systems for its V2 release.',
           meta: [
             { labelDe: 'Version', labelEn: 'Version', valueDe: 'V2 Aufbau', valueEn: 'V2 Build' },
             { labelDe: 'Typ', labelEn: 'Type', valueDe: 'Roleplay', valueEn: 'Roleplay' }
@@ -73,24 +73,26 @@
           ]
         },
         {
-          id: 'trucker',
-          name: 'Fichtelhillz Trucker',
-          category: 'Euro Truck Simulator 2',
-          statusDe: 'Mitglied',
-          statusEn: 'Member',
-          roleDe: 'Fahrer',
-          roleEn: 'Driver',
-          platform: 'ETS2 · Discord',
-          descDe: 'Fahrergemeinschaft für regelmäßige Touren, Schwertransporte und Convoy-Abende.',
-          descEn: 'Driving crew for regular routes, heavy cargo runs and convoy nights.',
+{
+          id: 'pavyan',
+          name: 'Pavyan',
+          category: 'vServer & Root-Server',
+          statusDe: 'Aktiv',
+          statusEn: 'Active',
+          roleDe: 'Mitglied',
+          roleEn: 'Member',
+          platform: 'Web · Discord',
+          descDe: 'Wir bieten zuverlässige vServer und Root-Server für Gameserver, Websites und Projekte, mit schnellen und freundlichem Support.',
+          descEn: 'We offer reliable vServers and root servers for game servers, websites and projects, with fast and friendly support.',
           meta: [
-            { labelDe: 'Spiel', labelEn: 'Game', valueDe: 'ETS2', valueEn: 'ETS2' },
-            { labelDe: 'Modus', labelEn: 'Mode', valueDe: 'Convoy', valueEn: 'Convoy' }
+            { labelDe: 'Fokus', labelEn: 'Focus', valueDe: 'vServer & Root', valueEn: 'vServer & Root' },
+            { labelDe: 'Einsatz', labelEn: 'Use Case', valueDe: 'Games & Web', valueEn: 'Games & Web' }
           ],
-          detailsDe: 'Gemeinsame Routenplanung, Mods und entspannte Multiplayer-Fahrten.',
-          detailsEn: 'Shared route planning, mods and relaxed multiplayer sessions.',
+          detailsDe: 'Zuverlässige Server Infrastruktur für Gameserver, Websites und Projekte inklusive schnellem, freundlichem Support.',
+          detailsEn: 'Reliable server infrastructure for game servers, websites and projects with fast, friendly support.',
           links: [
-            { label: 'Discord', url: 'https://discord.gg/2WqvykHESn' }
+            { label: 'Discord', url: 'https://discord.gg/xqcxpdkmF8' },
+            { label: 'Website', url: 'https://pavyan-systems.com/' }
           ]
         }
       ]
