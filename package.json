@@ -1,7 +1,7 @@
 {
-  "name": "mylinks-dashboard",
-  "version": "2.0.0",
+  "name": "mylinks-guns-hub",
+  "version": "3.0.0",
   "private": true,
   "type": "module",
-  "description": "MyLinks personal dashboard with Vercel presence proxy"
+  "description": "My Page"
 }
