@@ -5,7 +5,11 @@
     {
       id: 'sec-projects',
       kickerKey: 'kickerProjects',
+      kickerDe: 'Communities & Projekte',
+      kickerEn: 'Communities & Projects',
       titleKey: 'secProjects',
+      titleDe: 'Projekte',
+      titleEn: 'Projects',
       items: [
         {
           id: 'core3d',
@@ -71,35 +75,17 @@
           links: [
             { label: 'Discord', url: 'https://discord.gg/pQCr73nwWY' }
           ]
-        },
-        {
-          id: 'pavyan',
-          name: 'Pavyan',
-          category: 'vServer & Root-Server',
-          statusDe: 'Aktiv',
-          statusEn: 'Active',
-          roleDe: 'Mitglied',
-          roleEn: 'Member',
-          platform: 'Web · Discord',
-          descDe: 'Wir bieten zuverlässige vServer und Root-Server für Gameserver, Websites und Projekte, mit schnellen und freundlichem Support.',
-          descEn: 'We offer reliable vServers and root servers for game servers, websites and projects, with fast and friendly support.',
-          meta: [
-            { labelDe: 'Fokus', labelEn: 'Focus', valueDe: 'vServer & Root', valueEn: 'vServer & Root' },
-            { labelDe: 'Einsatz', labelEn: 'Use Case', valueDe: 'Games & Web', valueEn: 'Games & Web' }
-          ],
-          detailsDe: 'Zuverlässige Server-Infrastruktur für Gameserver, Websites und Projekte inklusive schnellem, freundlichem Support.',
-          detailsEn: 'Reliable server infrastructure for game servers, websites and projects with fast, friendly support.',
-          links: [
-            { label: 'Discord', url: 'https://discord.gg/xqcxpdkmF8' },
-            { label: 'Website', url: 'https://pavyan-systems.com/' }
-          ]
         }
       ]
     },
     {
       id: 'sec-hosting',
       kickerKey: 'kickerHosting',
+      kickerDe: 'Infrastruktur & Dienste',
+      kickerEn: 'Infrastructure & Services',
       titleKey: 'secHosting',
+      titleDe: 'Hosting',
+      titleEn: 'Hosting',
       items: [
         {
           id: 'serverix',
@@ -125,23 +111,26 @@
           ]
         },
         {
-          id: 'public-bots',
-          name: 'Public Bots',
-          category: 'Discord.js Module',
-          statusDe: 'In Vorbereitung',
-          statusEn: 'Preparing',
-          roleDe: 'Entwickler',
-          roleEn: 'Developer',
-          platform: 'Node.js · Discord API',
-          descDe: 'Eigenentwickelte Bots jeglicher Art (Privat).',
-          descEn: 'Custom developed bots of any kind (Private).',
+          id: 'pavyan',
+          name: 'Pavyan',
+          category: 'vServer & Root-Server',
+          statusDe: 'Aktiv',
+          statusEn: 'Active',
+          roleDe: 'Mitglied',
+          roleEn: 'Member',
+          platform: 'Web · Discord',
+          descDe: 'Wir bieten zuverlässige vServer und Root-Server für Gameserver, Websites und Projekte, mit schnellen und freundlichem Support.',
+          descEn: 'We offer reliable vServers and root servers for game servers, websites and projects, with fast and friendly support.',
           meta: [
-            { labelDe: 'Stack', labelEn: 'Stack', valueDe: 'Node.js', valueEn: 'Node.js' },
-            { labelDe: 'Verfügbarkeit', labelEn: 'Release', valueDe: 'Bald', valueEn: 'Soon' }
+            { labelDe: 'Fokus', labelEn: 'Focus', valueDe: 'vServer & Root', valueEn: 'vServer & Root' },
+            { labelDe: 'Einsatz', labelEn: 'Use Case', valueDe: 'Games & Web', valueEn: 'Games & Web' }
           ],
-          detailsDe: 'Saubere Trennung zwischen Test- und Produktivbetrieb sowie eigener Presence-API.',
-          detailsEn: 'Clean separation between testing and production alongside the presence API.',
-          links: []
+          detailsDe: 'Zuverlässige Server-Infrastruktur für Gameserver, Websites und Projekte inklusive schnellem, freundlichem Support.',
+          detailsEn: 'Reliable server infrastructure for game servers, websites and projects with fast, friendly support.',
+          links: [
+            { label: 'Discord', url: 'https://discord.gg/xqcxpdkmF8' },
+            { label: 'Website', url: 'https://pavyan-systems.com/' }
+          ]
         }
       ]
     }
@@ -174,8 +163,12 @@
       const kicker = document.createElement('span');
       kicker.className = 'section-kicker';
       kicker.dataset.i18n = sec.kickerKey;
+      kicker.textContent = lang === 'en' ? sec.kickerEn : sec.kickerDe;
+
       const h2 = document.createElement('h2');
       h2.dataset.i18n = sec.titleKey;
+      h2.textContent = lang === 'en' ? sec.titleEn : sec.titleDe;
+
       titleGroup.append(kicker, h2);
 
       const count = document.createElement('span');
