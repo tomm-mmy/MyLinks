@@ -1,3 +1,4 @@
+
 :root{--bg:#090d16;--surface:#101725;--surface-2:#141e2e;--surface-3:#192538;--text:#eef3ff;--muted:#91a0b8;--line:rgba(157,178,211,.13);--accent:#6c8cff;--accent-rgb:108,140,255;--sidebar:264px;--radius:22px;--shadow:0 24px 70px rgba(0,0,0,.24)}
 html[data-accent="violet"]{--accent:#a78bfa;--accent-rgb:167,139,250}html[data-accent="pink"]{--accent:#f472b6;--accent-rgb:244,114,182}html[data-accent="green"]{--accent:#34d399;--accent-rgb:52,211,153}html[data-accent="orange"]{--accent:#fb923c;--accent-rgb:251,146,60}
 html[data-theme="light"]{--bg:#f3f5fa;--surface:#fff;--surface-2:#f8f9fd;--surface-3:#eef1f8;--text:#172033;--muted:#68758b;--line:rgba(50,65,95,.12);--shadow:0 20px 60px rgba(40,55,90,.09)}
