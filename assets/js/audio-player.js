@@ -88,11 +88,14 @@
 
     playBtn.addEventListener('click', () => {
       if (audio.paused) {
-        audio.play().catch(() => {});
+        audio.play().catch((error) => {
+          if (subLabel) subLabel.textContent = document.documentElement.lang === 'en'
+            ? 'Playback failed — check the audio file' : 'Wiedergabe fehlgeschlagen – Audiodatei prüfen';
+          console.warn('[MyLinks] Audio playback failed:', error);
+        });
       } else {
         audio.pause();
       }
-      syncIcons();
     });
 
     muteBtn?.addEventListener('click', () => {
@@ -115,6 +118,15 @@
       syncIcons();
     });
 
+    progressBar?.addEventListener('keydown', (e) => {
+      if (!audio.duration || !['ArrowLeft', 'ArrowRight', 'Home', 'End'].includes(e.key)) return;
+      e.preventDefault();
+      if (e.key === 'Home') audio.currentTime = 0;
+      else if (e.key === 'End') audio.currentTime = audio.duration;
+      else audio.currentTime = Math.max(0, Math.min(audio.duration, audio.currentTime + (e.key === 'ArrowRight' ? 5 : -5)));
+      syncProgress();
+    });
+
     progressBar?.addEventListener('click', (e) => {
       if (!audio.duration) return;
       const rect = progressBar.getBoundingClientRect();
@@ -124,6 +136,11 @@
     });
 
     audio.addEventListener('loadedmetadata', syncProgress);
+    audio.addEventListener('canplay', () => { if (subLabel && audio.paused) refreshStatusText(); });
+    audio.addEventListener('error', () => {
+      if (subLabel) subLabel.textContent = document.documentElement.lang === 'en'
+        ? 'Audio file could not be loaded' : 'Audiodatei konnte nicht geladen werden';
+    });
     audio.addEventListener('timeupdate', syncProgress);
     audio.addEventListener('play', syncIcons);
     audio.addEventListener('pause', syncIcons);
