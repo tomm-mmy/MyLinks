@@ -4,6 +4,7 @@
   const I18N = {
     de: {
       enterKicker: 'PERSONAL LINK HUB',
+      aboutKicker: 'DEIN ÜBERBLICK', aboutHeading: 'Ein persönlicher Ort für meine digitalen Projekte.', aboutDescription: 'MyLinks bündelt meine Projekte, Communities und technischen Interessen. Entdecke die Bereiche, erfahre woran ich mitarbeite und spring direkt zu den passenden Seiten.', aboutLive: 'Live aktualisiert',
       welcomeTitle: 'Tommy',
       welcomeText: 'Klicken zum Eintreten & Musik starten',
       enter: 'Enter',
@@ -17,7 +18,7 @@
       themeHint: 'Helles oder dunkles Design',
       accentHint: 'Farbe der Highlights',
       infoProfileTitle: 'Profil & Discord-Status',
-      infoProfileText: 'Zeigt mein Profil und – sofern die Bot-API erreichbar ist – meinen aktuellen Discord-Status.',
+      infoProfileText: 'Zeigt mein Profil und meinen aktuellen Discord-Status direkt über Lanyard.',
       infoProjectsTitle: 'Projekte & Gaming',
       infoProjectsText: 'Ein Überblick über Projekte, Communities, meine Rolle und weiterführende Links.',
       infoMusicTitle: 'Musikplayer',
@@ -36,10 +37,11 @@
       infoTitle: 'Über diese Seite',
       info1: 'MyLinks ist meine persönliche Startseite. Hier findest du meine Projekte, Communities, Gaming-Bereiche und wichtige externe Links an einem Ort.',
       info2: 'MyLinks lädt keine Freundesliste. Externe Dienste wie Discord werden erst geöffnet, wenn du einen entsprechenden Link auswählst.',
-      footer: 'Glass Link Hub · Bot Presence API'
+      footer: 'Persönlicher Bereich · Lanyard-Status'
     },
     en: {
       enterKicker: 'PERSONAL LINK HUB',
+      aboutKicker: 'YOUR OVERVIEW', aboutHeading: 'One personal space for my digital projects.', aboutDescription: 'MyLinks brings together my projects, communities and technical interests. Explore each area, see what I am involved in and jump straight to useful links.', aboutLive: 'Live updates',
       welcomeTitle: 'Tommy',
       welcomeText: 'Click to enter & start music',
       enter: 'Enter',
@@ -53,7 +55,7 @@
       themeHint: 'Light or dark appearance',
       accentHint: 'Highlight color',
       infoProfileTitle: 'Profile & Discord presence',
-      infoProfileText: 'Shows my profile and, when the bot API is reachable, my current Discord presence.',
+      infoProfileText: 'Shows my profile and current Discord presence directly through Lanyard.',
       infoProjectsTitle: 'Projects & gaming',
       infoProjectsText: 'An overview of projects, communities, my role and useful links.',
       infoMusicTitle: 'Music player',
@@ -72,7 +74,7 @@
       infoTitle: 'About this page',
       info1: 'MyLinks is my personal home page for projects, communities, gaming areas and useful external links.',
       info2: 'MyLinks does not load a friends list. External services such as Discord only open when you select a link.',
-      footer: 'Glass Link Hub · Bot Presence API'
+      footer: 'Personal space · Lanyard presence'
     }
   };
 
