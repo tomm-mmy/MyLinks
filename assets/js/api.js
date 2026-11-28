@@ -2,7 +2,7 @@
 
 (() => {
   const USER_ID = '881206091009122406';
-  const API_URL = '/api/presence';
+  const API_URL = `https://api.lanyard.rest/v1/users/${USER_ID}`;
   const REFRESH_MS = 30_000;
   const state = { connected: false, lastSyncAt: null, request: null };
 
@@ -95,17 +95,23 @@
     if (state.request) return state.request;
     state.request = (async () => {
       setConnection(false, tr('connecting'));
+      const startedAt = performance.now();
       try {
         const response = await fetch(API_URL, {
-          method: 'GET', cache: 'no-store', headers: { Accept: 'application/json' },
+          method: 'GET',
+          cache: 'no-store',
+          headers: { Accept: 'application/json' },
           signal: AbortSignal.timeout(9000)
         });
         if (!response.ok) throw new Error(`HTTP ${response.status}`);
         const payload = await response.json();
-        if (payload?.success !== true || !payload?.data) throw new Error('Invalid Lanyard response');
+        if (payload?.success !== true || !payload?.data) {
+          throw new Error('Invalid Lanyard response');
+        }
+        const latencyMs = Math.round(performance.now() - startedAt);
         state.connected = true;
         state.lastSyncAt = new Date();
-        setConnection(true, `${tr('connected')} · ${payload.latencyMs ?? '—'} ms`);
+        setConnection(true, `${tr('connected')} · ${latencyMs} ms`);
         render(payload.data);
       } catch (error) {
         state.connected = false;
